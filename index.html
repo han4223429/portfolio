@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Han - Portfolio</title>
+    <meta name="description" content="문제 해결과 임팩트를 추구하는 개발자/기획자 포트폴리오입니다.">
+    <!-- 최신 트렌디한 폰트 (Outfit) 적용 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Pretendard:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 배경 이펙트 (글래스모피즘용) -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <nav class="navbar">
+        <div class="logo">Han<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">홈</a></li>
+            <li><a href="#about">소개</a></li>
+            <li><a href="#experience">대외활동</a></li>
+            <li><a href="#press">뉴스·기사</a></li>
+            <li><a href="#projects">프로젝트</a></li>
+            <li><a href="#contact">연락처</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <p class="greeting reveal">안녕하세요, 저는</p>
+                    <h1 class="reveal delay-1">데이터로 혁신하고,<br><span class="gradient-text">임팩트를 만듭니다.</span></h1>
+                    <p class="bio reveal delay-2">
+                        기술로 실질적인 문제를 해결하는 것에 집중합니다.<br>
+                        데이터 분석부터 기후테크, 웹 서비스까지 가치를 만드는 여정을 담았습니다.
+                    </p>
+                    <div class="cta-group reveal delay-3">
+                        <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
+                        <a href="#contact" class="btn btn-outline">연락하기</a>
+                    </div>
+                </div>
+                <div class="hero-visual reveal delay-2">
+                    <div class="glass-card profile-card">
+                        <div class="profile-placeholder">
+                            <span>사진<br>영역</span>
+                        </div>
+                        <div class="card-info">
+                            <h3>Han</h3>
+                            <p>기획자 / 개발자</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="mouse"></div>
+            </div>
+        </section>
+
+        <!-- 서소개 섹션 -->
+        <section id="about" class="about">
+            <div class="section-header reveal">
+                <h2>소개</h2>
+                <div class="line"></div>
+            </div>
+            <div class="about-grid">
+                <div class="glass-panel info-panel reveal">
+                    <h3>도전과 문제해결을 즐깁니다.</h3>
+                    <p>단순한 코딩이 아닌, **'왜(Why)'**를 고민하며 비즈니스 로직과 사회적 임팩트를 고려한 시스템을 설계합니다. 아이디어를 실제 프로덕트로 구현하는 과정을 사랑합니다.</p>
+                    <div class="tech-stack">
+                        <span class="tag">Python</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">AI / Data</span>
+                        <span class="tag">Web Dev</span>
+                        <span class="tag">Planning</span>
+                    </div>
+                </div>
+                <div class="glass-panel stat-panel reveal delay-1">
+                    <div class="stat-item">
+                        <h4 class="counter" data-target="3">0</h4>
+                        <p>년차 경력</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4 class="counter" data-target="15">0</h4>
+                        <p>개 프로젝트</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section (대외활동 및 경력 타임라인) -->
+        <section id="experience" class="experience">
+            <div class="section-header reveal">
+                <h2>대외활동 및 경력</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-panel">
+                        <span class="timeline-date">2025. 03 - Present</span>
+                        <h3>IT 연합 동아리 회장 / 주요 기획</h3>
+                        <p>100명 규모의 IT 동아리를 이끌며 프로젝트 기획 및 해커톤 등 다양한 행사를 총괄 운영했습니다.</p>
+                        <div class="tech-stack" style="margin-top: 1rem;">
+                            <span class="tag">Leadership</span><span class="tag">Planning</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal delay-1">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-panel">
+                        <span class="timeline-date">2024. 07 - 2024. 12</span>
+                        <h3>청년 기후테크 창업캠프 최우수상</h3>
+                        <p>'스마트 재활용 수거함' 아이디어로 출전하여 1위를 수상하고, 초기 지원금을 유치했습니다.</p>
+                        <div class="tech-stack" style="margin-top: 1rem;">
+                            <span class="tag">Award</span><span class="tag">EcoTech</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal delay-2">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-panel">
+                        <span class="timeline-date">2023. 03 - 2024. 02</span>
+                        <h3>데이터 분석 인턴 (스타트업 A)</h3>
+                        <p>마케팅 데이터를 분석하여 리텐션 15% 개선 전략을 도출하고 사내 대시보드를 구축했습니다.</p>
+                        <div class="tech-stack" style="margin-top: 1rem;">
+                            <span class="tag">Data Analysis</span><span class="tag">Internship</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Press & News Section (기사 및 관련 보도) -->
+        <section id="press" class="press">
+            <div class="section-header reveal">
+                <h2>관련 기사 및 뉴스</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="press-grid">
+                <a href="#" class="press-card glass-card reveal" target="_blank">
+                    <div class="press-publisher">Tech News Korea</div>
+                    <h3>"대학생 창업팀, AI 스마트 수거함으로 기후테크 혁신상 수상..."</h3>
+                    <p class="press-date">2024. 12. 15</p>
+                </a>
+                
+                <a href="#" class="press-card glass-card reveal delay-1" target="_blank">
+                    <div class="press-publisher">IT Daily 매거진</div>
+                    <h3>"데이터 인터뷰: 주니어 분석가가 말하는 고객 리텐션 개선 노하우"</h3>
+                    <p class="press-date">2024. 02. 20</p>
+                </a>
+                
+                <a href="#" class="press-card glass-card reveal delay-2" target="_blank">
+                    <div class="press-publisher">캠퍼스 저널</div>
+                    <h3>"100명의 개발자를 모으다, IT 연합 동아리 신임 회장 인터뷰"</h3>
+                    <p class="press-date">2025. 04. 10</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- 프로젝트 섹션 -->
+        <section id="projects" class="projects">
+            <div class="section-header reveal">
+                <h2>주요 프로젝트</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="project-grid">
+                <!-- Project 1 (기후테크 예시) -->
+                <div class="glass-card project-card reveal">
+                    <div class="project-img placeholder">
+                        <span>프로젝트 1 사진</span>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="ptag">AI 비전</span>
+                            <span class="ptag">기후테크</span>
+                        </div>
+                        <h3>EcoVision 스마트 수거함</h3>
+                        <p>Edge AI를 활용해 재활용 쓰레기를 автомати화하여 파악하고 리워드를 지급하는 기후테크 솔루션 기획 및 프로토타입 구현.</p>
+                        <a href="#" class="project-link">상세 보기 →</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-card project-card reveal delay-1">
+                    <div class="project-img placeholder">
+                        <span>프로젝트 2 사진</span>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="ptag">웹 앱</span>
+                            <span class="ptag">데이터</span>
+                        </div>
+                        <h3>데이터 기반 의사결정 대시보드</h3>
+                        <p>여러 채널에서 수집되는 고객 데이터를 통합하여 직관적인 차트로 시각화한 사내용 어드민 대시보드 프로젝트.</p>
+                        <a href="#" class="project-link">프로젝트 보기 →</a>
+                    </div>
+                </div>
+
+                 <!-- Project 3 -->
+                 <div class="glass-card project-card reveal delay-2">
+                    <div class="project-img placeholder">
+                        <span>프로젝트 3 사진</span>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="ptag">서비스</span>
+                            <span class="ptag">UX/UI</span>
+                        </div>
+                        <h3>커뮤니티 플랫폼 기획</h3>
+                        <p>사용자 편의성을 최우선으로 고려한 취향 기반 커뮤니티 모바일 앱 UI/UX 기획 및 랜딩페이지 제작.</p>
+                        <a href="#" class="project-link">프로젝트 보기 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 연락처 섹션 -->
+        <section id="contact" class="contact">
+            <div class="glass-panel contact-panel reveal">
+                <h2>함께 <span class="gradient-text">멋진 결과물</span>을 만들어봐요.</h2>
+                <p>새로운 아이디어나 프로젝트 제안을 언제나 환영합니다.</p>
+                <a href="mailto:hello@example.com" class="btn btn-primary contact-btn">이메일 보내기</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Han. 모든 권리 보유.</p>
+        <div class="social-links">
+            <a href="#">깃허브</a>
+            <a href="#">링크드인</a>
+            <a href="#">블로그</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
