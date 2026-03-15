@@ -90,3 +90,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+// 릴스 더보기/접기 토글
+function toggleReels() {
+    const extra = document.querySelector('.reels-extra');
+    const btn = document.getElementById('reels-toggle-btn');
+    if (extra.style.display === 'none') {
+        extra.style.display = 'grid';
+        btn.textContent = '접기';
+    } else {
+        extra.style.display = 'none';
+        btn.textContent = '더보기 (+10개)';
+        document.getElementById('reels').scrollIntoView({ behavior: 'smooth' });
+    }
+}
