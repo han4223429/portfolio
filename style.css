@@ -154,12 +154,12 @@ section {
 .section-header .line { width: 60px; height: 4px; background: var(--accent-primary); border-radius: 2px; }
 
 /* Hero Section */
-.hero { display: flex; align-items: center; justify-content: center; min-height: 100vh; position: relative; padding-top: 0; overflow: hidden;}
+.hero { display: flex; align-items: center; justify-content: center; min-height: 100vh; position: relative; padding-top: 80px; overflow: hidden;}
 .hero-container { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 4rem; z-index: 10;}
 .hero-content { flex: 1.2; }
 .greeting { color: var(--accent-primary); font-family: 'Outfit'; font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; letter-spacing: 3px; text-transform: uppercase; }
-.hero h1 { font-size: 4.8rem; margin-bottom: 1.5rem; letter-spacing: -2px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.bio { font-size: 1.3rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px; line-height: 1.8; }
+.hero h1 { font-size: 3.2rem; margin-bottom: 1.5rem; letter-spacing: -1px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.bio { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px; line-height: 1.8; }
 .cta-group { display: flex; gap: 1.5rem; }
 
 /* Glass Cards */
