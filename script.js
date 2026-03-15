@@ -89,6 +89,24 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
+    // 6. 모바일 햄버거 메뉴 토글
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // 네비게이션 링크 클릭 시 모바일 메뉴 닫기
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    }
 });
 
 // 릴스 더보기/접기 토글
