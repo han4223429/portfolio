@@ -78,4 +78,40 @@ document.addEventListener("DOMContentLoaded", () => {
         const initialReveals = document.querySelectorAll('#home .reveal');
         initialReveals.forEach(el => el.classList.add('active'));
     }, 100);
+
+    // 5. 타임라인(Experience) 연도별 필터링 기능
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const timelineItems = document.querySelectorAll('.timeline-item');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // 버튼 활성화 상태 변경
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filterValue = btn.getAttribute('data-filter');
+            let currentYearSection = '';
+
+            timelineItems.forEach(item => {
+                // 연도 타이틀(라벨)인지 실제 항목인지 구분
+                const isYearLabel = item.querySelector('h3') && !item.querySelector('.timeline-date');
+                
+                if (isYearLabel) {
+                    currentYearSection = item.querySelector('h3').textContent.trim();
+                }
+
+                if (filterValue === 'all') {
+                    item.classList.remove('hidden');
+                    // 모든 요소를 다시 보이게 할 때 애니메이션 클래스도 다시 초기화/추가 제어 가능 (여기선 hidden만 제거)
+                } else {
+                    // 필터에 해당하는 연도 라벨이거나, 해당 연도 섹션 안에 속한 항목만 보이기
+                    if (currentYearSection === filterValue) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    });
 });
