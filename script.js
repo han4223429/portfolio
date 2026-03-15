@@ -79,20 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         initialReveals.forEach(el => el.classList.add('active'));
     }, 100);
 
-    // 5. 타임라인(Experience) 지그재그 레이아웃 동적 할당
-    const refreshTimelineLayout = () => {
-        const visibleCards = document.querySelectorAll('.timeline-item:not(.year-label):not(.hidden)');
-        visibleCards.forEach((card, index) => {
-            card.classList.remove('left', 'right');
-            if (index % 2 === 0) {
-                card.classList.add('left');
-            } else {
-                card.classList.add('right');
-            }
-        });
-    };
-
-    // 6. 타임라인(Experience) 연도별 필터링 기능
+    // 5. 타임라인(Experience) 연도별 필터링 기능
     const filterBtns = document.querySelectorAll('.filter-btn');
     const timelineItems = document.querySelectorAll('.timeline-item');
 
@@ -106,7 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
             let currentYearSection = '';
 
             timelineItems.forEach(item => {
-                // 연도 타이틀(라벨)인지 실제 항목인지 구분
                 const isYearLabel = item.classList.contains('year-label');
                 
                 if (isYearLabel) {
@@ -116,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (filterValue === 'all') {
                     item.classList.remove('hidden');
                 } else {
-                    // 필터에 해당하는 연도 라벨이거나, 해당 연도 섹션 안에 속한 항목만 보이기
                     if (currentYearSection === filterValue) {
                         item.classList.remove('hidden');
                     } else {
@@ -124,12 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
-            
-            // 필터 적용 후 지그재그 재배치
-            refreshTimelineLayout();
         });
     });
-
-    // 초기 레이아웃 설정
-    refreshTimelineLayout();
 });

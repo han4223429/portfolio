@@ -162,10 +162,13 @@ section {
 .bio { font-size: 1.3rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px; line-height: 1.8; }
 .cta-group { display: flex; gap: 1.5rem; }
 
-/* Glass Cards Enrichment */
+/* Glass Cards */
 .glass-card, .glass-panel {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
@@ -187,6 +190,33 @@ section {
     transition: all 0.3s ease;
 }
 .profile-card:hover .profile-placeholder { border-color: var(--accent-primary); background: rgba(16, 185, 129, 0.05); color: var(--text-main); }
+
+/* About Section */
+.about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
+.info-panel { padding: 3rem; }
+.info-panel h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+.info-panel p { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.8; }
+
+.tech-stack { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+.tag { padding: 0.4rem 1rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--accent-primary); border-radius: 20px; font-size: 0.9rem; font-weight: 600; }
+
+.stat-panel { display: flex; flex-direction: column; justify-content: center; gap: 3rem; padding: 3rem; text-align: center; }
+.stat-item h4 { font-size: 3.5rem; color: var(--text-main); margin-bottom: 0.5rem; }
+.stat-item p { color: var(--text-muted); font-size: 1.1rem; }
+
+/* Projects Section */
+.project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+.project-card { overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s ease, border-color 0.3s; }
+.project-card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.2); }
+
+.project-img { height: 200px; background: #1a2235; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); border-radius: 20px 20px 0 0; }
+.project-info { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
+.project-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.ptag { font-size: 0.8rem; color: var(--accent-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.project-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+.project-card p { color: var(--text-muted); margin-bottom: 1.5rem; flex: 1; font-size: 0.95rem; }
+.project-link { color: var(--accent-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.3s; display: inline-flex; align-items: center; }
+.project-link:hover { color: var(--text-main); }
 
 /* Experience Section (Premium Left-Aligned Timeline) */
 .timeline { 
@@ -309,9 +339,9 @@ section {
 }
 .timeline-content p { color: var(--text-muted); margin-bottom: 0.5rem; font-size: 0.95rem; line-height: 1.5; }
 
-.tech-stack { 
+.timeline .tech-stack { 
     justify-content: flex-start; 
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 }
 
 /* Timeline Filters Enhancements */
