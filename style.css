@@ -188,86 +188,148 @@ section {
 }
 .profile-card:hover .profile-placeholder { border-color: var(--accent-primary); background: rgba(16, 185, 129, 0.05); color: var(--text-main); }
 
-/* Experience Section (Perfect Zigzag Timeline) */
-.timeline { position: relative; max-width: 1000px; margin: 4rem auto; padding: 2rem 0; }
+/* Experience Section (Premium Left-Aligned Timeline) */
+.timeline { 
+    position: relative; 
+    max-width: 900px; 
+    margin: 3rem auto; 
+    padding: 0 1rem;
+}
+
+/* The vertical line */
 .timeline::before { 
     content: ''; 
     position: absolute; 
-    left: 50%; 
+    left: 40px; 
     top: 0; 
     bottom: 0; 
     width: 2px; 
-    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.1) 10%, rgba(255,255,255,0.1) 90%, transparent); 
-    transform: translateX(-50%); 
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15) 5%, rgba(255,255,255,0.15) 95%, transparent); 
 }
 
-.timeline-item { position: relative; width: 100%; margin-bottom: 3rem; clear: both; display: flex; flex-direction: column; align-items: center; }
+/* Base item container */
+.timeline-item { 
+    position: relative; 
+    width: 100%; 
+    padding-left: 90px; /* Space for line and dot */
+    margin-bottom: 2.5rem; 
+}
 
 /* Year Milestone Styling */
-.year-label { margin: 6rem 0 3rem; }
-.year-label .timeline-dot { 
-    position: relative; 
-    left: auto !important; 
-    right: auto !important; 
-    width: 14px; 
-    height: 14px; 
-    background: var(--text-main); 
-    box-shadow: 0 0 25px rgba(255,255,255,0.5); 
-    border: 4px solid var(--bg-base);
+.timeline-item.year-label { 
+    margin: 4rem 0 2rem; 
+    padding-left: 80px; 
 }
-.year-label .timeline-content { background: transparent; border: none; padding: 0.5rem 0; text-align: center; backdrop-filter: none; -webkit-backdrop-filter: none;}
-.year-label h3 { font-size: 3rem; font-weight: 800; background: linear-gradient(180deg, #fff, #64748b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(255,255,255,0.1)); }
+.timeline-item.year-label .timeline-dot { 
+    left: 28px; 
+    width: 26px; 
+    height: 26px; 
+    background: var(--bg-main);
+    border: 4px solid var(--accent-primary);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    top: 50%;
+    transform: translateY(-50%);
+}
+.timeline-item.year-label .timeline-content { 
+    background: transparent; 
+    border: none; 
+    padding: 0;
+    box-shadow: none;
+}
+.timeline-item.year-label .timeline-content:hover { transform: none; border-color: transparent; }
+.timeline-item.year-label h3 { 
+    font-size: 2.5rem; 
+    font-weight: 800; 
+    color: var(--text-main);
+    background: linear-gradient(90deg, #fff, var(--text-muted)); 
+    -webkit-background-clip: text; 
+    background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    margin: 0;
+}
 
-/* Card Styling & Sides */
-.timeline-item:not(.year-label) { display: block; width: 50%; }
-.timeline-item.left { float: left; padding-right: 50px; text-align: right; }
-.timeline-item.right { float: right; padding-left: 50px; text-align: left; }
-
+/* Standard Dot styling */
 .timeline-dot { 
     position: absolute; 
+    left: 33px; 
     top: 2rem; 
-    width: 18px; 
-    height: 18px; 
+    width: 16px; 
+    height: 16px; 
     background: var(--accent-primary); 
     border-radius: 50%; 
-    box-shadow: 0 0 15px var(--accent-primary); 
+    box-shadow: 0 0 12px var(--accent-primary); 
     z-index: 5; 
-    border: 4px solid var(--bg-base); 
+    border: 3px solid var(--bg-base); 
     transition: all 0.3s ease;
 }
-.timeline-item.left .timeline-dot { right: -9px; }
-.timeline-item.right .timeline-dot { left: -9px; }
 
+/* Card Content Styling */
 .timeline-content { 
     padding: 2rem; 
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    width: 100%;
 }
-.timeline-item:hover .timeline-content { 
-    transform: translateY(-8px); 
-    background: rgba(255, 255, 255, 0.04);
-    border-color: var(--accent-primary); 
+
+/* Hover effects */
+.timeline-item:not(.year-label):hover .timeline-content { 
+    transform: translateX(10px); 
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(16, 185, 129, 0.5); 
     box-shadow: 0 15px 35px rgba(0,0,0,0.3);
 }
-.timeline-item:hover .timeline-dot { transform: scale(1.3); background: #fff; box-shadow: 0 0 20px 5px var(--accent-primary); }
+.timeline-item:not(.year-label):hover .timeline-dot { 
+    transform: scale(1.4); 
+    background: #fff; 
+    box-shadow: 0 0 20px 5px var(--accent-primary); 
+}
 
-.timeline-date { font-size: 0.85rem; color: var(--accent-primary); font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 1px; }
-.timeline-item.left .tech-stack { justify-content: flex-end; }
-.timeline-item.right .tech-stack { justify-content: flex-start; }
+/* Typography & Layout inside card */
+.timeline-date { 
+    display: inline-block;
+    font-size: 0.9rem; 
+    color: var(--accent-primary); 
+    font-weight: 700; 
+    margin-bottom: 0.8rem; 
+    letter-spacing: 0.5px; 
+    background: rgba(16, 185, 129, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+}
+.timeline-content h3 { 
+    font-size: 1.4rem; 
+    margin-bottom: 1rem; 
+    line-height: 1.4;
+    color: var(--text-main);
+}
+.timeline-content p { color: var(--text-muted); margin-bottom: 0.5rem; font-size: 0.95rem; line-height: 1.5; }
+
+.tech-stack { 
+    justify-content: flex-start; 
+    margin-top: 1.5rem;
+}
 
 /* Timeline Filters Enhancements */
-.timeline-filters { gap: 1rem; }
-.filter-btn { padding: 0.7rem 1.5rem; font-size: 0.95rem; border-radius: 12px; }
+.timeline-filters { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 4rem; flex-wrap: wrap; }
+.filter-btn { padding: 0.6rem 1.2rem; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 30px; color: var(--text-muted); font-size: 1rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(5px); font-family: inherit; }
+.filter-btn:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-main); border-color: rgba(255,255,255,0.2);}
+.filter-btn.active { background: var(--accent-primary); color: #fff; border-color: var(--accent-primary); box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); font-weight: 600;}
+.timeline-item.hidden { display: none !important; }
 
+/* Responsive Adjustments */
 @media (max-width: 768px) {
     .timeline::before { left: 20px; transform: none; }
-    .timeline-item:not(.year-label) { width: 100%; padding-left: 50px; padding-right: 0; float: none; text-align: left; }
-    .timeline-item.left .timeline-dot, .timeline-item.right .timeline-dot { left: 11px; right: auto; }
-    .timeline-item.left .tech-stack { justify-content: flex-start; }
-    .year-label { text-align: left; padding-left: 40px; }
-    .year-label .timeline-dot { position: absolute; left: 13px !important; top: 1.5rem; }
+    .timeline-item { width: 100%; padding-left: 55px; padding-right: 0; float: none; text-align: left; }
+    .timeline-item.year-label { padding-left: 50px; text-align: left; margin: 3rem 0 1.5rem;}
+    .timeline-item.year-label .timeline-dot { left: 8px !important; width: 24px; height: 24px; top: 50%;}
+    .timeline-dot { left: 13px !important; right: auto !important; }
+    .timeline-item:not(.year-label):hover .timeline-content { transform: translateX(5px); }
+    .timeline-content { padding: 1.5rem; }
 }
 
 /* Press & News */
