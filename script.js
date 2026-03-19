@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
+
     // 6. 모바일 햄버거 메뉴 토글
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
@@ -105,18 +106,66 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
+
+    // 7. 한/영 언어 전환
+    const langBtns = document.querySelectorAll('.lang-btn');
+    let currentLang = localStorage.getItem('portfolio-lang') || 'ko';
+
+    function switchLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('portfolio-lang', lang);
+
+        // 버튼 활성화 상태 업데이트
+        langBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        document.documentElement.lang = lang;
+
+        // data-ko / data-en 속성이 있는 모든 요소 텍스트 전환
+        document.querySelectorAll('[data-ko][data-en]').forEach(el => {
+            const text = el.getAttribute(`data-${lang}`);
+            if (text) {
+                el.innerHTML = text;
+            }
+        });
+
+        // 릴스 더보기 버튼 특별 처리 (상태에 따라 다름)
+        const reelsBtn = document.getElementById('reels-toggle-btn');
+        const reelsExtra = document.querySelector('.reels-extra');
+        if (reelsBtn && reelsExtra) {
+            const isExpanded = reelsExtra.style.display !== 'none';
+            if (isExpanded) {
+                reelsBtn.textContent = lang === 'ko' ? '접기' : 'Show Less';
+            }
+            // 접혀있을 때는 data-ko/data-en이 처리됨
+        }
+    }
+
+    // 언어 버튼 클릭 이벤트
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchLanguage(btn.getAttribute('data-lang'));
+        });
+    });
+
+    // 페이지 로드 시 저장된 언어 적용
+    switchLanguage(currentLang);
 });
 
 // 릴스 더보기/접기 토글
 function toggleReels() {
     const extra = document.querySelector('.reels-extra');
     const btn = document.getElementById('reels-toggle-btn');
+    const currentLang = localStorage.getItem('portfolio-lang') || 'ko';
+    
     if (extra.style.display === 'none') {
         extra.style.display = 'grid';
-        btn.textContent = '접기';
+        btn.textContent = currentLang === 'ko' ? '접기' : 'Show Less';
     } else {
         extra.style.display = 'none';
-        btn.textContent = '더보기 (+10개)';
+        btn.textContent = currentLang === 'ko' ? '더보기 (+10개)' : 'Show More (+10)';
         document.getElementById('reels').scrollIntoView({ behavior: 'smooth' });
     }
 }

@@ -4,36 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Han - Portfolio</title>
+    <title>Han — Portfolio</title>
     <meta name="description" content="기획, 개발, 마케팅을 하고있는 김한용의 포트폴리오입니다.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Pretendard:wght@300;400;600;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=8">
 </head>
 
 <body>
-    <div class="bg-shape shape-1"></div>
-    <div class="bg-shape shape-2"></div>
 
     <nav class="navbar">
-        <div class="logo">Han<span>.</span></div>
+        <div class="logo">Han.</div>
         <button class="mobile-menu-btn" aria-label="Toggle menu">
             <span></span>
             <span></span>
             <span></span>
         </button>
         <ul class="nav-links">
-            <li><a href="#home">홈</a></li>
-            <li><a href="#about">소개</a></li>
-            <li><a href="#experience">대외활동</a></li>
-            <li><a href="#press">뉴스·기사</a></li>
-            <li><a href="#reels">콘텐츠</a></li>
-            <li><a href="#projects">프로젝트</a></li>
-            <li><a href="#contact">Contact us</a></li>
+            <li><a href="#about" data-ko="소개" data-en="About">About</a></li>
+            <li><a href="#experience" data-ko="경험" data-en="Experience">Experience</a></li>
+            <li><a href="#press" data-ko="뉴스" data-en="Press">Press</a></li>
+            <li><a href="#reels" data-ko="콘텐츠" data-en="Contents">Contents</a></li>
+            <li><a href="#projects" data-ko="프로젝트" data-en="Work">Work</a></li>
+            <li><a href="#contact" data-ko="연락하기" data-en="Contact">Contact</a></li>
         </ul>
+        <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="ko">KO</button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
     </nav>
 
     <main>
@@ -41,30 +43,17 @@
         <section id="home" class="hero">
             <div class="hero-container">
                 <div class="hero-content">
-                    <p class="greeting reveal">안녕하세요!</p>
-                    <h1 class="reveal delay-1">기획과 개발, 그리고 마케팅까지.<br><span class="gradient-text">김한용의 포트폴리오입니다.</span>
-                    </h1>
-                    <p class="bio reveal delay-2">
-                        단순한 아이디어를 넘어 실제로 작동하는 마케팅과 IT 서비스를 기획하고 개발합니다.<br>
-                        사용자의 니즈를 분석하고 다방면으로 성장하고 있습니다.
+                    <p class="greeting reveal" data-ko="Portfolio 2026" data-en="Portfolio 2026">Portfolio 2026</p>
+                    <h1 class="reveal delay-1" data-ko="김한용." data-en="Hanyong<br>Kim.">김한용.</h1>
+                    <p class="bio reveal delay-2" data-ko="기획과 개발, 그리고 마케팅까지.<br>아이디어를 실제 서비스로 구현합니다."
+                        data-en="From planning to development and marketing.<br>Turning ideas into real services.">
+                        기획과 개발, 그리고 마케팅까지.<br>
+                        아이디어를 실제 서비스로 구현합니다.
                     </p>
-                    <div class="cta-group reveal delay-3">
-                        <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
-                        <a href="#contact" class="btn btn-outline">연락하기</a>
-                    </div>
-                </div>
-                <div class="hero-visual reveal delay-2">
-                    <div class="glass-card profile-card">
-                        <div class="profile-img-container"
-                            style="width: 150px; height: 150px; margin: 0 auto 1.5rem; border-radius: 50%; overflow: hidden; border: 3px solid rgba(255,255,255,0.1); box-shadow: 0 0 20px rgba(16,185,129,0.2);">
-                            <img src="images/profile.jpg" alt="Han Profile"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="card-info">
-                            <h3>김한용/2005</h3>
-                            <p>기획자 / 개발자</p>
-                        </div>
-                    </div>
+                    <p class="reveal delay-3 hero-role" data-ko="기획 · 개발 · 마케팅"
+                        data-en="Planning · Development · Marketing">
+                        기획 · 개발 · 마케팅
+                    </p>
                 </div>
             </div>
             <div class="scroll-indicator">
@@ -72,93 +61,112 @@
             </div>
         </section>
 
-        <!-- 소개 섹션 -->
+        <hr class="section-divider">
         <section id="about" class="about">
             <div class="section-header reveal">
-                <h2>소개</h2>
-                <div class="line"></div>
+                <div class="section-number">01.</div>
+                <h2 data-ko="About Me" data-en="About Me">About Me</h2>
             </div>
             <div class="about-grid">
-                <div class="glass-panel info-panel reveal">
-                    <h3>도전과 문제해결을 즐깁니다.</h3>
-                    <p>'왜(Why)'를 먼저 고민하며 비즈니스와 사회적 효과를 생각합니다. 아이디어를 실제 서비스로 구현하는 과정을 즐깁니다.</p>
+                <div class="info-panel reveal delay-1">
+                    <p data-ko="단순한 아이디어를 넘어 실제로 작동하는 마케팅과 IT 서비스를 기획하고 개발합니다. 사용자의 니즈를 분석하고, <strong>'왜(Why)'</strong>를 먼저 고민하며 비즈니스와 사회적 효과를 생각합니다."
+                        data-en="I plan and develop marketing strategies and IT services that actually work, going beyond simple ideas. I analyze user needs, always asking <strong>'Why'</strong> first, considering both business and social impact.">
+                        단순한 아이디어를 넘어 실제로 작동하는 마케팅과 IT 서비스를 기획하고 개발합니다.
+                        사용자의 니즈를 분석하고, <strong>'왜(Why)'</strong>를 먼저 고민하며 비즈니스와 사회적 효과를 생각합니다.
+                    </p>
+                    <p data-ko="도전과 문제해결을 즐기며, 다방면으로 성장하고 있습니다."
+                        data-en="I thrive on challenges and problem-solving, continuously growing across multiple disciplines.">
+                        도전과 문제해결을 즐기며, 다방면으로 성장하고 있습니다.
+                    </p>
                     <div class="tech-stack">
                         <span class="tag">Python</span>
                         <span class="tag">JavaScript</span>
                         <span class="tag">AI / Data</span>
                         <span class="tag">Web Dev</span>
-                        <span class="tag">Planning</span>
+                        <span class="tag" data-ko="Planning" data-en="Planning">Planning</span>
+                    </div>
+                    <div class="stat-panel" style="margin-top: 2.5rem;">
+                        <div class="stat-item">
+                            <h4 class="counter" data-target="3">0</h4>
+                            <p data-ko="년차 경력" data-en="Years of Exp.">년차 경력</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4 class="counter" data-target="26">0</h4>
+                            <p data-ko="개 대외활동" data-en="Activities">개 대외활동</p>
+                        </div>
                     </div>
                 </div>
-                <div class="glass-panel stat-panel reveal delay-1">
-                    <div class="stat-item">
-                        <h4 class="counter" data-target="3">0</h4>
-                        <p>년차 경력</p>
-                    </div>
-                    <div class="stat-item">
-                        <h4 class="counter" data-target="26">0</h4>
-                        <p>개 대외활동</p>
-                    </div>
+                <div class="reveal delay-2" style="display:flex; justify-content:center;">
+                    <img src="images/profile.jpg" alt="Han Profile"
+                        style="width:100%; max-width:380px; aspect-ratio:3/4; object-fit:cover; border-radius:var(--radius); border: 1px solid var(--border-light);">
                 </div>
             </div>
         </section>
 
-        <!-- Experience Section -->
+        <hr class="section-divider">
         <section id="experience" class="experience">
             <div class="section-header reveal">
-                <h2>대외활동 및 경력</h2>
-                <div class="line"></div>
+                <div class="section-number">02.</div>
+                <h2 data-ko="Experience" data-en="Experience">Experience</h2>
             </div>
 
             <div class="timeline-filters reveal delay-1">
-                <button class="filter-btn active" data-filter="all">전체보기</button>
-                <button class="filter-btn" data-filter="2026">2026년</button>
-                <button class="filter-btn" data-filter="2025">2025년</button>
-                <button class="filter-btn" data-filter="2024">2024년</button>
-                <button class="filter-btn" data-filter="2023">2023년</button>
-                <button class="filter-btn" data-filter="2022">2022년</button>
+                <button class="filter-btn active" data-filter="all" data-ko="전체보기" data-en="All">전체보기</button>
+                <button class="filter-btn" data-filter="2026">2026</button>
+                <button class="filter-btn" data-filter="2025">2025</button>
+                <button class="filter-btn" data-filter="2024">2024</button>
+                <button class="filter-btn" data-filter="2023">2023</button>
+                <button class="filter-btn" data-filter="2022">2022</button>
             </div>
 
             <div class="timeline">
-                <!-- 2026 -->
                 <div class="year-group reveal" data-year="2026">
                     <div class="year-label">
-                        <div class="year-dot" style="background:#8b5cf6; box-shadow:0 0 12px #8b5cf6;"></div>
                         <h3>2026</h3>
-                        <span class="year-count">6개 활동</span>
+                        <span class="year-count" data-ko="6개 활동" data-en="6 Activities">6개 활동</span>
                     </div>
                     <div class="year-cards">
                         <div class="exp-card">
-                            <span class="exp-date">2026. 03 - 현재</span>
-                            <h4>학군사관후보생(ROTC) 66기 (167 학군단)</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag award">🇰🇷 ROTC</span></div>
+                            <span class="exp-date">2026. 03 ~</span>
+                            <h4 data-ko="학군사관후보생(ROTC) 66기 (167 학군단)" data-en="ROTC 66th Class (167th Battalion)">
+                                학군사관후보생(ROTC) 66기 (167 학군단)</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag award">🇰🇷 ROTC</span></div>
                         </div>
                         <div class="exp-card">
-                            <span class="exp-date">2026. 03 - 현재</span>
-                            <h4>순천향대학교 또레멘토</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">멘토링</span></div>
+                            <span class="exp-date">2026. 03 ~</span>
+                            <h4 data-ko="순천향대학교 또레멘토" data-en="Soonchunhyang Univ. Peer Mentor">순천향대학교 또레멘토</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="멘토링" data-en="Mentoring">멘토링</span></div>
                         </div>
                         <div class="exp-card">
-                            <span class="exp-date">2026. 02 - 현재</span>
-                            <h4>총대의원회 '청화' 입법조사처 차장</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">학생회</span></div>
+                            <span class="exp-date">2026. 02 ~</span>
+                            <h4 data-ko="총대의원회 '청화' 입법조사처 차장" data-en="Student Council 'Cheonghwa' Deputy Director">
+                                총대의원회 '청화' 입법조사처 차장</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="학생회" data-en="Council">학생회</span></div>
                         </div>
                         <div class="exp-card">
-                            <span class="exp-date">2026. 02 - 현재</span>
-                            <h4>순천향대학교 SRC 재학생 멘토</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">멘토링</span></div>
+                            <span class="exp-date">2026. 02 ~</span>
+                            <h4 data-ko="순천향대학교 SRC 재학생 멘토" data-en="SCH SRC Student Mentor">순천향대학교 SRC 재학생 멘토</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="멘토링" data-en="Mentoring">멘토링</span></div>
                         </div>
                         <div class="exp-card">
-                            <span class="exp-date">2026. 02 - 현재</span>
-                            <h4>삼성전자 갤럭시 대학생 서포터즈 6기</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span
-                                    class="exp-tag external">서포터즈</span></div>
+                            <span class="exp-date">2026. 02 ~</span>
+                            <h4 data-ko="삼성전자 갤럭시 대학생 서포터즈 6기" data-en="Samsung Galaxy Student Supporters 6th Gen">삼성전자
+                                갤럭시 대학생 서포터즈 6기</h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag external" data-ko="서포터즈"
+                                    data-en="Supporters">서포터즈</span></div>
                         </div>
                         <div class="exp-card">
-                            <span class="exp-date">2026. 02 - 현재</span>
-                            <h4>대한민국 법제처 정책 모니터링단</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span
-                                    class="exp-tag external">정책</span></div>
+                            <span class="exp-date">2026. 02 ~</span>
+                            <h4 data-ko="대한민국 법제처 정책 모니터링단" data-en="Korea Legislation Ministry Policy Monitor">대한민국 법제처
+                                정책 모니터링단</h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag external" data-ko="정책"
+                                    data-en="Policy">정책</span></div>
                         </div>
                     </div>
                 </div>
@@ -166,69 +174,88 @@
                 <!-- 2025 -->
                 <div class="year-group reveal" data-year="2025">
                     <div class="year-label">
-                        <div class="year-dot"></div>
                         <h3>2025</h3>
-                        <span class="year-count">12개 활동</span>
+                        <span class="year-count" data-ko="12개 활동" data-en="12 Activities">12개 활동</span>
                     </div>
                     <div class="year-cards">
                         <div class="exp-card">
-                            <span class="exp-date">2025 하반기</span>
-                            <h4>힘스(HIMS) 개발팀 근무 (삼성 1차벤더)</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span class="exp-tag award">💼
-                                    실무경험</span></div>
+                            <span class="exp-date">2025 H2</span>
+                            <h4 data-ko="힘스(HIMS) 개발팀 근무 (삼성 1차벤더)" data-en="HIMS Dev Team (Samsung Tier-1 Vendor)">
+                                힘스(HIMS) 개발팀 근무 (삼성 1차벤더)</h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag award">💼 실무경험</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2025. 12</span>
-                            <h4>제품제작역량 창업대회 최우수상 &amp; 캠프 수료</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span class="exp-tag award">🏆
-                                    최우수상</span></div>
+                            <h4 data-ko="제품제작역량 창업대회 최우수상 &amp; 캠프 수료"
+                                data-en="Product Making Competition — Grand Prize &amp; Camp">제품제작역량 창업대회 최우수상 &amp; 캠프
+                                수료</h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag award">🏆 최우수상</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2025. 07 - 08</span>
-                            <h4>제1회 올담 데이터 활용 해커톤 최우수상</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span class="exp-tag award">🏆
-                                    최우수상</span></div>
+                            <h4 data-ko="제1회 올담 데이터 활용 해커톤 최우수상" data-en="1st Oldam Data Hackathon — Grand Prize">제1회 올담
+                                데이터 활용 해커톤 최우수상</h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag award">🏆 최우수상</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2025. 08 - 12</span>
-                            <h4>충남 데이터포털 [올담] 모니터링단 위원</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span
-                                    class="exp-tag external">데이터</span></div>
+                            <h4 data-ko="충남 데이터포털 [올담] 모니터링단 위원" data-en="Chungnam Data Portal 'Oldam' Monitor">충남 데이터포털
+                                [올담] 모니터링단 위원</h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag external" data-ko="데이터"
+                                    data-en="Data">데이터</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2025. 07</span>
-                            <h4>디스플레이 시스템 제어 C++ 캠프 수료</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">교육</span></div>
+                            <h4 data-ko="디스플레이 시스템 제어 C++ 캠프 수료" data-en="Display System Control C++ Camp">디스플레이 시스템 제어
+                                C++ 캠프 수료</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="교육" data-en="Education">교육</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2025. 05 - 12</span>
-                            <h4>순천향대학교 SCOUT 학생 창업동아리</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">창업</span></div>
+                            <h4 data-ko="순천향대학교 SCOUT 학생 창업동아리" data-en="SCH SCOUT Startup Club">순천향대학교 SCOUT 학생 창업동아리
+                            </h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="창업" data-en="Startup">창업</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2025. 04 - 12</span>
-                            <h4>상임위원회 법제사법위원회 위원장</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">위원장</span></div>
+                            <h4 data-ko="상임위원회 법제사법위원회 위원장"
+                                data-en="Standing Committee Chair — Legislation &amp; Judiciary">상임위원회 법제사법위원회 위원장</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="위원장" data-en="Chair">위원장</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2025. 04 - 12</span>
-                            <h4>순천향대학교 SCH 드림멘토 · SW창업동아리</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">멘토링</span></div>
+                            <h4 data-ko="순천향대학교 SCH 드림멘토 · SW창업동아리" data-en="SCH Dream Mentor &amp; SW Startup Club">
+                                순천향대학교 SCH 드림멘토 · SW창업동아리</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="멘토링" data-en="Mentoring">멘토링</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2025. 03 - 12</span>
-                            <h4>제1기 순천향 SW교육 봉사단</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">봉사</span></div>
+                            <h4 data-ko="제1기 순천향 SW교육 봉사단" data-en="1st SCH SW Education Volunteer Corps">제1기 순천향 SW교육
+                                봉사단</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="봉사" data-en="Volunteer">봉사</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2025. 02 - 12</span>
-                            <h4>SRC 재학생 멘토 (신입생 대상)</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">멘토링</span></div>
+                            <h4 data-ko="SRC 재학생 멘토 (신입생 대상)" data-en="SRC Student Mentor (for Freshmen)">SRC 재학생 멘토
+                                (신입생 대상)</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="멘토링" data-en="Mentoring">멘토링</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2025. 02 - 12</span>
-                            <h4>사물인터넷학과 2학년 대의원 (과대표)</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">학생회</span></div>
+                            <h4 data-ko="사물인터넷학과 2학년 대의원 (과대표)" data-en="IoT Dept. 2nd Year Representative">사물인터넷학과 2학년
+                                대의원 (과대표)</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="학생회" data-en="Council">학생회</span></div>
                         </div>
                     </div>
                 </div>
@@ -236,58 +263,65 @@
                 <!-- 2024 -->
                 <div class="year-group reveal" data-year="2024">
                     <div class="year-label">
-                        <div class="year-dot"
-                            style="background:var(--accent-secondary); box-shadow:0 0 12px var(--accent-secondary);">
-                        </div>
                         <h3>2024</h3>
-                        <span class="year-count">8개 활동</span>
+                        <span class="year-count" data-ko="8개 활동" data-en="8 Activities">8개 활동</span>
                     </div>
                     <div class="year-cards">
                         <div class="exp-card">
                             <span class="exp-date">2024. 10</span>
-                            <h4>전쟁기념관 용산특강 서포터즈</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span
-                                    class="exp-tag external">서포터즈</span></div>
+                            <h4 data-ko="전쟁기념관 용산특강 서포터즈" data-en="War Memorial Yongsan Lecture Supporters">전쟁기념관 용산특강
+                                서포터즈</h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag external" data-ko="서포터즈"
+                                    data-en="Supporters">서포터즈</span></div>
                         </div>
                         <div class="exp-card">
-                            <span class="exp-date">2024 하반기</span>
-                            <h4>2030 청렴인재 아카데미 수료</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span
-                                    class="exp-tag external">교육</span></div>
+                            <span class="exp-date">2024 H2</span>
+                            <h4 data-ko="2030 청렴인재 아카데미 수료" data-en="2030 Integrity Talent Academy">2030 청렴인재 아카데미 수료
+                            </h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag external" data-ko="교육"
+                                    data-en="Education">교육</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2024. 08 - 2025. 12</span>
-                            <h4>순천향대학교 홍보대사 '슈케터'</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">홍보대사</span></div>
+                            <h4 data-ko="순천향대학교 홍보대사 '슈케터'" data-en="SCH PR Ambassador 'Schuketter'">순천향대학교 홍보대사 '슈케터'
+                            </h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="홍보대사" data-en="Ambassador">홍보대사</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2024. 05 - 08</span>
-                            <h4>ICT AWARD KOREA 2024 공식 서포터즈</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span
-                                    class="exp-tag external">ICT</span></div>
+                            <h4 data-ko="ICT AWARD KOREA 2024 공식 서포터즈"
+                                data-en="ICT AWARD KOREA 2024 Official Supporters">ICT AWARD KOREA 2024 공식 서포터즈</h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag external">ICT</span></div>
                         </div>
                         <div class="exp-card">
-                            <span class="exp-date">2024 1·2학기</span>
-                            <h4>Best Rookie 장학생 (학과 공헌)</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag award">🏆
-                                    장학생</span></div>
+                            <span class="exp-date">2024 S1·S2</span>
+                            <h4 data-ko="Best Rookie 장학생 (학과 공헌)" data-en="Best Rookie Scholar (Dept. Contribution)">
+                                Best Rookie 장학생 (학과 공헌)</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag award">🏆 장학생</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2024. 03 - 2025. 12</span>
-                            <h4>순천향대학교 RCY 적십자 봉사동아리</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">봉사</span></div>
+                            <h4 data-ko="순천향대학교 RCY 적십자 봉사동아리" data-en="SCH RCY Red Cross Volunteer Club">순천향대학교 RCY 적십자
+                                봉사동아리</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="봉사" data-en="Volunteer">봉사</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2024. 03</span>
-                            <h4>구글 기술 지원 기초 수료</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span
-                                    class="exp-tag external">IT</span></div>
+                            <h4 data-ko="구글 기술 지원 기초 수료" data-en="Google IT Support Fundamentals">구글 기술 지원 기초 수료</h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag external">IT</span></div>
                         </div>
                         <div class="exp-card">
                             <span class="exp-date">2024. 03</span>
-                            <h4>순천향대학교 SW특기자 전형 입학</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag">SW특기자</span>
-                            </div>
+                            <h4 data-ko="순천향대학교 SW특기자 전형 입학" data-en="SCH SW Talent Admission">순천향대학교 SW특기자 전형 입학</h4>
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span
+                                    class="exp-tag" data-ko="SW특기자" data-en="SW Talent">SW특기자</span></div>
                         </div>
                     </div>
                 </div>
@@ -295,16 +329,17 @@
                 <!-- 2023 -->
                 <div class="year-group reveal" data-year="2023">
                     <div class="year-label">
-                        <div class="year-dot" style="background:#f59e0b; box-shadow:0 0 12px #f59e0b;"></div>
                         <h3>2023</h3>
-                        <span class="year-count">1개 활동</span>
+                        <span class="year-count" data-ko="1개 활동" data-en="1 Activity">1개 활동</span>
                     </div>
                     <div class="year-cards">
                         <div class="exp-card">
                             <span class="exp-date">2023. 04 - 06</span>
-                            <h4>삼성전자 갤럭시 고등리더 3기</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span
-                                    class="exp-tag external">서포터즈</span></div>
+                            <h4 data-ko="삼성전자 갤럭시 고등리더 3기" data-en="Samsung Galaxy High School Leader 3rd Gen">삼성전자 갤럭시
+                                고등리더 3기</h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag external" data-ko="서포터즈"
+                                    data-en="Supporters">서포터즈</span></div>
                         </div>
                     </div>
                 </div>
@@ -312,16 +347,17 @@
                 <!-- 2022 -->
                 <div class="year-group reveal" data-year="2022">
                     <div class="year-label">
-                        <div class="year-dot" style="background:#ec4899; box-shadow:0 0 12px #ec4899;"></div>
                         <h3>2022</h3>
-                        <span class="year-count">1개 활동</span>
+                        <span class="year-count" data-ko="1개 활동" data-en="1 Activity">1개 활동</span>
                     </div>
                     <div class="year-cards">
                         <div class="exp-card">
                             <span class="exp-date">2022. 09 - 11</span>
-                            <h4>삼성전자 갤럭시 고등리더 1기 (우수활동자)</h4>
-                            <div class="exp-tags"><span class="exp-tag external">교외</span><span class="exp-tag award">🏆
-                                    우수활동자</span></div>
+                            <h4 data-ko="삼성전자 갤럭시 고등리더 1기 (우수활동자)"
+                                data-en="Samsung Galaxy High School Leader 1st Gen (Best Performer)">삼성전자 갤럭시 고등리더 1기
+                                (우수활동자)</h4>
+                            <div class="exp-tags"><span class="exp-tag external" data-ko="교외"
+                                    data-en="External">교외</span><span class="exp-tag award">🏆 우수활동자</span></div>
                         </div>
                     </div>
                 </div>
@@ -329,100 +365,131 @@
         </section>
 
         <!-- Press & News Section -->
+        <hr class="section-divider">
         <section id="press" class="press">
             <div class="section-header reveal">
-                <h2>관련 기사 및 뉴스</h2>
-                <div class="line"></div>
+                <div class="section-number">03.</div>
+                <h2>Press</h2>
             </div>
             <div class="press-grid">
-                <a href="https://www.lecturernews.com/news/articleView.html?idxno=192892"
-                    class="press-card glass-card reveal" target="_blank">
-                    <div class="press-publisher">한국강사신문</div>
-                    <h3>"충남대학교, 'SCOUT 충청권·호남제주권 제품 제작 역량 강화 캠프' 성료"</h3>
+                <a href="https://www.lecturernews.com/news/articleView.html?idxno=192892" class="press-card reveal"
+                    target="_blank">
+                    <div class="press-publisher" data-ko="한국강사신문" data-en="Korea Lecturer News">한국강사신문</div>
+                    <h3 data-ko="&quot;충남대학교, 'SCOUT 충청권·호남제주권 제품 제작 역량 강화 캠프' 성료&quot;"
+                        data-en="&quot;Chungnam Univ. 'SCOUT Product Making Camp' Successfully Completed&quot;">"충남대학교,
+                        'SCOUT 충청권·호남제주권 제품 제작 역량 강화 캠프' 성료"</h3>
                     <p class="press-date">2025. 12. 15</p>
                 </a>
-
-                <a href="https://www.newsro.kr/article243/1198849/"
-                    class="press-card glass-card reveal" target="_blank">
-                    <div class="press-publisher">뉴스로</div>
-                    <h3>"충남데이터포털 '올담' 대학생 모니터링단 발족"</h3>
+                <a href="https://www.newsro.kr/article243/1198849/" class="press-card reveal delay-1" target="_blank">
+                    <div class="press-publisher" data-ko="뉴스로" data-en="Newsro">뉴스로</div>
+                    <h3 data-ko="&quot;충남데이터포털 '올담' 대학생 모니터링단 발족&quot;"
+                        data-en="&quot;Chungnam Data Portal 'Oldam' Student Monitoring Team Launched&quot;">"충남데이터포털
+                        '올담' 대학생 모니터링단 발족"</h3>
                     <p class="press-date">2025. 08. 13</p>
                 </a>
-
             </div>
         </section>
 
         <!-- Reels (콘텐츠) 섹션 -->
+        <hr class="section-divider">
         <section id="reels" class="reels">
             <div class="section-header reveal">
-                <h2>콘텐츠 (릴스)</h2>
-                <div class="line"></div>
+                <div class="section-number">04.</div>
+                <h2 data-ko="Contents" data-en="Contents">Contents</h2>
             </div>
-            <p class="section-desc reveal" style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">직접 기획하고 제작한 영상 콘텐츠입니다.</p>
+            <p class="section-desc reveal delay-1" data-ko="직접 기획하고 제작한 영상 콘텐츠입니다."
+                data-en="Video contents I planned and produced myself.">직접 기획하고 제작한 영상 콘텐츠입니다.</p>
             <div class="reels-grid">
-                <iframe src="https://www.instagram.com/reel/DCiUbPrq7hX/embed/" frameborder="0" scrolling="no" allowtransparency="true" class="reveal"></iframe>
-                <iframe src="https://www.instagram.com/reel/DDLhJfrq9lR/embed/" frameborder="0" scrolling="no" allowtransparency="true" class="reveal delay-1"></iframe>
-                <iframe src="https://www.instagram.com/reel/DDvkRa5KRx7/embed/" frameborder="0" scrolling="no" allowtransparency="true" class="reveal delay-2"></iframe>
+                <iframe src="https://www.instagram.com/reel/DCiUbPrq7hX/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true" class="reveal"></iframe>
+                <iframe src="https://www.instagram.com/reel/DDLhJfrq9lR/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true" class="reveal delay-1"></iframe>
+                <iframe src="https://www.instagram.com/reel/DDvkRa5KRx7/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true" class="reveal delay-2"></iframe>
             </div>
             <div class="reels-grid reels-extra" style="display:none; margin-top:2rem;">
-                <iframe src="https://www.instagram.com/reel/DIP9LFNTi_b/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DISh_HRK34T/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DJVxlzyTvMj/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DJqWLD1TqjA/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DJ-rckxPQNA/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DKdlQyoy4Y4/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DLjHFegqzbA/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DR_ktbiDpgZ/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DSb5ZkUgQ8h/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DVaqadOEn4T/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+                <iframe src="https://www.instagram.com/reel/DIP9LFNTi_b/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+                <iframe src="https://www.instagram.com/reel/DISh_HRK34T/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+                <iframe src="https://www.instagram.com/reel/DJVxlzyTvMj/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+                <iframe src="https://www.instagram.com/reel/DJqWLD1TqjA/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+                <iframe src="https://www.instagram.com/reel/DJ-rckxPQNA/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+                <iframe src="https://www.instagram.com/reel/DKdlQyoy4Y4/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+                <iframe src="https://www.instagram.com/reel/DLjHFegqzbA/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+                <iframe src="https://www.instagram.com/reel/DR_ktbiDpgZ/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+                <iframe src="https://www.instagram.com/reel/DSb5ZkUgQ8h/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+                <iframe src="https://www.instagram.com/reel/DVaqadOEn4T/embed/" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
             </div>
-            <div class="reels-toggle reveal" style="text-align:center; margin-top:2rem;">
-                <button class="btn btn-outline" id="reels-toggle-btn" onclick="toggleReels()">더보기 (+10개)</button>
+            <div class="reels-toggle reveal" style="text-align:left; margin-top:2rem;">
+                <button class="btn btn-outline" id="reels-toggle-btn" data-ko="더보기 (+10개)" data-en="Show More (+10)"
+                    onclick="toggleReels()">더보기 (+10개)</button>
             </div>
         </section>
 
         <!-- 프로젝트 섹션 -->
+        <hr class="section-divider">
         <section id="projects" class="projects">
             <div class="section-header reveal">
-                <h2>주요 프로젝트</h2>
-                <div class="line"></div>
+                <div class="section-number">05.</div>
+                <h2 data-ko="Selected Work" data-en="Selected Work">Work</h2>
             </div>
             <div class="project-grid">
-                <div class="glass-card project-card reveal">
-                    <div class="project-img"><img src="images/rescue-jet.jpg" alt="RESCUE JET 자동구명추진장치"
-                            style="width:100%;height:100%;object-fit:cover;border-radius:16px 16px 0 0;"></div>
+                <div class="project-card reveal">
                     <div class="project-info">
+                        <h3 data-ko="RESCUE JET — 자동구명추진장치" data-en="RESCUE JET — Auto Rescue Propulsion Device">RESCUE
+                            JET — 자동구명추진장치</h3>
+                        <p data-ko="2025 SCOUT 제품제작역량 강화대회 최우수상. 아두이노·3D프린팅 기반으로 설계·제작한 자동 구명 추진 장치 시제품."
+                            data-en="Grand Prize at 2025 SCOUT Product Making Competition. Arduino &amp; 3D-printed automatic rescue propulsion prototype.">
+                            2025 SCOUT 제품제작역량 강화대회 최우수상. 아두이노·3D프린팅 기반으로 설계·제작한 자동 구명 추진 장치 시제품.</p>
                         <div class="project-tags">
-                            <span class="ptag">하드웨어</span>
-                            <span class="ptag">창업</span>
-                            <span class="ptag">안전</span>
+                            <span class="ptag" data-ko="하드웨어" data-en="Hardware">하드웨어</span>
+                            <span class="ptag" data-ko="창업" data-en="Startup">창업</span>
+                            <span class="ptag" data-ko="안전" data-en="Safety">안전</span>
                         </div>
-                        <h3>RESCUE JET — 자동구명추진장치</h3>
-                        <p>2025 SCOUT 제품제작역량 강화대회 최우수상. 아두이노·3D프린팅 기반으로 설계·제작한 자동 구명 추진 장치 시제품.</p>
                         <a href="https://www.lecturernews.com/news/articleView.html?idxno=192892" class="project-link"
-                            target="_blank">관련 기사 보기 →</a>
+                            target="_blank" data-ko="관련 기사 보기 →" data-en="Read Article →">관련 기사 보기 →</a>
                     </div>
+                    <div class="project-img"><img src="images/rescue-jet.jpg" alt="RESCUE JET"
+                            style="width:100%;height:100%;object-fit:cover;"></div>
                 </div>
-
             </div>
         </section>
 
-        <!-- 연락처 섹션 -->
+
+        <hr class="section-divider">
         <section id="contact" class="contact">
-            <div class="glass-panel contact-panel reveal">
-                <h2>함께 <span class="gradient-text">멋진 결과물</span>을 만들어봐요.</h2>
-                <p>새로운 아이디어나 프로젝트 제안을 언제나 환영합니다.</p>
-                <a href="mailto:handak061@naver.com" class="btn btn-primary contact-btn">이메일 보내기</a>
+            <div class="section-header reveal">
+                <div class="section-number">06.</div>
+                <h2 data-ko="Call" data-en="Call">Call</h2>
+            </div>
+            <div class="contact-panel reveal delay-1">
+                <p data-ko="새로운 아이디어나 프로젝트 제안을 언제나 환영합니다.<br>아래 버튼을 통해 이메일로 연락주세요."
+                    data-en="I'm always open to new ideas and project proposals.<br>Feel free to reach out via email.">
+                    새로운 아이디어나 프로젝트 제안을 언제나 환영합니다.<br>
+                    아래 버튼을 통해 이메일로 연락주세요.
+                </p>
+                <a href="mailto:handak061@naver.com" class="btn btn-primary contact-btn" data-ko="이메일 보내기 →"
+                    data-en="Send Email →">이메일 보내기 →</a>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>Copyright &copy; 2026 김한용 All Rights Reserved.</p>
+        <p data-ko="© 2026 김한용. All rights reserved." data-en="© 2026 Hanyong Kim. All rights reserved.">© 2026 김한용. All
+            rights reserved.</p>
         <div class="social-links">
-            <a href="#">깃허브</a>
-            <a href="#">링크드인</a>
-            <a href="#">블로그</a>
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Blog</a>
         </div>
     </footer>
 
