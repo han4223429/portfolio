@@ -387,7 +387,101 @@ body {
     flex-shrink: 0;
 }
 
-/* ===== TIMELINE (Experience) ===== */
+/* ===== EXP CARD GRID (Experience Section) ===== */
+.exp-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+.year-label-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+}
+.year-label-row h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+}
+.year-count {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.15rem 0.65rem;
+}
+.exp-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.8rem;
+}
+.exp-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    transition: all 0.2s var(--ease);
+    box-shadow: var(--shadow-sm);
+}
+.exp-card:hover {
+    background: var(--bg-white);
+    box-shadow: var(--shadow);
+    border-color: var(--border);
+    transform: translateY(-2px);
+}
+.exp-date {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.02em;
+}
+.exp-card h4 {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 0.87rem;
+    font-weight: 600;
+    color: var(--text-main);
+    line-height: 1.45;
+    margin-bottom: 0.6rem;
+}
+.exp-tags {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+}
+.exp-tag {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.63rem;
+    font-weight: 600;
+    padding: 0.15rem 0.55rem;
+    border-radius: var(--radius-pill);
+    background: var(--bg-alt);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+}
+.exp-tag.award {
+    background: rgba(255,193,7,0.1);
+    color: #b7791f;
+    border-color: rgba(255,193,7,0.2);
+}
+.exp-tag.external {
+    background: var(--accent-light);
+    color: var(--accent);
+    border-color: rgba(49,130,246,0.15);
+}
+
+/* ===== TIMELINE (kept for .timeline-filter-row reuse) ===== */
+
 #experience {}
 .timeline-filter-row {
     display: flex;
