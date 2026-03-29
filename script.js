@@ -1,4 +1,94 @@
 document.addEventListener("DOMContentLoaded", () => {
+    let currentLang = localStorage.getItem('portfolio-lang') || 'ko';
+
+    // ── Navbar Scroll Effect ──
+    const topNav = document.getElementById('topNav');
+    if (topNav) {
+        const toggleNav = () => {
+            if (window.scrollY > 40) {
+                topNav.classList.add('scrolled');
+            } else {
+                topNav.classList.remove('scrolled');
+            }
+        };
+        window.addEventListener('scroll', toggleNav, { passive: true });
+        toggleNav();
+    }
+
+    // ── Theme toggle ──
+    const themeToggleBtn = document.getElementById('themeToggle');
+    let currentTheme = localStorage.getItem('portfolio-theme') || 'dark';
+    
+    function applyTheme(theme) {
+        currentTheme = theme;
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('portfolio-theme', theme);
+        if(themeToggleBtn) {
+            themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+    }
+    
+    if(themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+    }
+    applyTheme(currentTheme);
+
+    // ── Typewriter effect ──
+    const typewriterEl = document.getElementById('typewriter');
+    let typeTimeout;
+    let startTimeout;
+    
+    function typeText(text) {
+        if (!typewriterEl) return;
+        clearTimeout(typeTimeout);
+        clearTimeout(startTimeout);
+        typewriterEl.textContent = '';
+        let i = 0;
+        
+        function typeChar() {
+            if (i < text.length) {
+                typewriterEl.textContent += text.charAt(i);
+                i++;
+                typeTimeout = setTimeout(typeChar, 50);
+            }
+        }
+        startTimeout = setTimeout(typeChar, 2000);
+    }
+
+    // ── 0. Cursor Spotlight ──
+    const spotlight = document.getElementById('cursorSpotlight');
+    if (spotlight) {
+        let ticking = false;
+        document.addEventListener('mousemove', (e) => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    spotlight.style.left = e.clientX + 'px';
+                    spotlight.style.top = e.clientY + 'px';
+                    if (!spotlight.classList.contains('active')) {
+                        spotlight.classList.add('active');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        document.addEventListener('mouseleave', () => {
+            spotlight.classList.remove('active');
+        });
+
+        // Card hover glow tracking
+        document.querySelectorAll('.exp-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width * 100) + '%';
+                const y = ((e.clientY - rect.top) / rect.height * 100) + '%';
+                card.style.setProperty('--mouse-x', x);
+                card.style.setProperty('--mouse-y', y);
+            });
+        });
+    }
 
     // ── 1. Nav active tracking ──
     const sections = document.querySelectorAll('section[id]');
@@ -24,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (target) {
                 e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth' });
-                // close mobile menu
                 document.getElementById('mobileMenu')?.classList.remove('open');
                 document.getElementById('hamburger')?.classList.remove('open');
             }
@@ -38,18 +127,19 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!entry.isIntersecting) return;
             entry.target.classList.add('active');
 
+            // Counter animation
             entry.target.querySelectorAll('.counter').forEach(counter => {
                 const target = +counter.getAttribute('data-target');
-                const dur = 1600;
+                const dur = 1800;
                 const inc = target / (dur / 16);
                 let cur = 0;
                 const tick = () => {
                     cur += inc;
                     if (cur < target) {
-                        counter.textContent = Math.ceil(cur) + '+';
+                        counter.textContent = Math.ceil(cur);
                         requestAnimationFrame(tick);
                     } else {
-                        counter.textContent = target + '+';
+                        counter.textContent = target;
                     }
                 };
                 tick();
@@ -64,8 +154,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Hero instant reveal
     setTimeout(() => {
-        document.querySelectorAll('#home .reveal').forEach(el => el.classList.add('active'));
-    }, 60);
+        document.querySelectorAll('#home .reveal, .hero-section .reveal').forEach(el => el.classList.add('active'));
+    }, 100);
+
+    // ── 3.5 Typewriter Re-trigger on scroll ──
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) {
+        const typeObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Re-trigger typing effect when hero is visible
+                    typeText(currentLang === 'ko' ? '김한용.' : 'KIM HAN YONG.');
+                }
+            });
+        }, { threshold: 0.1 });
+        typeObs.observe(heroTitle);
+    }
 
     // ── 4. Year filter ──
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -94,7 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ── 6. Language toggle ──
     const langBtns = document.querySelectorAll('.lang-btn');
-    let currentLang = localStorage.getItem('portfolio-lang') || 'ko';
 
     function switchLanguage(lang) {
         currentLang = lang;
@@ -110,6 +213,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (text) el.innerHTML = text;
         });
 
+        // Placeholders
+        document.querySelectorAll('[data-placeholder-ko][data-placeholder-en]').forEach(el => {
+            const ph = el.getAttribute(`data-placeholder-${lang}`);
+            if (ph) el.placeholder = ph;
+        });
+
         // Reels button
         const reelsBtn = document.getElementById('reels-toggle-btn');
         const reelsExtra = document.querySelector('.reels-extra');
@@ -118,6 +227,10 @@ document.addEventListener("DOMContentLoaded", () => {
             reelsBtn.textContent = isOpen
                 ? (lang === 'ko' ? '접기' : 'Show Less')
                 : (lang === 'ko' ? '더보기 (+10개)' : 'Show More (+10)');
+        }
+
+        if (typewriterEl) {
+            typeText(lang === 'ko' ? '김한용.' : 'KIM HAN YONG.');
         }
     }
 
