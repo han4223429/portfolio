@@ -1,18 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
     let currentLang = localStorage.getItem('portfolio-lang') || 'ko';
 
-    // ── Navbar Scroll Effect ──
+    // ── Navbar Scroll Effect + Progress Bar + Back-to-Top ──
     const topNav = document.getElementById('topNav');
-    if (topNav) {
-        const toggleNav = () => {
-            if (window.scrollY > 40) {
-                topNav.classList.add('scrolled');
-            } else {
-                topNav.classList.remove('scrolled');
-            }
-        };
-        window.addEventListener('scroll', toggleNav, { passive: true });
-        toggleNav();
+    const scrollProgress = document.getElementById('scrollProgress');
+    const backToTop = document.getElementById('backToTop');
+
+    const onScroll = () => {
+        const y = window.scrollY;
+
+        if (topNav) topNav.classList.toggle('scrolled', y > 40);
+
+        if (scrollProgress) {
+            const docH = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docH > 0 ? (y / docH) * 100 : 0;
+            scrollProgress.style.width = pct + '%';
+        }
+
+        if (backToTop) backToTop.classList.toggle('show', y > 600);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     }
 
     // ── Theme toggle ──

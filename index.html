@@ -4,22 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Han - Portfolio</title>
-    <meta name="description" content="기획, 개발, 마케팅을 하는 김한용의 포트폴리오입니다.">
+    <title>김한용 · Han — 기획 · 개발 · 마케팅 포트폴리오</title>
+    <meta name="description" content="기획 · 개발 · 마케팅을 넘나들며 아이디어를 실제 서비스로 만드는 김한용의 포트폴리오. 대외활동 26+, 수상 5+.">
+    <meta name="author" content="김한용 (Hanyong Kim)">
+    <meta name="theme-color" content="#08080e">
+    <meta name="keywords" content="김한용, 포트폴리오, 기획, 개발, 마케팅, 순천향대학교, ROTC, 창업">
+
+    <!-- ===== Open Graph / Social Share ===== -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Han · Portfolio">
+    <meta property="og:title" content="김한용 · Han — 기획 · 개발 · 마케팅 포트폴리오">
+    <meta property="og:description" content="아이디어를 실제 서비스로 만드는 사람. 기술적 정밀함과 기획 전략이 만나는 곳.">
+    <meta property="og:image" content="https://han4223429.github.io/portfolio/images/profile.jpg">
+    <meta property="og:url" content="https://han4223429.github.io/portfolio/">
+    <meta property="og:locale" content="ko_KR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="김한용 · Han — 기획 · 개발 · 마케팅 포트폴리오">
+    <meta name="twitter:description" content="아이디어를 실제 서비스로 만드는 사람. 기술적 정밀함과 기획 전략이 만나는 곳.">
+    <meta name="twitter:image" content="https://han4223429.github.io/portfolio/images/profile.jpg">
+
+    <!-- ===== Favicon (inline SVG monogram, no extra file needed) ===== -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23818CF8'/%3E%3Cstop offset='0.5' stop-color='%23C084FC'/%3E%3Cstop offset='1' stop-color='%2322D3EE'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='%230c0c14'/%3E%3Ctext x='50' y='72' font-family='Arial,sans-serif' font-size='64' font-weight='800' fill='url(%23g)' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=40">
+    <link rel="stylesheet" href="style.css?v=50">
 </head>
 
 <body>
+
+    <!-- ===== SCROLL PROGRESS BAR ===== -->
+    <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- ===== GLOW BACKGROUND ===== -->
     <div class="glow-bg">
         <div class="glow-orb glow-orb-1"></div>
         <div class="glow-orb glow-orb-2"></div>
+        <div class="glow-orb glow-orb-3"></div>
     </div>
 
     <!-- ===== CURSOR SPOTLIGHT ===== -->
@@ -69,20 +93,27 @@
     <section class="hero-section" id="home">
         <div class="hero-grid-lines"></div>
         <div class="container hero-container">
-            <p class="hero-label reveal" data-ko="— 나의 포트폴리오" data-en="— MY PORTFOLIO">나의 포트폴리오</p>
-            <h1 class="hero-title reveal delay-1">
-                <span class="typewriter" id="typewriter"></span><span class="type-cursor">|</span>
+            <span class="status-badge reveal" data-ko="새로운 기회를 찾는 중" data-en="Open to opportunities">
+                <span class="status-dot"></span>새로운 기회를 찾는 중
+            </span>
+            <p class="hero-label reveal delay-1" data-ko="— 나의 포트폴리오" data-en="— MY PORTFOLIO">나의 포트폴리오</p>
+            <h1 class="hero-title reveal delay-2">
+                <span class="typewriter gradient-text" id="typewriter"></span><span class="type-cursor">|</span>
             </h1>
-            <p class="hero-subtitle reveal delay-2"
+            <p class="hero-subtitle reveal delay-3"
                 data-ko="기획 · 개발 · 마케팅을 넘나들며, 아이디어를 실제 서비스로 만듭니다.기술적 정밀함과 기획 전략이 만나는 곳."
                 data-en="Crossing planning, dev & marketing — turning ideas into real services. Where technical precision meets product strategy.">
                 기획 · 개발 · 마케팅을 넘나들며, 아이디어를 실제 서비스로 만듭니다.<br>기술적 정밀함과 기획 전략이 만나는 곳.
             </p>
-            <div class="hero-cta reveal delay-3">
+            <div class="hero-cta reveal delay-4">
                 <a href="#projects" class="btn btn-primary" data-ko="프로젝트 보기" data-en="Explore Projects">프로젝트 보기</a>
                 <a href="#contact" class="btn btn-ghost" data-ko="연락하기 →" data-en="Get in Touch →">연락하기 →</a>
             </div>
         </div>
+        <a href="#about" class="scroll-cue reveal delay-4" aria-label="아래로 스크롤">
+            <span class="scroll-cue-mouse"><span class="scroll-cue-dot"></span></span>
+            <span class="scroll-cue-text" data-ko="SCROLL" data-en="SCROLL">SCROLL</span>
+        </a>
     </section>
 
     <!-- ===== ABOUT — Precision Section ===== -->
@@ -152,36 +183,62 @@
         </div>
     </section>
 
-    <!-- ===== THE STACK ===== -->
+    <!-- ===== THE STACK (Skill Bars) ===== -->
     <section class="section" id="stack">
-        <div class="container stack-center">
-            <h2 class="stack-title reveal" data-ko="The Stack" data-en="The Stack">The Stack</h2>
-            <p class="stack-subtitle reveal delay-1" data-ko="디지털 장인정신을 위한 정밀한 도구들."
-                data-en="Precision instruments for digital craftsmanship.">디지털 장인정신을 위한 정밀한 도구들.</p>
-            <div class="stack-grid reveal delay-2">
-                <div class="stack-item">
-                    <span class="stack-icon">🐍</span>
-                    <span class="stack-name">PYTHON</span>
+        <div class="container">
+            <div class="stack-head reveal">
+                <span class="sec-eyebrow"><span class="sec-num">00</span><span data-ko="역량" data-en="Capabilities">역량</span></span>
+                <h2 class="stack-title" data-ko="The Stack" data-en="The Stack">The Stack</h2>
+                <p class="stack-subtitle" data-ko="디지털 장인정신을 위한 정밀한 도구들."
+                    data-en="Precision instruments for digital craftsmanship.">디지털 장인정신을 위한 정밀한 도구들.</p>
+            </div>
+
+            <div class="skills-wrap reveal delay-1">
+                <div class="skill-col">
+                    <h3 class="skill-cat"><span class="skill-cat-icon">⌘</span><span data-ko="개발 · 기술" data-en="Development">개발 · 기술</span></h3>
+                    <div class="skill-bar" data-level="80">
+                        <div class="skill-bar-head"><span>Python</span><span class="skill-pct">80%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="--lvl:80%"></div></div>
+                    </div>
+                    <div class="skill-bar" data-level="75">
+                        <div class="skill-bar-head"><span>HTML / CSS</span><span class="skill-pct">75%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="--lvl:75%"></div></div>
+                    </div>
+                    <div class="skill-bar" data-level="65">
+                        <div class="skill-bar-head"><span>React / JavaScript</span><span class="skill-pct">65%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="--lvl:65%"></div></div>
+                    </div>
+                    <div class="skill-bar" data-level="60">
+                        <div class="skill-bar-head"><span>C / C++</span><span class="skill-pct">60%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="--lvl:60%"></div></div>
+                    </div>
+                    <div class="skill-bar" data-level="70">
+                        <div class="skill-bar-head"><span data-ko="AI · 데이터 활용" data-en="AI · Data">AI · 데이터 활용</span><span class="skill-pct">70%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="--lvl:70%"></div></div>
+                    </div>
                 </div>
-                <div class="stack-item">
-                    <span class="stack-icon">⚛️</span>
-                    <span class="stack-name">REACT/JS</span>
-                </div>
-                <div class="stack-item">
-                    <span class="stack-icon">🌐</span>
-                    <span class="stack-name">HTML/CSS</span>
-                </div>
-                <div class="stack-item">
-                    <span class="stack-icon">🤖</span>
-                    <span class="stack-name">AI / DATA</span>
-                </div>
-                <div class="stack-item">
-                    <span class="stack-icon">📢</span>
-                    <span class="stack-name" data-ko="마케팅" data-en="MARKETING">마케팅</span>
-                </div>
-                <div class="stack-item">
-                    <span class="stack-icon">🎯</span>
-                    <span class="stack-name" data-ko="서비스 기획" data-en="PLANNING">서비스 기획</span>
+                <div class="skill-col">
+                    <h3 class="skill-cat"><span class="skill-cat-icon">✺</span><span data-ko="기획 · 마케팅" data-en="Strategy">기획 · 마케팅</span></h3>
+                    <div class="skill-bar" data-level="85">
+                        <div class="skill-bar-head"><span data-ko="서비스 기획" data-en="Service Planning">서비스 기획</span><span class="skill-pct">85%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="--lvl:85%"></div></div>
+                    </div>
+                    <div class="skill-bar" data-level="85">
+                        <div class="skill-bar-head"><span data-ko="콘텐츠 · 마케팅" data-en="Content · Marketing">콘텐츠 · 마케팅</span><span class="skill-pct">85%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="--lvl:85%"></div></div>
+                    </div>
+                    <div class="skill-bar" data-level="80">
+                        <div class="skill-bar-head"><span data-ko="리더십 · 팀 운영" data-en="Leadership">리더십 · 팀 운영</span><span class="skill-pct">80%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="--lvl:80%"></div></div>
+                    </div>
+                    <div class="skill-bar" data-level="75">
+                        <div class="skill-bar-head"><span data-ko="3D프린팅 · 하드웨어" data-en="Hardware · 3D Print">3D프린팅 · 하드웨어</span><span class="skill-pct">75%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="--lvl:75%"></div></div>
+                    </div>
+                    <div class="skill-bar" data-level="70">
+                        <div class="skill-bar-head"><span data-ko="데이터 분석 · 정책" data-en="Data · Policy">데이터 분석 · 정책</span><span class="skill-pct">70%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="--lvl:70%"></div></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -190,6 +247,7 @@
     <!-- ===== EXPERIENCE (Card Grid) ===== -->
     <section class="section section-dark" id="experience">
         <div class="container">
+            <span class="sec-eyebrow reveal"><span class="sec-num">01</span><span data-ko="활동 발자취" data-en="Experience">활동 발자취</span></span>
             <h2 class="section-heading reveal" data-ko="활동" data-en="Experience">활동</h2>
 
             <div class="filter-row reveal delay-1">
@@ -201,8 +259,7 @@
                 <button class="filter-btn" data-filter="2022">2022</button>
             </div>
 
-            <div class="reveal delay-2">
-                <!-- 2026 -->
+            <div class="reveal delay-2 exp-timeline">
                 <!-- 2026 -->
                 <div class="year-group" data-year="2026">
                     <div class="year-header">
@@ -399,6 +456,7 @@
     <!-- ===== PROJECTS ===== -->
     <section class="section" id="projects">
         <div class="container">
+            <span class="sec-eyebrow reveal"><span class="sec-num">02</span><span data-ko="대표 프로젝트" data-en="Selected Work">대표 프로젝트</span></span>
             <h2 class="section-heading reveal" data-ko="프로젝트" data-en="Selected Work">프로젝트</h2>
             <div class="project-card reveal delay-1">
                 <div class="project-img">
@@ -429,6 +487,7 @@
     <!-- ===== PRESS ===== -->
     <section class="section section-dark" id="press">
         <div class="container">
+            <span class="sec-eyebrow reveal"><span class="sec-num">03</span><span data-ko="언론 보도" data-en="In the Press">언론 보도</span></span>
             <h2 class="section-heading reveal" data-ko="뉴스" data-en="Press">뉴스</h2>
             <div class="press-list reveal delay-1">
                 <a href="https://www.lecturernews.com/news/articleView.html?idxno=192892" class="press-item"
@@ -453,6 +512,7 @@
     <!-- ===== REELS ===== -->
     <section class="section" id="reels">
         <div class="container">
+            <span class="sec-eyebrow reveal"><span class="sec-num">04</span><span data-ko="영상 콘텐츠" data-en="Content">영상 콘텐츠</span></span>
             <h2 class="section-heading reveal" data-ko="콘텐츠" data-en="Contents">콘텐츠</h2>
             <p class="section-sub reveal delay-1" data-ko="직접 기획하고 제작한 영상 콘텐츠입니다."
                 data-en="Video contents I planned and produced.">직접 기획하고 제작한 영상 콘텐츠입니다.</p>
@@ -496,6 +556,7 @@
     <!-- ===== CONTACT ===== -->
     <section class="section section-dark" id="contact">
         <div class="container">
+            <span class="sec-eyebrow reveal"><span class="sec-num">05</span><span data-ko="함께 만들어요" data-en="Get in Touch">함께 만들어요</span></span>
             <h2 class="section-heading reveal" data-ko="연락" data-en="Contact">연락</h2>
             <div class="contact-grid reveal delay-1">
                 <div class="contact-card glow-card">
@@ -509,10 +570,12 @@
                     <h3 data-ko="소셜 링크" data-en="Social Links">소셜 링크</h3>
                     <p data-ko="다양한 채널에서 만나볼 수 있습니다." data-en="Find me on various channels.">다양한 채널에서 만나볼 수 있습니다.</p>
                     <div class="social-grid">
-                        <a href="#" class="social-btn">🐙 GitHub</a>
-                        <a href="#" class="social-btn">💼 LinkedIn</a>
-                        <a href="#" class="social-btn">📝 Blog</a>
-                        <a href="#" class="social-btn">📷 Instagram</a>
+                        <a href="https://github.com/han4223429" target="_blank" rel="noopener" class="social-btn">🐙 GitHub</a>
+                        <!-- TODO: 실제 인스타그램 프로필 주소로 교체 -->
+                        <a href="https://instagram.com/" target="_blank" rel="noopener" class="social-btn">📷 Instagram</a>
+                        <!-- TODO: 링크드인 / 블로그 주소로 교체 -->
+                        <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="social-btn">💼 LinkedIn</a>
+                        <a href="mailto:handak061@naver.com" class="social-btn">📩 Email</a>
                     </div>
                 </div>
             </div>
@@ -524,9 +587,9 @@
         <div class="container footer-inner">
             <span class="footer-logo">Han.</span>
             <div class="footer-links">
-                <a href="#">LinkedIn</a>
-                <a href="#">GitHub</a>
-                <a href="#">Dribbble</a>
+                <a href="https://github.com/han4223429" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="mailto:handak061@naver.com">Email</a>
             </div>
             <span class="footer-copy" data-ko="© 2026 김한용. All rights reserved."
@@ -534,7 +597,12 @@
         </div>
     </footer>
 
-    <script src="script.js?v=40"></script>
+    <!-- ===== BACK TO TOP ===== -->
+    <button class="back-to-top" id="backToTop" aria-label="맨 위로">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+
+    <script src="script.js?v=50"></script>
 </body>
 
 </html>
