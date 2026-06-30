@@ -133,37 +133,55 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // ── 3. Reveal animations ──
+    // ── 3. Reveal animations (IntersectionObserver + robust scroll/timer fallback) ──
+    // Some renderers throttle IO/rAF callbacks when the page isn't actively focused,
+    // which would leave content stuck at opacity:0. The scroll/timer fallback guarantees
+    // reveals fire from real scroll position regardless.
     const reveals = document.querySelectorAll('.reveal');
+
+    function runCounters(el) {
+        el.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            const inc = target / (1800 / 16);
+            let cur = 0;
+            const tick = () => {
+                cur += inc;
+                if (cur < target) { counter.textContent = Math.ceil(cur); setTimeout(tick, 16); }
+                else { counter.textContent = target; }
+            };
+            tick();
+            counter.classList.remove('counter');
+        });
+    }
+    function activate(el) {
+        if (el.classList.contains('active')) return;
+        el.classList.add('active');
+        runCounters(el);
+    }
+
     const revealObs = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
-            entry.target.classList.add('active');
-
-            // Counter animation
-            entry.target.querySelectorAll('.counter').forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const dur = 1800;
-                const inc = target / (dur / 16);
-                let cur = 0;
-                const tick = () => {
-                    cur += inc;
-                    if (cur < target) {
-                        counter.textContent = Math.ceil(cur);
-                        requestAnimationFrame(tick);
-                    } else {
-                        counter.textContent = target;
-                    }
-                };
-                tick();
-                counter.classList.remove('counter');
-            });
-
+            activate(entry.target);
             obs.unobserve(entry.target);
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-
     reveals.forEach(el => revealObs.observe(el));
+
+    // Fallback: reveal anything in view on scroll/resize and via initial timed passes.
+    function revealInView() {
+        const vh = window.innerHeight;
+        reveals.forEach(el => {
+            if (el.classList.contains('active')) return;
+            const r = el.getBoundingClientRect();
+            if (r.top < vh - 20 && r.bottom > 0) activate(el);
+        });
+    }
+    window.addEventListener('scroll', revealInView, { passive: true });
+    window.addEventListener('resize', revealInView, { passive: true });
+    revealInView();
+    setTimeout(revealInView, 400);
+    setTimeout(revealInView, 1200);
 
     // Hero instant reveal
     setTimeout(() => {
@@ -258,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
         function scheduleEmbedLoad() {
             if (queued) return;
             queued = true;
-            requestAnimationFrame(loadVisibleEmbeds);
+            setTimeout(loadVisibleEmbeds, 120); // setTimeout (not rAF) so it fires even when throttled
         }
         window.addEventListener('scroll', scheduleEmbedLoad, { passive: true });
         window.addEventListener('resize', scheduleEmbedLoad, { passive: true });
