@@ -217,35 +217,55 @@ document.addEventListener("DOMContentLoaded", () => {
         const sortBtn = document.getElementById('contentSort');
         const emptyEl = document.getElementById('contentEmpty');
 
-        // Lazy-load each Instagram embed only as it nears the viewport (29 iframes otherwise).
-        const embedObs = new IntersectionObserver((entries, obs) => {
-            entries.forEach(e => {
-                if (!e.isIntersecting) return;
-                const holder = e.target;
-                if (!holder.dataset.loaded) {
-                    holder.dataset.loaded = '1';
-                    const card = holder.closest('.content-item');
-                    const typeEl = card && card.querySelector('.ci-type');
-                    const dateEl = card && card.querySelector('.ci-date');
-                    const iframe = document.createElement('iframe');
-                    iframe.src = holder.dataset.src;
-                    iframe.loading = 'lazy';
-                    // Descriptive, unique title per embed (e.g. "Instagram 릴스 · 2025.12.31")
-                    iframe.title = 'Instagram'
-                        + (typeEl ? ' ' + typeEl.textContent.trim() : '')
-                        + (dateEl ? ' · ' + dateEl.textContent.trim() : '');
-                    iframe.setAttribute('scrolling', 'no');
-                    iframe.setAttribute('allowtransparency', 'true');
-                    iframe.addEventListener('load', () => {
-                        const sk = holder.querySelector('.ci-skeleton');
-                        if (sk) { sk.style.transition = 'opacity .4s'; sk.style.opacity = '0'; }
-                    });
-                    holder.appendChild(iframe);
-                }
-                obs.unobserve(holder);
+        // Lazy-load Instagram embeds as they near the viewport.
+        // Position-based (not IntersectionObserver) so it works reliably everywhere,
+        // including headless/preview renderers where IO's initial callback can be flaky.
+        const embeds = items.map(it => it.querySelector('.ci-embed'));
+
+        function loadEmbed(holder) {
+            if (!holder || holder.dataset.loaded) return;
+            holder.dataset.loaded = '1';
+            const card = holder.closest('.content-item');
+            const typeEl = card && card.querySelector('.ci-type');
+            const dateEl = card && card.querySelector('.ci-date');
+            const iframe = document.createElement('iframe');
+            iframe.src = holder.dataset.src;
+            iframe.loading = 'lazy';
+            // Descriptive, unique title per embed (e.g. "Instagram 릴스 · 2025.12.31")
+            iframe.title = 'Instagram'
+                + (typeEl ? ' ' + typeEl.textContent.trim() : '')
+                + (dateEl ? ' · ' + dateEl.textContent.trim() : '');
+            iframe.setAttribute('scrolling', 'no');
+            iframe.setAttribute('allowtransparency', 'true');
+            iframe.addEventListener('load', () => {
+                const sk = holder.querySelector('.ci-skeleton');
+                if (sk) { sk.style.transition = 'opacity .4s'; sk.style.opacity = '0'; }
             });
-        }, { rootMargin: '600px 0px' });
-        items.forEach(it => embedObs.observe(it.querySelector('.ci-embed')));
+            holder.appendChild(iframe);
+        }
+
+        let queued = false;
+        function loadVisibleEmbeds() {
+            queued = false;
+            const vh = window.innerHeight, margin = 800;
+            embeds.forEach(em => {
+                if (!em || em.dataset.loaded) return;
+                if (em.offsetParent === null) return;        // filtered-out (display:none)
+                const r = em.getBoundingClientRect();
+                if (r.top < vh + margin && r.bottom > -margin) loadEmbed(em);
+            });
+        }
+        function scheduleEmbedLoad() {
+            if (queued) return;
+            queued = true;
+            requestAnimationFrame(loadVisibleEmbeds);
+        }
+        window.addEventListener('scroll', scheduleEmbedLoad, { passive: true });
+        window.addEventListener('resize', scheduleEmbedLoad, { passive: true });
+        // Initial passes (cover async layout / late reveal of the section).
+        loadVisibleEmbeds();
+        setTimeout(loadVisibleEmbeds, 300);
+        setTimeout(loadVisibleEmbeds, 1200);
 
         // Filter by type
         tabs.forEach(tab => {
@@ -263,6 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (match) shown++;
                 });
                 if (emptyEl) emptyEl.hidden = shown !== 0;
+                scheduleEmbedLoad(); // load any newly-revealed items
             });
         });
 
@@ -284,6 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         ? (currentLang === 'ko' ? '오래된순 정렬' : 'Sort: Oldest first')
                         : (currentLang === 'ko' ? '최신순 정렬' : 'Sort: Newest first');
                 }
+                scheduleEmbedLoad(); // reordered → refresh what's in view
             });
         }
     }
