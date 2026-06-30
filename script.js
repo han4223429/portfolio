@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     let currentLang = localStorage.getItem('portfolio-lang') || 'ko';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ── Navbar Scroll Effect + Progress Bar + Back-to-Top ──
     const topNav = document.getElementById('topNav');
     const scrollProgress = document.getElementById('scrollProgress');
     const backToTop = document.getElementById('backToTop');
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
 
     const onScroll = () => {
         const y = window.scrollY;
@@ -29,23 +31,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ── Theme toggle ──
-    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeToggleBtns = document.querySelectorAll('[data-theme-toggle]');
     let currentTheme = localStorage.getItem('portfolio-theme') || 'light';
     
     function applyTheme(theme) {
         currentTheme = theme;
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('portfolio-theme', theme);
-        if(themeToggleBtn) {
-            themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
-        }
-    }
-    
-    if(themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        if (themeMeta) themeMeta.setAttribute('content', theme === 'dark' ? '#08080E' : '#F5F5F8');
+        themeToggleBtns.forEach(btn => {
+            const isDark = theme === 'dark';
+            btn.textContent = isDark ? '☀️' : '🌙';
+            btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+            btn.setAttribute('aria-label', isDark
+                ? (currentLang === 'ko' ? '라이트 모드로 전환' : 'Switch to light mode')
+                : (currentLang === 'ko' ? '다크 모드로 전환' : 'Switch to dark mode'));
         });
     }
+    
+    themeToggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+    });
     applyTheme(currentTheme);
 
     // ── Typewriter effect ──
@@ -57,6 +65,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!typewriterEl) return;
         clearTimeout(typeTimeout);
         clearTimeout(startTimeout);
+        if (prefersReducedMotion) {
+            typewriterEl.textContent = text;
+            return;
+        }
         typewriterEl.textContent = '';
         let i = 0;
         
@@ -67,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 typeTimeout = setTimeout(typeChar, 50);
             }
         }
-        startTimeout = setTimeout(typeChar, 2000);
+        startTimeout = setTimeout(typeChar, 300);
     }
 
     // ── 0. Cursor Spotlight ──
@@ -104,21 +116,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ── 1. Nav active tracking ──
-    const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a[href^="#"]');
+    const navTargets = Array.from(navLinks)
+        .map(link => link.getAttribute('href'))
+        .filter((href, index, list) => href && href.startsWith('#') && href.length > 1 && list.indexOf(href) === index)
+        .map(href => document.getElementById(href.slice(1)))
+        .filter(Boolean);
 
-    const sectionObs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.id;
-                navLinks.forEach(link => {
-                    link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-                });
-            }
+    function setActiveNav() {
+        const marker = window.scrollY + Math.min(window.innerHeight * 0.45, 420);
+        let activeId = '';
+
+        navTargets.forEach(section => {
+            if (section.offsetTop <= marker) activeId = section.id;
         });
-    }, { threshold: 0.3 });
 
-    sections.forEach(sec => sectionObs.observe(sec));
+        navLinks.forEach(link => {
+            const isActive = link.getAttribute('href') === `#${activeId}`;
+            link.classList.toggle('active', isActive);
+            if (isActive) link.setAttribute('aria-current', 'true');
+            else link.removeAttribute('aria-current');
+        });
+    }
+
+    let navFrame = null;
+    function scheduleActiveNav() {
+        if (navFrame) return;
+        navFrame = requestAnimationFrame(() => {
+            navFrame = null;
+            setActiveNav();
+        });
+    }
+
+    window.addEventListener('scroll', scheduleActiveNav, { passive: true });
+    window.addEventListener('resize', scheduleActiveNav);
+    setActiveNav();
 
     // ── 2. Smooth scroll ──
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -127,8 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (target) {
                 e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth' });
-                document.getElementById('mobileMenu')?.classList.remove('open');
-                document.getElementById('hamburger')?.classList.remove('open');
+                closeMobileMenu();
             }
         });
     });
@@ -195,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     // Re-trigger typing effect when hero is visible
-                    typeText(currentLang === 'ko' ? '김한용.' : 'KIM HAN YONG.');
+                    typeText(currentLang === 'ko' ? '김한용' : 'KIM HAN YONG');
                 }
             });
         }, { threshold: 0.1 });
@@ -220,10 +251,72 @@ document.addEventListener("DOMContentLoaded", () => {
     // ── 5. Mobile hamburger ──
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
+    function setMobileMenu(open) {
+        if (!hamburger || !mobileMenu) return;
+        hamburger.classList.toggle('open', open);
+        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        hamburger.setAttribute('aria-label', open
+            ? (currentLang === 'ko' ? '메뉴 닫기' : 'Close menu')
+            : (currentLang === 'ko' ? '메뉴 열기' : 'Open menu'));
+        mobileMenu.classList.toggle('open', open);
+        mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+        document.body.classList.toggle('menu-open', open);
+    }
+    function closeMobileMenu() {
+        setMobileMenu(false);
+    }
     if (hamburger && mobileMenu) {
         hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
-            mobileMenu.classList.toggle('open');
+            setMobileMenu(!mobileMenu.classList.contains('open'));
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMobileMenu();
+        });
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.classList.contains('open')) return;
+            if (mobileMenu.contains(e.target) || hamburger.contains(e.target)) return;
+            closeMobileMenu();
+        });
+    }
+
+    // ── 5.2 Copy email + toast ──
+    const copyEmailBtn = document.getElementById('copyEmail');
+    const toast = document.getElementById('toast');
+    let toastTimer;
+
+    function showToast(ko, en) {
+        if (!toast) return;
+        clearTimeout(toastTimer);
+        toast.textContent = currentLang === 'ko' ? ko : en;
+        toast.classList.add('show');
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copyText(text) {
+        if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(text);
+            return;
+        }
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        temp.setAttribute('readonly', '');
+        temp.style.position = 'fixed';
+        temp.style.opacity = '0';
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        temp.remove();
+    }
+
+    if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', async () => {
+            const email = copyEmailBtn.dataset.email;
+            try {
+                await copyText(email);
+                showToast('이메일을 복사했어요.', 'Email copied.');
+            } catch (err) {
+                showToast('복사에 실패했어요. 이메일을 직접 선택해 주세요.', 'Copy failed. Select the email manually.');
+            }
         });
     }
 
@@ -240,15 +333,39 @@ document.addEventListener("DOMContentLoaded", () => {
         // including headless/preview renderers where IO's initial callback can be flaky.
         const embeds = items.map(it => it.querySelector('.ci-embed'));
 
+        function showEmbedFallback(skeleton) {
+            if (!skeleton) return;
+            skeleton.removeAttribute('aria-hidden');
+            skeleton.style.opacity = '1';
+            skeleton.style.pointerEvents = 'auto';
+            skeleton.classList.add('fallback');
+        }
+
         function loadEmbed(holder) {
             if (!holder || holder.dataset.loaded) return;
             holder.dataset.loaded = '1';
             const card = holder.closest('.content-item');
             const typeEl = card && card.querySelector('.ci-type');
             const dateEl = card && card.querySelector('.ci-date');
+            const skeleton = holder.querySelector('.ci-skeleton');
+            let loaded = false;
+
+            if (skeleton && holder.dataset.href && !skeleton.querySelector('.embed-fallback')) {
+                const fallback = document.createElement('a');
+                fallback.className = 'embed-fallback';
+                fallback.href = holder.dataset.href;
+                fallback.target = '_blank';
+                fallback.rel = 'noopener noreferrer';
+                fallback.setAttribute('data-ko', 'Instagram에서 보기');
+                fallback.setAttribute('data-en', 'Open on Instagram');
+                fallback.textContent = currentLang === 'ko' ? 'Instagram에서 보기' : 'Open on Instagram';
+                skeleton.appendChild(fallback);
+            }
+
             const iframe = document.createElement('iframe');
             iframe.src = holder.dataset.src;
             iframe.loading = 'lazy';
+            iframe.referrerPolicy = 'no-referrer';
             // Descriptive, unique title per embed (e.g. "Instagram 릴스 · 2025.12.31")
             iframe.title = 'Instagram'
                 + (typeEl ? ' ' + typeEl.textContent.trim() : '')
@@ -256,10 +373,20 @@ document.addEventListener("DOMContentLoaded", () => {
             iframe.setAttribute('scrolling', 'no');
             iframe.setAttribute('allowtransparency', 'true');
             iframe.addEventListener('load', () => {
+                loaded = true;
                 const sk = holder.querySelector('.ci-skeleton');
-                if (sk) { sk.style.transition = 'opacity .4s'; sk.style.opacity = '0'; }
+                if (sk) {
+                    sk.style.transition = 'opacity .4s';
+                    sk.style.opacity = '0';
+                    sk.style.pointerEvents = 'none';
+                    setTimeout(() => { sk.hidden = true; }, 450);
+                }
             });
+            iframe.addEventListener('error', () => showEmbedFallback(skeleton));
             holder.appendChild(iframe);
+            setTimeout(() => {
+                if (!loaded) showEmbedFallback(skeleton);
+            }, 5000);
         }
 
         let queued = false;
@@ -331,18 +458,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // ── 6. Language toggle ──
     const langBtns = document.querySelectorAll('.lang-btn');
 
+    function setLocalizedContent(el, value) {
+        el.replaceChildren();
+        value.split(/<br\s*\/?>/i).forEach((part, index) => {
+            if (index > 0) el.appendChild(document.createElement('br'));
+            el.appendChild(document.createTextNode(part));
+        });
+    }
+
     function switchLanguage(lang) {
         currentLang = lang;
         localStorage.setItem('portfolio-lang', lang);
         document.documentElement.lang = lang;
 
         langBtns.forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            const isActive = btn.getAttribute('data-lang') === lang;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         });
 
         document.querySelectorAll('[data-ko][data-en]').forEach(el => {
             const text = el.getAttribute(`data-${lang}`);
-            if (text) el.innerHTML = text;
+            if (text) setLocalizedContent(el, text);
         });
 
         // Placeholders
@@ -358,7 +495,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (typewriterEl) {
-            typeText(lang === 'ko' ? '김한용.' : 'KIM HAN YONG.');
+            typeText(lang === 'ko' ? '김한용' : 'KIM HAN YONG');
+        }
+
+        applyTheme(currentTheme);
+        if (hamburger && mobileMenu) {
+            setMobileMenu(mobileMenu.classList.contains('open'));
         }
     }
 
