@@ -96,7 +96,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
     background: var(--bg-deep);
     color: var(--text-main);
     line-height: 1.7;
@@ -608,7 +608,7 @@ body {
     margin-bottom: 0.3rem;
 }
 .exp-card h4 {
-    font-family: 'Pretendard', sans-serif;
+    font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
     font-size: 0.82rem; font-weight: 600;
     color: var(--text-white);
     line-height: 1.4;
@@ -1228,4 +1228,194 @@ footer {
     .back-to-top { bottom: 1rem; right: 1rem; width: 40px; height: 40px; }
     .exp-timeline { padding-left: 1.5rem; }
     .exp-timeline .year-header::before { left: -1.5rem; }
+}
+
+/* ========================================================= */
+/* ===== CONTENT GALLERY (Reels + Card News, by type) ===== */
+/* ========================================================= */
+.content-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin: 1.6rem 0 2rem;
+}
+.content-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.ctab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.18s var(--ease);
+}
+.ctab:hover { color: var(--text-white); border-color: var(--border-hover); }
+.ctab.active { color: #fff; border-color: transparent; background-image: var(--grad); background-size:200% 200%; animation: gradShift 6s ease infinite; }
+.ctab-count {
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.05rem 0.4rem;
+    border-radius: var(--r-pill);
+    background: rgba(255,255,255,0.12);
+    color: inherit;
+    line-height: 1.5;
+}
+.ctab:not(.active) .ctab-count { background: var(--accent-dim); color: var(--accent-bright); }
+.ctab.active .ctab-count { background: rgba(0,0,0,0.24); color: #fff; }
+
+.content-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.18s var(--ease);
+}
+.content-sort:hover { color: var(--text-white); border-color: var(--border-hover); }
+.content-sort svg { transition: transform 0.3s var(--ease-out); }
+.content-sort[data-order="asc"] svg { transform: scaleY(-1); }
+
+/* Masonry feed via CSS columns — gapless, reads as a feed.
+   column-width 300px ⇒ 1 col on phones, 2 on tablets, 3 in the 1060px container.
+   (Count derives from real available width, so it never snaps oddly.) */
+.content-feed {
+    column-width: 300px;
+    column-gap: 0.9rem;
+}
+.content-item {
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    margin-bottom: 0.9rem;
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    transition: border-color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.content-item:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-3px);
+    box-shadow: var(--sh-glow);
+}
+.content-item.hide { display: none; }
+
+.ci-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+}
+.ci-type {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.58rem; font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.16rem 0.5rem;
+    border-radius: var(--r-pill);
+}
+.ci-type-reel { background: var(--accent-dim); color: var(--accent-bright); border: 1px solid rgba(99,102,241,0.2); }
+.ci-type-card { background: rgba(34,211,238,0.12); color: var(--accent-2); border: 1px solid rgba(34,211,238,0.22); }
+.ci-date {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.64rem; font-weight: 500;
+    color: var(--text-muted);
+}
+.ci-open {
+    margin-left: auto;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.15s;
+}
+.ci-open:hover { color: var(--accent-bright); background: var(--accent-dim); transform: translate(1px,-1px); }
+
+.ci-embed {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: var(--bg-surface);
+    display: block;
+}
+/* Taller-than-the-media ratios so Instagram's fixed header + action bar are NOT
+   clipped. Ratio scales with column width, so it holds at every breakpoint
+   (any leftover is harmless white space at the bottom, never lost content). */
+.ci-reel { aspect-ratio: 9 / 17; }
+.ci-card { aspect-ratio: 3 / 5; }
+.ci-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    border: 0;
+    /* themed (not #fff) so a slow/blank embed blends with the card instead of flashing white */
+    background: var(--bg-card);
+}
+/* Skeleton shimmer while embed lazy-loads */
+.ci-skeleton {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(110deg, var(--bg-surface) 30%, var(--bg-card-hover) 50%, var(--bg-surface) 70%);
+    background-size: 220% 100%;
+    animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer { 0%{background-position:120% 0} 100%{background-position:-120% 0} }
+.ci-skel-ico { font-size: 1.6rem; color: var(--text-dim); opacity: 0.5; }
+
+.content-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    padding: 3rem 0;
+}
+
+@media (max-width: 480px) {
+    .content-item { margin-bottom: 0.7rem; }
+    .content-toolbar { margin: 1.2rem 0 1.5rem; }
+}
+
+/* ===== Focus visibility (keyboard) — applies app-wide ===== */
+:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+.ctab:focus-visible, .content-sort:focus-visible, .filter-btn:focus-visible,
+.btn:focus-visible, .nav-links a:focus-visible, .ci-open:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+}
+
+/* ===== Respect reduced-motion: freeze looping/decorative animation ===== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+    .ci-skeleton { animation: none !important;
+        background: var(--bg-surface) !important; }
+    .gradient-text, .sec-num { background-position: 0 0 !important; }
+    .status-dot, .scroll-cue-dot, .type-cursor { animation: none !important; }
 }

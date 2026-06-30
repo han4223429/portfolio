@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ── Theme toggle ──
     const themeToggleBtn = document.getElementById('themeToggle');
-    let currentTheme = localStorage.getItem('portfolio-theme') || 'dark';
+    let currentTheme = localStorage.getItem('portfolio-theme') || 'light';
     
     function applyTheme(theme) {
         currentTheme = theme;
@@ -209,6 +209,85 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // ── 5.5 Content gallery: type filter + date sort + lazy Instagram embeds ──
+    const contentFeed = document.getElementById('contentFeed');
+    if (contentFeed) {
+        const items = Array.from(contentFeed.querySelectorAll('.content-item'));
+        const tabs = document.querySelectorAll('#contentTabs .ctab');
+        const sortBtn = document.getElementById('contentSort');
+        const emptyEl = document.getElementById('contentEmpty');
+
+        // Lazy-load each Instagram embed only as it nears the viewport (29 iframes otherwise).
+        const embedObs = new IntersectionObserver((entries, obs) => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                const holder = e.target;
+                if (!holder.dataset.loaded) {
+                    holder.dataset.loaded = '1';
+                    const card = holder.closest('.content-item');
+                    const typeEl = card && card.querySelector('.ci-type');
+                    const dateEl = card && card.querySelector('.ci-date');
+                    const iframe = document.createElement('iframe');
+                    iframe.src = holder.dataset.src;
+                    iframe.loading = 'lazy';
+                    // Descriptive, unique title per embed (e.g. "Instagram 릴스 · 2025.12.31")
+                    iframe.title = 'Instagram'
+                        + (typeEl ? ' ' + typeEl.textContent.trim() : '')
+                        + (dateEl ? ' · ' + dateEl.textContent.trim() : '');
+                    iframe.setAttribute('scrolling', 'no');
+                    iframe.setAttribute('allowtransparency', 'true');
+                    iframe.addEventListener('load', () => {
+                        const sk = holder.querySelector('.ci-skeleton');
+                        if (sk) { sk.style.transition = 'opacity .4s'; sk.style.opacity = '0'; }
+                    });
+                    holder.appendChild(iframe);
+                }
+                obs.unobserve(holder);
+            });
+        }, { rootMargin: '600px 0px' });
+        items.forEach(it => embedObs.observe(it.querySelector('.ci-embed')));
+
+        // Filter by type
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    const on = t === tab;
+                    t.classList.toggle('active', on);
+                    t.setAttribute('aria-pressed', on ? 'true' : 'false');
+                });
+                const f = tab.getAttribute('data-ctab');
+                let shown = 0;
+                items.forEach(it => {
+                    const match = (f === 'all' || it.dataset.type === f);
+                    it.classList.toggle('hide', !match);
+                    if (match) shown++;
+                });
+                if (emptyEl) emptyEl.hidden = shown !== 0;
+            });
+        });
+
+        // Sort by date (newest ⇄ oldest)
+        if (sortBtn) {
+            sortBtn.addEventListener('click', () => {
+                const asc = sortBtn.dataset.order !== 'asc';
+                sortBtn.dataset.order = asc ? 'asc' : 'desc';
+                items.slice()
+                    .sort((a, b) => asc
+                        ? (+a.dataset.ts) - (+b.dataset.ts)
+                        : (+b.dataset.ts) - (+a.dataset.ts))
+                    .forEach(it => contentFeed.appendChild(it));
+                const label = sortBtn.querySelector('.sort-label');
+                if (label) {
+                    label.setAttribute('data-ko', asc ? '오래된순 정렬' : '최신순 정렬');
+                    label.setAttribute('data-en', asc ? 'Sort: Oldest first' : 'Sort: Newest first');
+                    label.textContent = asc
+                        ? (currentLang === 'ko' ? '오래된순 정렬' : 'Sort: Oldest first')
+                        : (currentLang === 'ko' ? '최신순 정렬' : 'Sort: Newest first');
+                }
+            });
+        }
+    }
+
     // ── 6. Language toggle ──
     const langBtns = document.querySelectorAll('.lang-btn');
 
@@ -232,15 +311,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (ph) el.placeholder = ph;
         });
 
-        // Reels button
-        const reelsBtn = document.getElementById('reels-toggle-btn');
-        const reelsExtra = document.querySelector('.reels-extra');
-        if (reelsBtn && reelsExtra) {
-            const isOpen = reelsExtra.style.display !== 'none';
-            reelsBtn.textContent = isOpen
-                ? (lang === 'ko' ? '접기' : 'Show Less')
-                : (lang === 'ko' ? '더보기 (+10개)' : 'Show More (+10)');
-        }
+        // Localized aria-labels (e.g. the per-item "open on Instagram" links)
+        document.querySelectorAll('[data-arialabel-ko][data-arialabel-en]').forEach(el => {
+            const al = el.getAttribute(`data-arialabel-${lang}`);
+            if (al) el.setAttribute('aria-label', al);
+        });
 
         if (typewriterEl) {
             typeText(lang === 'ko' ? '김한용.' : 'KIM HAN YONG.');
@@ -253,19 +328,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
     switchLanguage(currentLang);
 });
-
-// ── Reels toggle ──
-function toggleReels() {
-    const extra = document.querySelector('.reels-extra');
-    const btn = document.getElementById('reels-toggle-btn');
-    const lang = localStorage.getItem('portfolio-lang') || 'ko';
-
-    if (extra.style.display === 'none') {
-        extra.style.display = 'grid';
-        btn.textContent = lang === 'ko' ? '접기' : 'Show Less';
-    } else {
-        extra.style.display = 'none';
-        btn.textContent = lang === 'ko' ? '더보기 (+10개)' : 'Show More (+10)';
-        document.getElementById('reels').scrollIntoView({ behavior: 'smooth' });
-    }
-}

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Apply saved theme before paint to avoid a flash (default: light) -->
+    <script>(function(){try{document.documentElement.setAttribute('data-theme',localStorage.getItem('portfolio-theme')||'light');}catch(e){}})();</script>
     <title>김한용 · Han — 기획 · 개발 · 마케팅 포트폴리오</title>
     <meta name="description" content="기획 · 개발 · 마케팅을 넘나들며 아이디어를 실제 서비스로 만드는 김한용의 포트폴리오. 대외활동 26+, 수상 5+.">
     <meta name="author" content="김한용 (Hanyong Kim)">
-    <meta name="theme-color" content="#08080e">
+    <meta name="theme-color" content="#F5F5F8">
     <meta name="keywords" content="김한용, 포트폴리오, 기획, 개발, 마케팅, 순천향대학교, ROTC, 창업">
 
     <!-- ===== Open Graph / Social Share ===== -->
@@ -28,10 +30,15 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700&display=swap"
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <!-- Sora (headings) from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=50">
+    <!-- Pretendard (body) — served from its OFFICIAL CDN so Windows & macOS render identically.
+         Pretendard is NOT on Google Fonts; the old link silently fell back to system fonts. -->
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <link rel="stylesheet" href="style.css?v=52">
 </head>
 
 <body>
@@ -509,47 +516,320 @@
         </div>
     </section>
 
-    <!-- ===== REELS ===== -->
+    <!-- ===== CONTENT (Reels + Card News) ===== -->
     <section class="section" id="reels">
         <div class="container">
-            <span class="sec-eyebrow reveal"><span class="sec-num">04</span><span data-ko="영상 콘텐츠" data-en="Content">영상 콘텐츠</span></span>
+            <span class="sec-eyebrow reveal"><span class="sec-num">04</span><span data-ko="영상 · 카드뉴스" data-en="Content">영상 · 카드뉴스</span></span>
             <h2 class="section-heading reveal" data-ko="콘텐츠" data-en="Contents">콘텐츠</h2>
-            <p class="section-sub reveal delay-1" data-ko="직접 기획하고 제작한 영상 콘텐츠입니다."
-                data-en="Video contents I planned and produced.">직접 기획하고 제작한 영상 콘텐츠입니다.</p>
-            <div class="reels-grid reveal delay-2">
-                <iframe src="https://www.instagram.com/reel/DCiUbPrq7hX/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DDLhJfrq9lR/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DDvkRa5KRx7/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
+            <p class="section-sub reveal delay-1" data-ko="직접 기획하고 제작한 콘텐츠를 날짜순으로 모았습니다. 유형별로 골라보세요."
+                data-en="Content I planned and produced, sorted by date. Filter by type.">직접 기획하고 제작한 콘텐츠를 날짜순으로 모았습니다. 유형별로 골라보세요.</p>
+
+            <!-- 목차 / TOC : 유형 필터 + 정렬 토글 -->
+            <div class="content-toolbar reveal delay-1">
+                <div class="content-tabs" id="contentTabs" role="group" aria-label="콘텐츠 유형 필터">
+                    <button class="ctab active" data-ctab="all" aria-pressed="true"><span data-ko="전체" data-en="All">전체</span><span class="ctab-count">29</span></button>
+                    <button class="ctab" data-ctab="reel" aria-pressed="false"><span data-ko="릴스" data-en="Reels">릴스</span><span class="ctab-count">20</span></button>
+                    <button class="ctab" data-ctab="card" aria-pressed="false"><span data-ko="카드뉴스" data-en="Card News">카드뉴스</span><span class="ctab-count">9</span></button>
+                </div>
+                <button class="content-sort" id="contentSort" data-order="desc">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 4l-3 3M7 4l3 3M17 20V4M17 20l-3-3M17 20l3-3"/></svg>
+                    <span class="sort-label" data-ko="최신순 정렬" data-en="Sort: Newest first">최신순 정렬</span>
+                </button>
             </div>
-            <div class="reels-grid reels-extra reveal" style="display:none; margin-top:0.8rem;">
-                <iframe src="https://www.instagram.com/reel/DIP9LFNTi_b/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DISh_HRK34T/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DJVxlzyTvMj/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DJqWLD1TqjA/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DJ-rckxPQNA/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DKdlQyoy4Y4/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DLjHFegqzbA/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DR_ktbiDpgZ/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DSb5ZkUgQ8h/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
-                <iframe src="https://www.instagram.com/reel/DVaqadOEn4T/embed/" frameborder="0" scrolling="no"
-                    allowtransparency="true"></iframe>
+
+            <div class="content-feed reveal delay-2" id="contentFeed">
+                <article class="content-item" data-type="card" data-ts="1782647094">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-card" data-ko="카드뉴스" data-en="Card News">카드뉴스</span>
+                        <span class="ci-date">2026.06.28</span>
+                        <a class="ci-open" href="https://www.instagram.com/p/DaIG3vHDypc/" target="_blank" rel="noopener" aria-label="카드뉴스 2026.06.28 — Instagram에서 열기 (새 창)" data-arialabel-ko="카드뉴스 2026.06.28 — Instagram에서 열기 (새 창)" data-arialabel-en="Card News 2026.06.28 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-card" data-src="https://www.instagram.com/p/DaIG3vHDypc/embed/" data-href="https://www.instagram.com/p/DaIG3vHDypc/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▤</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="card" data-ts="1774887567">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-card" data-ko="카드뉴스" data-en="Card News">카드뉴스</span>
+                        <span class="ci-date">2026.03.31</span>
+                        <a class="ci-open" href="https://www.instagram.com/p/DWg2v3Sj1h0/" target="_blank" rel="noopener" aria-label="카드뉴스 2026.03.31 — Instagram에서 열기 (새 창)" data-arialabel-ko="카드뉴스 2026.03.31 — Instagram에서 열기 (새 창)" data-arialabel-en="Card News 2026.03.31 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-card" data-src="https://www.instagram.com/p/DWg2v3Sj1h0/embed/" data-href="https://www.instagram.com/p/DWg2v3Sj1h0/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▤</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1772532290">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2026.03.03</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DVaqadOEn4T/" target="_blank" rel="noopener" aria-label="릴스 2026.03.03 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2026.03.03 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2026.03.03 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DVaqadOEn4T/embed/" data-href="https://www.instagram.com/reel/DVaqadOEn4T/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="card" data-ts="1772291645">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-card" data-ko="카드뉴스" data-en="Card News">카드뉴스</span>
+                        <span class="ci-date">2026.02.28</span>
+                        <a class="ci-open" href="https://www.instagram.com/p/DVTfaxpjzSA/" target="_blank" rel="noopener" aria-label="카드뉴스 2026.02.28 — Instagram에서 열기 (새 창)" data-arialabel-ko="카드뉴스 2026.02.28 — Instagram에서 열기 (새 창)" data-arialabel-en="Card News 2026.02.28 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-card" data-src="https://www.instagram.com/p/DVTfaxpjzSA/embed/" data-href="https://www.instagram.com/p/DVTfaxpjzSA/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▤</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="card" data-ts="1772160838">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-card" data-ko="카드뉴스" data-en="Card News">카드뉴스</span>
+                        <span class="ci-date">2026.02.27</span>
+                        <a class="ci-open" href="https://www.instagram.com/p/DVPl7Nkj6pe/" target="_blank" rel="noopener" aria-label="카드뉴스 2026.02.27 — Instagram에서 열기 (새 창)" data-arialabel-ko="카드뉴스 2026.02.27 — Instagram에서 열기 (새 창)" data-arialabel-en="Card News 2026.02.27 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-card" data-src="https://www.instagram.com/p/DVPl7Nkj6pe/embed/" data-href="https://www.instagram.com/p/DVPl7Nkj6pe/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▤</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="card" data-ts="1771486488">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-card" data-ko="카드뉴스" data-en="Card News">카드뉴스</span>
+                        <span class="ci-date">2026.02.19</span>
+                        <a class="ci-open" href="https://www.instagram.com/p/DU7ftGhj_ja/" target="_blank" rel="noopener" aria-label="카드뉴스 2026.02.19 — Instagram에서 열기 (새 창)" data-arialabel-ko="카드뉴스 2026.02.19 — Instagram에서 열기 (새 창)" data-arialabel-en="Card News 2026.02.19 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-card" data-src="https://www.instagram.com/p/DU7ftGhj_ja/embed/" data-href="https://www.instagram.com/p/DU7ftGhj_ja/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▤</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="card" data-ts="1769351804">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-card" data-ko="카드뉴스" data-en="Card News">카드뉴스</span>
+                        <span class="ci-date">2026.01.25</span>
+                        <a class="ci-open" href="https://www.instagram.com/p/DT74HgiD_lD/" target="_blank" rel="noopener" aria-label="카드뉴스 2026.01.25 — Instagram에서 열기 (새 창)" data-arialabel-ko="카드뉴스 2026.01.25 — Instagram에서 열기 (새 창)" data-arialabel-en="Card News 2026.01.25 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-card" data-src="https://www.instagram.com/p/DT74HgiD_lD/embed/" data-href="https://www.instagram.com/p/DT74HgiD_lD/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▤</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1767164475">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.12.31</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DS6sHjRAVKr/" target="_blank" rel="noopener" aria-label="릴스 2025.12.31 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.12.31 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.12.31 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DS6sHjRAVKr/embed/" data-href="https://www.instagram.com/reel/DS6sHjRAVKr/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1766131251">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.12.19</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DSb5ZkUgQ8h/" target="_blank" rel="noopener" aria-label="릴스 2025.12.19 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.12.19 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.12.19 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DSb5ZkUgQ8h/embed/" data-href="https://www.instagram.com/reel/DSb5ZkUgQ8h/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1765180879">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.12.08</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DR_ktbiDpgZ/" target="_blank" rel="noopener" aria-label="릴스 2025.12.08 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.12.08 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.12.08 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DR_ktbiDpgZ/embed/" data-href="https://www.instagram.com/reel/DR_ktbiDpgZ/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1764309144">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.11.28</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DRlmAbmgWmL/" target="_blank" rel="noopener" aria-label="릴스 2025.11.28 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.11.28 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.11.28 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DRlmAbmgWmL/embed/" data-href="https://www.instagram.com/reel/DRlmAbmgWmL/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1762394638">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.11.06</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DQsiYGWAa_v/" target="_blank" rel="noopener" aria-label="릴스 2025.11.06 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.11.06 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.11.06 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DQsiYGWAa_v/embed/" data-href="https://www.instagram.com/reel/DQsiYGWAa_v/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1760521306">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.10.15</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DP0tRzjDbYg/" target="_blank" rel="noopener" aria-label="릴스 2025.10.15 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.10.15 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.10.15 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DP0tRzjDbYg/embed/" data-href="https://www.instagram.com/reel/DP0tRzjDbYg/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1757301751">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.09.08</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DOUwdzHjbu0/" target="_blank" rel="noopener" aria-label="릴스 2025.09.08 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.09.08 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.09.08 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DOUwdzHjbu0/embed/" data-href="https://www.instagram.com/reel/DOUwdzHjbu0/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1751340922">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.07.01</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DLjHFegqzbA/" target="_blank" rel="noopener" aria-label="릴스 2025.07.01 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.07.01 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.07.01 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DLjHFegqzbA/embed/" data-href="https://www.instagram.com/reel/DLjHFegqzbA/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1750988778">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.06.27</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DLYnbMsNWZ8/" target="_blank" rel="noopener" aria-label="릴스 2025.06.27 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.06.27 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.06.27 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DLYnbMsNWZ8/embed/" data-href="https://www.instagram.com/reel/DLYnbMsNWZ8/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1749007933">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.06.04</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DKdlQyoy4Y4/" target="_blank" rel="noopener" aria-label="릴스 2025.06.04 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.06.04 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.06.04 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DKdlQyoy4Y4/embed/" data-href="https://www.instagram.com/reel/DKdlQyoy4Y4/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1747970988">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.05.23</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DJ-rckxPQNA/" target="_blank" rel="noopener" aria-label="릴스 2025.05.23 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.05.23 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.05.23 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DJ-rckxPQNA/embed/" data-href="https://www.instagram.com/reel/DJ-rckxPQNA/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1747925615">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.05.22</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DJ9U58bPeo7/" target="_blank" rel="noopener" aria-label="릴스 2025.05.22 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.05.22 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.05.22 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DJ9U58bPeo7/embed/" data-href="https://www.instagram.com/reel/DJ9U58bPeo7/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1747288746">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.05.15</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DJqWLD1TqjA/" target="_blank" rel="noopener" aria-label="릴스 2025.05.15 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.05.15 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.05.15 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DJqWLD1TqjA/embed/" data-href="https://www.instagram.com/reel/DJqWLD1TqjA/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1746598477">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.05.07</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DJVxlzyTvMj/" target="_blank" rel="noopener" aria-label="릴스 2025.05.07 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.05.07 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.05.07 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DJVxlzyTvMj/embed/" data-href="https://www.instagram.com/reel/DJVxlzyTvMj/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="card" data-ts="1746572349">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-card" data-ko="카드뉴스" data-en="Card News">카드뉴스</span>
+                        <span class="ci-date">2025.05.07</span>
+                        <a class="ci-open" href="https://www.instagram.com/p/DJU_wW2TTHL/" target="_blank" rel="noopener" aria-label="카드뉴스 2025.05.07 — Instagram에서 열기 (새 창)" data-arialabel-ko="카드뉴스 2025.05.07 — Instagram에서 열기 (새 창)" data-arialabel-en="Card News 2025.05.07 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-card" data-src="https://www.instagram.com/p/DJU_wW2TTHL/embed/" data-href="https://www.instagram.com/p/DJU_wW2TTHL/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▤</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1744342149">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.04.11</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DISh_HRK34T/" target="_blank" rel="noopener" aria-label="릴스 2025.04.11 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.04.11 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.04.11 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DISh_HRK34T/embed/" data-href="https://www.instagram.com/reel/DISh_HRK34T/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1744255740">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2025.04.10</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DIP9LFNTi_b/" target="_blank" rel="noopener" aria-label="릴스 2025.04.10 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2025.04.10 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2025.04.10 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DIP9LFNTi_b/embed/" data-href="https://www.instagram.com/reel/DIP9LFNTi_b/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="card" data-ts="1744095594">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-card" data-ko="카드뉴스" data-en="Card News">카드뉴스</span>
+                        <span class="ci-date">2025.04.08</span>
+                        <a class="ci-open" href="https://www.instagram.com/p/DILLuCjpbiv/" target="_blank" rel="noopener" aria-label="카드뉴스 2025.04.08 — Instagram에서 열기 (새 창)" data-arialabel-ko="카드뉴스 2025.04.08 — Instagram에서 열기 (새 창)" data-arialabel-en="Card News 2025.04.08 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-card" data-src="https://www.instagram.com/p/DILLuCjpbiv/embed/" data-href="https://www.instagram.com/p/DILLuCjpbiv/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▤</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="card" data-ts="1741580333">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-card" data-ko="카드뉴스" data-en="Card News">카드뉴스</span>
+                        <span class="ci-date">2025.03.10</span>
+                        <a class="ci-open" href="https://www.instagram.com/p/DHAOPVQpcyC/" target="_blank" rel="noopener" aria-label="카드뉴스 2025.03.10 — Instagram에서 열기 (새 창)" data-arialabel-ko="카드뉴스 2025.03.10 — Instagram에서 열기 (새 창)" data-arialabel-en="Card News 2025.03.10 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-card" data-src="https://www.instagram.com/p/DHAOPVQpcyC/embed/" data-href="https://www.instagram.com/p/DHAOPVQpcyC/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▤</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1734579008">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2024.12.19</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DDvkRa5KRx7/" target="_blank" rel="noopener" aria-label="릴스 2024.12.19 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2024.12.19 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2024.12.19 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DDvkRa5KRx7/embed/" data-href="https://www.instagram.com/reel/DDvkRa5KRx7/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1733369411">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2024.12.05</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DDLhJfrq9lR/" target="_blank" rel="noopener" aria-label="릴스 2024.12.05 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2024.12.05 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2024.12.05 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DDLhJfrq9lR/embed/" data-href="https://www.instagram.com/reel/DDLhJfrq9lR/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
+                <article class="content-item" data-type="reel" data-ts="1731987009">
+                    <div class="ci-head">
+                        <span class="ci-type ci-type-reel" data-ko="릴스" data-en="Reel">릴스</span>
+                        <span class="ci-date">2024.11.19</span>
+                        <a class="ci-open" href="https://www.instagram.com/reel/DCiUbPrq7hX/" target="_blank" rel="noopener" aria-label="릴스 2024.11.19 — Instagram에서 열기 (새 창)" data-arialabel-ko="릴스 2024.11.19 — Instagram에서 열기 (새 창)" data-arialabel-en="Reel 2024.11.19 — Open on Instagram (new tab)">↗</a>
+                    </div>
+                    <div class="ci-embed ci-reel" data-src="https://www.instagram.com/reel/DCiUbPrq7hX/embed/" data-href="https://www.instagram.com/reel/DCiUbPrq7hX/">
+                        <div class="ci-skeleton" aria-hidden="true"><span class="ci-skel-ico">▷</span></div>
+                    </div>
+                </article>
             </div>
-            <div class="reels-more reveal">
-                <button class="btn btn-ghost" id="reels-toggle-btn" data-ko="더보기 (+10개)" data-en="Show More (+10)"
-                    onclick="toggleReels()">더보기 (+10개)</button>
-            </div>
+            <p class="content-empty" id="contentEmpty" hidden data-ko="해당 콘텐츠가 없습니다." data-en="No content yet.">해당 콘텐츠가 없습니다.</p>
         </div>
     </section>
 
@@ -602,7 +882,7 @@
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
     </button>
 
-    <script src="script.js?v=50"></script>
+    <script src="script.js?v=52"></script>
 </body>
 
 </html>
