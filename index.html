@@ -40,7 +40,7 @@
          Pretendard is NOT on Google Fonts; the old link silently fell back to system fonts. -->
     <link rel="stylesheet" as="style" crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-    <link rel="stylesheet" href="style.css?v=62">
+    <link rel="stylesheet" href="style.css?v=63">
 </head>
 
 <body>
@@ -269,13 +269,13 @@
             <span class="sec-eyebrow reveal"><span class="sec-num">01</span><span data-ko="활동 발자취" data-en="Experience">활동 발자취</span></span>
             <h2 class="section-heading reveal" data-ko="활동" data-en="Experience">활동</h2>
 
-            <div class="filter-row reveal delay-1">
-                <button class="filter-btn active" data-filter="all" data-ko="전체" data-en="All">전체</button>
-                <button class="filter-btn" data-filter="2026">2026</button>
-                <button class="filter-btn" data-filter="2025">2025</button>
-                <button class="filter-btn" data-filter="2024">2024</button>
-                <button class="filter-btn" data-filter="2023">2023</button>
-                <button class="filter-btn" data-filter="2022">2022</button>
+            <div class="filter-row reveal delay-1" role="group" aria-label="연도별 활동 필터">
+                <button class="filter-btn active" data-filter="all" aria-pressed="true" data-ko="전체" data-en="All">전체</button>
+                <button class="filter-btn" data-filter="2026" aria-pressed="false">2026</button>
+                <button class="filter-btn" data-filter="2025" aria-pressed="false">2025</button>
+                <button class="filter-btn" data-filter="2024" aria-pressed="false">2024</button>
+                <button class="filter-btn" data-filter="2023" aria-pressed="false">2023</button>
+                <button class="filter-btn" data-filter="2022" aria-pressed="false">2022</button>
             </div>
 
             <div class="reveal delay-2 exp-timeline">
@@ -288,7 +288,7 @@
                         <div class="exp-card"><span class="exp-date">2026. 03 ~</span>
                             <h4 data-ko="학군사관후보생(ROTC) 66기 (167 학군단)" data-en="ROTC 66th Class (167th Battalion)">
                                 학군사관후보생(ROTC) 66기 (167 학군단)</h4>
-                            <div class="exp-tags"><span class="exp-tag">교내</span><span class="exp-tag award">🇰🇷
+                            <div class="exp-tags"><span class="exp-tag" data-ko="교내" data-en="Internal">교내</span><span class="exp-tag award">🇰🇷
                                     ROTC</span></div>
                         </div>
                         <div class="exp-card"><span class="exp-date">2026. 03 ~</span>
@@ -443,7 +443,7 @@
                 <!-- 2023 -->
                 <div class="year-group" data-year="2023">
                     <div class="year-header">
-                        <h3>2023</h3><span class="year-badge">1개</span>
+                        <h3>2023</h3><span class="year-badge" data-ko="1개" data-en="1">1개</span>
                     </div>
                     <div class="exp-grid">
                         <div class="exp-card"><span class="exp-date">2023. 04 - 06</span>
@@ -457,7 +457,7 @@
                 <!-- 2022 -->
                 <div class="year-group" data-year="2022">
                     <div class="year-header">
-                        <h3>2022</h3><span class="year-badge">1개</span>
+                        <h3>2022</h3><span class="year-badge" data-ko="1개" data-en="1">1개</span>
                     </div>
                     <div class="exp-grid">
                         <div class="exp-card"><span class="exp-date">2022. 09 - 11</span>
@@ -898,7 +898,7 @@
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
     </button>
 
-    <script src="script.js?v=58"></script>
+    <script src="script.js?v=59"></script>
 </body>
 
 </html>

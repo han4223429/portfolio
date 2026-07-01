@@ -239,8 +239,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            filterBtns.forEach(b => {
+                const on = b === btn;
+                b.classList.toggle('active', on);
+                b.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
             const f = btn.getAttribute('data-filter');
             yearGroups.forEach(g => {
                 g.style.display = (f === 'all' || g.getAttribute('data-year') === f) ? '' : 'none';
@@ -294,8 +297,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function copyText(text) {
         if (navigator.clipboard?.writeText) {
-            await navigator.clipboard.writeText(text);
-            return;
+            try {
+                await navigator.clipboard.writeText(text);
+                return;
+            } catch (e) {
+                /* fall through to the execCommand path below */
+            }
         }
         const temp = document.createElement('textarea');
         temp.value = text;

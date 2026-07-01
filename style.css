@@ -579,53 +579,7 @@ a, button {
     text-align: center;
 }
 
-/* ===== THE STACK ===== */
-.stack-center { text-align: center; }
-.stack-title {
-    font-family: 'Sora', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-white);
-    margin-bottom: 0.5rem;
-}
-.stack-subtitle {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 2.5rem;
-}
-.stack-grid {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-.stack-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 1.8rem 2.2rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--r-lg);
-    transition: all 0.25s var(--ease);
-    min-width: 140px;
-}
-.stack-item:hover {
-    border-color: var(--accent-dim);
-    background: var(--bg-card-hover);
-    transform: translateY(-3px);
-    box-shadow: var(--sh-glow);
-}
-.stack-icon { font-size: 2rem; }
-.stack-name {
-    font-family: 'Sora', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-}
+/* ===== THE STACK — see the skill-bar rules further below (.stack-head / .skills-wrap) ===== */
 
 /* ===== EXPERIENCE CARD GRID ===== */
 .year-group { margin-bottom: 2.5rem; }
@@ -990,6 +944,9 @@ footer {
     overflow-y: auto;
 }
 .mobile-menu.open { display: flex; }
+/* Keep floating chrome from overlapping the open mobile menu */
+body.menu-open .back-to-top,
+body.menu-open .scroll-progress { display: none; }
 .mobile-menu a {
     text-decoration: none; font-family: 'Sora', sans-serif;
     font-size: 1.1rem; font-weight: 600; color: var(--text-muted);
