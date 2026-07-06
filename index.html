@@ -40,7 +40,7 @@
          Pretendard is NOT on Google Fonts; the old link silently fell back to system fonts. -->
     <link rel="stylesheet" as="style" crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-    <link rel="stylesheet" href="style.css?v=64">
+    <link rel="stylesheet" href="style.css?v=65">
 </head>
 
 <body>
@@ -64,6 +64,7 @@
         <a href="#home" class="nav-logo">Han.</a>
         <ul class="nav-links">
             <li><a href="#about" data-ko="소개" data-en="About">소개</a></li>
+            <li><a href="#glance" data-ko="요약" data-en="Summary">요약</a></li>
             <li><a href="#experience" data-ko="활동" data-en="Experience">활동</a></li>
             <li><a href="#projects" data-ko="프로젝트" data-en="Projects">프로젝트</a></li>
             <li><a href="#press" data-ko="뉴스" data-en="Press">뉴스</a></li>
@@ -88,6 +89,7 @@
     </div>
     <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
         <a href="#about" data-ko="소개" data-en="About">소개</a>
+        <a href="#glance" data-ko="요약" data-en="Summary">요약</a>
         <a href="#experience" data-ko="활동" data-en="Exp">활동</a>
         <a href="#projects" data-ko="프로젝트" data-en="Work">프로젝트</a>
         <a href="#press" data-ko="뉴스" data-en="Press">뉴스</a>
@@ -119,6 +121,12 @@
                 data-en="Connecting planning, dev, and marketing to turn ideas into services.<br>Where technical precision meets product strategy.">
                 기획 · 개발 · 마케팅을 연결해 아이디어를 서비스로 구현합니다.<br>기술적 정밀함과 기획 전략이 만나는 곳.
             </p>
+            <div class="hero-keywords reveal delay-3" aria-label="직무 키워드">
+                <span class="hk-pill" data-ko="서비스 기획" data-en="Service Planning">서비스 기획</span>
+                <span class="hk-pill" data-ko="콘텐츠 마케팅" data-en="Content Marketing">콘텐츠 마케팅</span>
+                <span class="hk-pill" data-ko="AI · 데이터" data-en="AI · Data">AI · 데이터</span>
+                <span class="hk-pill" data-ko="하드웨어 프로토타이핑" data-en="Hardware Prototyping">하드웨어 프로토타이핑</span>
+            </div>
             <div class="hero-cta reveal delay-4">
                 <a href="#projects" class="btn btn-primary" data-ko="프로젝트 보기" data-en="Explore Projects">프로젝트 보기</a>
                 <a href="#contact" class="btn btn-ghost" data-ko="연락하기 →" data-en="Get in Touch →">연락하기 →</a>
@@ -169,6 +177,60 @@
         </div>
     </section>
 
+    <!-- ===== AT A GLANCE (Resume Summary) ===== -->
+    <section class="section" id="glance">
+        <div class="container">
+            <span class="sec-eyebrow reveal"><span class="sec-num">00</span><span data-ko="핵심 요약" data-en="At a Glance">핵심 요약</span></span>
+            <h2 class="section-heading reveal" data-ko="한눈에 보기" data-en="At a Glance">한눈에 보기</h2>
+            <p class="section-sub reveal delay-1" data-ko="학력 · 자격 · 툴 · 활동을 한 장으로 요약했습니다. 카드를 누르면 구체적으로 어떤 역할로 무엇을 했는지 열립니다."
+                data-en="Education, certificates, tools, and activities at a glance. Click a card to see my specific roles and what I actually did.">
+                학력 · 자격 · 툴 · 활동을 한 장으로 요약했습니다. 카드를 누르면 구체적으로 어떤 역할로 무엇을 했는지 열립니다.</p>
+
+            <div class="glance-grid reveal delay-2">
+                <div class="glance-card" data-dmodal-card="dm-edu" tabindex="0" role="button" aria-haspopup="dialog">
+                    <span class="glance-icon" aria-hidden="true">🎓</span>
+                    <h3 data-ko="학력" data-en="Education">학력</h3>
+                    <ul class="glance-list">
+                        <li data-ko="순천향대 사물인터넷학과" data-en="SCH Dept. of IoT">순천향대 사물인터넷학과</li>
+                        <li data-ko="SW특기자 전형 입학" data-en="SW Talent Admission">SW특기자 전형 입학</li>
+                        <li data-ko="Best Rookie 장학생" data-en="Best Rookie Scholar">Best Rookie 장학생</li>
+                    </ul>
+                    <span class="card-more" data-ko="자세히 보기 +" data-en="See details +">자세히 보기 +</span>
+                </div>
+                <div class="glance-card" data-dmodal-card="dm-cert" tabindex="0" role="button" aria-haspopup="dialog">
+                    <span class="glance-icon" aria-hidden="true">📜</span>
+                    <h3 data-ko="자격 · 수료" data-en="Certificates">자격 · 수료</h3>
+                    <ul class="glance-list">
+                        <li data-ko="구글 기술 지원 기초" data-en="Google IT Support Basics">구글 기술 지원 기초</li>
+                        <li data-ko="디스플레이 제어 C++ 캠프" data-en="Display Control C++ Camp">디스플레이 제어 C++ 캠프</li>
+                        <li data-ko="청렴인재 아카데미" data-en="Integrity Academy">청렴인재 아카데미</li>
+                    </ul>
+                    <span class="card-more" data-ko="자세히 보기 +" data-en="See details +">자세히 보기 +</span>
+                </div>
+                <div class="glance-card" data-dmodal-card="dm-tools" tabindex="0" role="button" aria-haspopup="dialog">
+                    <span class="glance-icon" aria-hidden="true">🛠️</span>
+                    <h3 data-ko="툴 · 기술" data-en="Tools">툴 · 기술</h3>
+                    <ul class="glance-list">
+                        <li>Python · C/C++ · React</li>
+                        <li data-ko="AI · 데이터 분석" data-en="AI · Data Analysis">AI · 데이터 분석</li>
+                        <li data-ko="Arduino · 3D프린팅" data-en="Arduino · 3D Printing">Arduino · 3D프린팅</li>
+                    </ul>
+                    <span class="card-more" data-ko="자세히 보기 +" data-en="See details +">자세히 보기 +</span>
+                </div>
+                <div class="glance-card" data-dmodal-card="dm-act" tabindex="0" role="button" aria-haspopup="dialog">
+                    <span class="glance-icon" aria-hidden="true">🚀</span>
+                    <h3 data-ko="활동" data-en="Activities">활동</h3>
+                    <ul class="glance-list">
+                        <li data-ko="대외활동 26+ · 수상 5+" data-en="26+ Activities · 5+ Awards">대외활동 26+ · 수상 5+</li>
+                        <li data-ko="학생회 · 리더십 3직책" data-en="3 Leadership Roles">학생회 · 리더십 3직책</li>
+                        <li data-ko="삼성 1차벤더 실무 경험" data-en="Samsung Tier-1 Work Exp.">삼성 1차벤더 실무 경험</li>
+                    </ul>
+                    <span class="card-more" data-ko="자세히 보기 +" data-en="See details +">자세히 보기 +</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== VISION SECTION (Image + Text) ===== -->
     <section class="section section-dark" id="vision">
         <div class="container">
@@ -206,7 +268,7 @@
     <section class="section" id="stack">
         <div class="container">
             <div class="stack-head reveal">
-                <span class="sec-eyebrow"><span class="sec-num">00</span><span data-ko="역량" data-en="Capabilities">역량</span></span>
+                <span class="sec-eyebrow"><span class="sec-num">01</span><span data-ko="역량" data-en="Capabilities">역량</span></span>
                 <h2 class="stack-title" data-ko="The Stack" data-en="The Stack">The Stack</h2>
                 <p class="stack-subtitle" data-ko="디지털 장인정신을 위한 정밀한 도구들."
                     data-en="Precision instruments for digital craftsmanship.">디지털 장인정신을 위한 정밀한 도구들.</p>
@@ -266,7 +328,7 @@
     <!-- ===== EXPERIENCE (Card Grid) ===== -->
     <section class="section section-dark" id="experience">
         <div class="container">
-            <span class="sec-eyebrow reveal"><span class="sec-num">01</span><span data-ko="활동 발자취" data-en="Experience">활동 발자취</span></span>
+            <span class="sec-eyebrow reveal"><span class="sec-num">02</span><span data-ko="활동 발자취" data-en="Experience">활동 발자취</span></span>
             <h2 class="section-heading reveal" data-ko="활동" data-en="Experience">활동</h2>
 
             <div class="filter-row reveal delay-1" role="group" aria-label="연도별 활동 필터">
@@ -475,9 +537,12 @@
     <!-- ===== PROJECTS ===== -->
     <section class="section" id="projects">
         <div class="container">
-            <span class="sec-eyebrow reveal"><span class="sec-num">02</span><span data-ko="대표 프로젝트" data-en="Selected Work">대표 프로젝트</span></span>
+            <span class="sec-eyebrow reveal"><span class="sec-num">03</span><span data-ko="대표 프로젝트" data-en="Selected Work">대표 프로젝트</span></span>
             <h2 class="section-heading reveal" data-ko="프로젝트" data-en="Selected Work">프로젝트</h2>
-            <div class="project-card reveal delay-1">
+            <p class="section-sub reveal delay-1" data-ko="문제 → 기획 → 실행 → 성과 흐름으로 정리했습니다. 카드를 누르면 STAR 상세가 열립니다."
+                data-en="Organized as Problem → Plan → Execution → Result. Click a card for the STAR breakdown.">
+                문제 → 기획 → 실행 → 성과 흐름으로 정리했습니다. 카드를 누르면 STAR 상세가 열립니다.</p>
+            <div class="project-card reveal delay-1" data-dmodal-card="dm-p1" tabindex="0" role="button" aria-haspopup="dialog">
                 <div class="project-img">
                     <img src="images/rescue-jet.jpg" alt="RESCUE JET">
                 </div>
@@ -496,8 +561,38 @@
                         <span class="ptag" data-ko="3D프린팅" data-en="3D Print">3D프린팅</span>
                         <span class="ptag" data-ko="창업" data-en="Startup">창업</span>
                     </div>
-                    <a href="https://www.lecturernews.com/news/articleView.html?idxno=192892" class="project-link"
-                        target="_blank" rel="noopener noreferrer" data-ko="관련 기사 보기 →" data-en="Read Article →">관련 기사 보기 →</a>
+                    <span class="card-more" data-ko="STAR 상세 보기 +" data-en="See STAR details +">STAR 상세 보기 +</span>
+                </div>
+            </div>
+
+            <div class="project-mini-grid reveal delay-2">
+                <div class="project-mini" data-dmodal-card="dm-p2" tabindex="0" role="button" aria-haspopup="dialog">
+                    <span class="project-badge" data-ko="🏆 2025 최우수상" data-en="🏆 2025 Grand Prize">🏆 2025 최우수상</span>
+                    <h3 class="project-title" data-ko="올담 데이터 활용 해커톤" data-en="Oldam Data Hackathon">올담 데이터 활용 해커톤</h3>
+                    <p class="project-desc"
+                        data-ko="충남 공공데이터 포털 '올담'의 개방 데이터를 분석해 서비스를 기획, 제1회 대회 최우수상 → 모니터링단 위원 위촉."
+                        data-en="Analyzed open data from Chungnam's 'Oldam' portal to plan a service — Grand Prize, then appointed as a portal monitor.">
+                        충남 공공데이터 포털 '올담'의 개방 데이터를 분석해 서비스를 기획, 제1회 대회 최우수상 → 모니터링단 위원 위촉.</p>
+                    <div class="project-tags">
+                        <span class="ptag" data-ko="공공데이터" data-en="Open Data">공공데이터</span>
+                        <span class="ptag" data-ko="데이터 분석" data-en="Data Analysis">데이터 분석</span>
+                        <span class="ptag" data-ko="서비스 기획" data-en="Service Planning">서비스 기획</span>
+                    </div>
+                    <span class="card-more" data-ko="STAR 상세 보기 +" data-en="See STAR details +">STAR 상세 보기 +</span>
+                </div>
+                <div class="project-mini" data-dmodal-card="dm-p3" tabindex="0" role="button" aria-haspopup="dialog">
+                    <span class="project-badge badge-alt" data-ko="📱 릴스 20 · 카드뉴스 9" data-en="📱 20 Reels · 9 Card News">📱 릴스 20 · 카드뉴스 9</span>
+                    <h3 class="project-title" data-ko="SNS 콘텐츠 기획 · 제작" data-en="SNS Content Production">SNS 콘텐츠 기획 · 제작</h3>
+                    <p class="project-desc"
+                        data-ko="홍보대사 · 서포터즈로 활동하며 릴스와 카드뉴스 29편을 기획-촬영-편집-발행까지 직접 제작."
+                        data-en="As PR ambassador & brand supporter, produced 29 reels and card-news pieces end-to-end — planning, filming, editing, publishing.">
+                        홍보대사 · 서포터즈로 활동하며 릴스와 카드뉴스 29편을 기획-촬영-편집-발행까지 직접 제작.</p>
+                    <div class="project-tags">
+                        <span class="ptag" data-ko="콘텐츠 기획" data-en="Content Planning">콘텐츠 기획</span>
+                        <span class="ptag" data-ko="영상 편집" data-en="Video Editing">영상 편집</span>
+                        <span class="ptag" data-ko="브랜딩" data-en="Branding">브랜딩</span>
+                    </div>
+                    <span class="card-more" data-ko="STAR 상세 보기 +" data-en="See STAR details +">STAR 상세 보기 +</span>
                 </div>
             </div>
         </div>
@@ -506,7 +601,7 @@
     <!-- ===== PRESS ===== -->
     <section class="section section-dark" id="press">
         <div class="container">
-            <span class="sec-eyebrow reveal"><span class="sec-num">03</span><span data-ko="언론 보도" data-en="In the Press">언론 보도</span></span>
+            <span class="sec-eyebrow reveal"><span class="sec-num">04</span><span data-ko="언론 보도" data-en="In the Press">언론 보도</span></span>
             <h2 class="section-heading reveal" data-ko="뉴스" data-en="Press">뉴스</h2>
             <div class="press-list reveal delay-1">
                 <a href="https://www.lecturernews.com/news/articleView.html?idxno=192892" class="press-item"
@@ -531,7 +626,7 @@
     <!-- ===== CONTENT (Reels + Card News) ===== -->
     <section class="section" id="reels">
         <div class="container">
-            <span class="sec-eyebrow reveal"><span class="sec-num">04</span><span data-ko="영상 · 카드뉴스" data-en="Content">영상 · 카드뉴스</span></span>
+            <span class="sec-eyebrow reveal"><span class="sec-num">05</span><span data-ko="영상 · 카드뉴스" data-en="Content">영상 · 카드뉴스</span></span>
             <h2 class="section-heading reveal" data-ko="콘텐츠" data-en="Contents">콘텐츠</h2>
             <p class="section-sub reveal delay-1" data-ko="직접 기획하고 제작한 콘텐츠를 날짜순으로 모았습니다. 유형별로 골라보세요."
                 data-en="Content I planned and produced, sorted by date. Filter by type.">직접 기획하고 제작한 콘텐츠를 날짜순으로 모았습니다. 유형별로 골라보세요.</p>
@@ -848,7 +943,7 @@
     <!-- ===== CONTACT ===== -->
     <section class="section section-dark" id="contact">
         <div class="container">
-            <span class="sec-eyebrow reveal"><span class="sec-num">05</span><span data-ko="함께 만들어요" data-en="Get in Touch">함께 만들어요</span></span>
+            <span class="sec-eyebrow reveal"><span class="sec-num">06</span><span data-ko="함께 만들어요" data-en="Get in Touch">함께 만들어요</span></span>
             <h2 class="section-heading reveal" data-ko="연락" data-en="Contact">연락</h2>
             <div class="contact-grid reveal delay-1">
                 <div class="contact-card glow-card">
@@ -891,6 +986,249 @@
         </div>
     </footer>
 
+    <!-- ===== DETAIL PANES (hidden store; moved into the modal on open) ===== -->
+    <div id="dmStore" hidden>
+        <!-- 학력 -->
+        <div class="dm-pane" id="dm-edu" hidden>
+            <span class="dm-eyebrow" data-ko="핵심 요약" data-en="At a Glance">핵심 요약</span>
+            <h3 class="dm-title" data-ko="학력" data-en="Education">학력</h3>
+            <div class="dm-rows">
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="순천향대학교 사물인터넷학과 재학" data-en="Soonchunhyang Univ. — Dept. of IoT">순천향대학교 사물인터넷학과 재학</strong><span class="dm-date">2024. 03 ~</span></div>
+                    <p data-ko="SW특기자 전형으로 입학해 IoT · 소프트웨어를 전공하고 있습니다. 학과 공헌을 인정받아 Best Rookie 장학생(2024 1 · 2학기)으로 선정됐습니다."
+                        data-en="Admitted via the SW Talent track; majoring in IoT & software. Named Best Rookie Scholar (both 2024 semesters) for contributions to the department.">
+                        SW특기자 전형으로 입학해 IoT · 소프트웨어를 전공하고 있습니다. 학과 공헌을 인정받아 Best Rookie 장학생(2024 1 · 2학기)으로 선정됐습니다.</p>
+                </div>
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="학군사관후보생(ROTC) 66기 — 167학군단" data-en="ROTC 66th Class — 167th Battalion">학군사관후보생(ROTC) 66기 — 167학군단</strong><span class="dm-date">2026. 03 ~</span></div>
+                    <p data-ko="장교 임관을 목표로 리더십 · 체력 · 책임감을 훈련하고 있습니다."
+                        data-en="Training in leadership, fitness, and responsibility toward an officer's commission.">
+                        장교 임관을 목표로 리더십 · 체력 · 책임감을 훈련하고 있습니다.</p>
+                </div>
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="사물인터넷학과 2학년 대의원 (과대표)" data-en="IoT Dept. 2nd-Year Representative">사물인터넷학과 2학년 대의원 (과대표)</strong><span class="dm-date">2025</span></div>
+                    <p data-ko="학과 학생 대표로 학우들의 의견을 수렴하고 학과 · 학생회 사이의 소통 창구 역할을 했습니다."
+                        data-en="Represented classmates, collecting feedback and bridging the department and the student council.">
+                        학과 학생 대표로 학우들의 의견을 수렴하고 학과 · 학생회 사이의 소통 창구 역할을 했습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 자격 · 수료 -->
+        <div class="dm-pane" id="dm-cert" hidden>
+            <span class="dm-eyebrow" data-ko="핵심 요약" data-en="At a Glance">핵심 요약</span>
+            <h3 class="dm-title" data-ko="자격 · 수료" data-en="Certificates & Courses">자격 · 수료</h3>
+            <div class="dm-rows">
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="구글 기술 지원 기초 수료" data-en="Google IT Support Basics">구글 기술 지원 기초 수료</strong><span class="dm-date">2024. 03</span></div>
+                    <p data-ko="IT 인프라 · 트러블슈팅 · 고객 지원의 기초를 다진 과정입니다."
+                        data-en="Foundations of IT infrastructure, troubleshooting, and user support.">
+                        IT 인프라 · 트러블슈팅 · 고객 지원의 기초를 다진 과정입니다.</p>
+                </div>
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="디스플레이 시스템 제어 C++ 캠프 수료" data-en="Display System Control C++ Camp">디스플레이 시스템 제어 C++ 캠프 수료</strong><span class="dm-date">2025. 07</span></div>
+                    <p data-ko="C++ 기반으로 디스플레이 시스템을 제어하는 실습 중심 캠프를 수료했습니다."
+                        data-en="Hands-on camp on controlling display systems with C++.">
+                        C++ 기반으로 디스플레이 시스템을 제어하는 실습 중심 캠프를 수료했습니다.</p>
+                </div>
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="2030 청렴인재 아카데미 수료" data-en="2030 Integrity Academy">2030 청렴인재 아카데미 수료</strong><span class="dm-date">2024 H2</span></div>
+                    <p data-ko="공공 청렴 · 윤리 역량을 기르는 교육 과정을 수료했습니다."
+                        data-en="Completed a public-sector integrity and ethics program.">
+                        공공 청렴 · 윤리 역량을 기르는 교육 과정을 수료했습니다.</p>
+                </div>
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="제품제작역량 강화캠프 수료" data-en="Product-Making Capability Camp">제품제작역량 강화캠프 수료</strong><span class="dm-date">2025. 12</span></div>
+                    <p data-ko="아이디어 발굴부터 시제품 제작까지 전 과정을 직접 수행하며 수료했고, 같은 대회에서 최우수상을 받았습니다."
+                        data-en="Completed the full idea-to-prototype cycle — and won the Grand Prize at the accompanying competition.">
+                        아이디어 발굴부터 시제품 제작까지 전 과정을 직접 수행하며 수료했고, 같은 대회에서 최우수상을 받았습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 툴 · 기술 -->
+        <div class="dm-pane" id="dm-tools" hidden>
+            <span class="dm-eyebrow" data-ko="핵심 요약" data-en="At a Glance">핵심 요약</span>
+            <h3 class="dm-title" data-ko="툴 · 기술" data-en="Tools & Skills">툴 · 기술</h3>
+            <div class="dm-rows">
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="개발 — Python · HTML/CSS · React/JS · C/C++" data-en="Development — Python · HTML/CSS · React/JS · C/C++">개발 — Python · HTML/CSS · React/JS · C/C++</strong></div>
+                    <p data-ko="데이터 처리 스크립트부터 웹 프런트엔드, 임베디드 제어까지 폭넓게 다룹니다. 이 포트폴리오 사이트도 직접 만들었습니다."
+                        data-en="From data scripts to web front-ends and embedded control — this portfolio site itself is hand-built.">
+                        데이터 처리 스크립트부터 웹 프런트엔드, 임베디드 제어까지 폭넓게 다룹니다. 이 포트폴리오 사이트도 직접 만들었습니다.</p>
+                </div>
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="AI · 데이터 활용" data-en="AI & Data">AI · 데이터 활용</strong></div>
+                    <p data-ko="AI 도구를 기획 · 개발 · 콘텐츠 워크플로에 적극 활용합니다. 공공데이터 분석으로 해커톤 최우수상을 받은 경험이 있습니다."
+                        data-en="I fold AI tools into planning, dev, and content workflows; won a hackathon Grand Prize with open-data analysis.">
+                        AI 도구를 기획 · 개발 · 콘텐츠 워크플로에 적극 활용합니다. 공공데이터 분석으로 해커톤 최우수상을 받은 경험이 있습니다.</p>
+                </div>
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="하드웨어 — Arduino · 3D프린팅" data-en="Hardware — Arduino · 3D Printing">하드웨어 — Arduino · 3D프린팅</strong></div>
+                    <p data-ko="RESCUE JET 시제품의 제어 로직과 하우징을 직접 설계 · 출력 · 조립했습니다."
+                        data-en="Designed, printed, and assembled the RESCUE JET prototype's control logic and housing myself.">
+                        RESCUE JET 시제품의 제어 로직과 하우징을 직접 설계 · 출력 · 조립했습니다.</p>
+                </div>
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="콘텐츠 — 릴스 · 카드뉴스 제작" data-en="Content — Reels & Card News">콘텐츠 — 릴스 · 카드뉴스 제작</strong></div>
+                    <p data-ko="기획 - 촬영 - 편집 - 발행 전 과정을 29편 수행했습니다. 결과물은 콘텐츠 섹션에서 볼 수 있습니다."
+                        data-en="Ran the full plan-film-edit-publish cycle 29 times — see the Content section for the results.">
+                        기획 - 촬영 - 편집 - 발행 전 과정을 29편 수행했습니다. 결과물은 콘텐츠 섹션에서 볼 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 활동 -->
+        <div class="dm-pane" id="dm-act" hidden>
+            <span class="dm-eyebrow" data-ko="핵심 요약" data-en="At a Glance">핵심 요약</span>
+            <h3 class="dm-title" data-ko="활동 — 무엇을 맡아 무엇을 했나" data-en="Activities — Roles & Contributions">활동 — 무엇을 맡아 무엇을 했나</h3>
+            <div class="dm-rows">
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="리더십 · 학생 자치" data-en="Leadership & Student Government">리더십 · 학생 자치</strong></div>
+                    <p data-ko="법제사법위원회 위원장(2025), 총대의원회 '청화' 입법조사처 차장(2026~), 2학년 과대표(2025). 학칙 · 세칙 심사와 회의 운영, 학생 의견 수렴을 맡았습니다."
+                        data-en="Standing Committee Chair (2025), Student Council Legislative Research Deputy Director (2026~), 2nd-year class rep (2025) — reviewing bylaws, running meetings, and channeling student voices.">
+                        법제사법위원회 위원장(2025), 총대의원회 '청화' 입법조사처 차장(2026~), 2학년 과대표(2025). 학칙 · 세칙 심사와 회의 운영, 학생 의견 수렴을 맡았습니다.</p>
+                </div>
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="홍보 · 콘텐츠" data-en="PR & Content">홍보 · 콘텐츠</strong></div>
+                    <p data-ko="순천향대 홍보대사 '슈케터'(2024~), 삼성전자 갤럭시 서포터즈 6기(2026~), 갤럭시 고등리더 1 · 3기(1기 우수활동자). 학교와 브랜드 콘텐츠를 직접 기획 · 제작했습니다."
+                        data-en="SCH PR Ambassador (2024~), Samsung Galaxy Supporters 6th (2026~), Galaxy HS Leader 1st & 3rd (Best Performer, 1st). Planned and produced school & brand content hands-on.">
+                        순천향대 홍보대사 '슈케터'(2024~), 삼성전자 갤럭시 서포터즈 6기(2026~), 갤럭시 고등리더 1 · 3기(1기 우수활동자). 학교와 브랜드 콘텐츠를 직접 기획 · 제작했습니다.</p>
+                </div>
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="실무 · 정책" data-en="Industry & Policy">실무 · 정책</strong></div>
+                    <p data-ko="힘스(HIMS) 개발팀 근무(삼성 1차벤더, 2025 H2)로 현업 개발 프로세스를 경험했고, 법제처 정책 모니터링단 · 충남 데이터포털 '올담' 모니터링단으로 정책 · 데이터 개선 의견을 제시했습니다."
+                        data-en="Worked on the dev team at HIMS (Samsung tier-1 vendor, 2025 H2); contributed improvement feedback as a monitor for the Ministry of Government Legislation and the Chungnam 'Oldam' data portal.">
+                        힘스(HIMS) 개발팀 근무(삼성 1차벤더, 2025 H2)로 현업 개발 프로세스를 경험했고, 법제처 정책 모니터링단 · 충남 데이터포털 '올담' 모니터링단으로 정책 · 데이터 개선 의견을 제시했습니다.</p>
+                </div>
+                <div class="dm-row">
+                    <div class="dm-row-head"><strong data-ko="봉사 · 멘토링" data-en="Volunteering & Mentoring">봉사 · 멘토링</strong></div>
+                    <p data-ko="제1기 SW교육 봉사단, SRC 재학생 멘토, 또래멘토, RCY 적십자 봉사동아리. 후배와 지역사회를 위한 교육 · 봉사를 이어가고 있습니다."
+                        data-en="1st SW Education Volunteer Corps, SRC & peer mentor, RCY Red Cross club — ongoing teaching and service for juniors and the community.">
+                        제1기 SW교육 봉사단, SRC 재학생 멘토, 또래멘토, RCY 적십자 봉사동아리. 후배와 지역사회를 위한 교육 · 봉사를 이어가고 있습니다.</p>
+                </div>
+            </div>
+            <a class="project-link" href="#experience" data-ko="전체 활동 발자취 보기 →" data-en="See the full timeline →">전체 활동 발자취 보기 →</a>
+        </div>
+
+        <!-- 프로젝트 1: RESCUE JET -->
+        <div class="dm-pane" id="dm-p1" hidden>
+            <span class="project-badge" data-ko="🏆 2025 최우수상" data-en="🏆 2025 Grand Prize">🏆 2025 최우수상</span>
+            <h3 class="dm-title">RESCUE JET</h3>
+            <p class="dm-sub" data-ko="자동구명추진장치 — 2025 SCOUT 제품제작역량 강화캠프 · 창업대회" data-en="Auto rescue propulsion device — 2025 SCOUT product-making camp & competition">자동구명추진장치 — 2025 SCOUT 제품제작역량 강화캠프 · 창업대회</p>
+            <div class="flow-steps" aria-label="프로젝트 흐름">
+                <span class="flow-step"><b data-ko="문제" data-en="Problem">문제</b><span data-ko="구조 골든타임" data-en="Rescue golden time">구조 골든타임</span></span>
+                <span class="flow-arrow" aria-hidden="true">→</span>
+                <span class="flow-step"><b data-ko="기획" data-en="Plan">기획</b><span data-ko="자동 추진 구명장치" data-en="Self-propelled device">자동 추진 구명장치</span></span>
+                <span class="flow-arrow" aria-hidden="true">→</span>
+                <span class="flow-step"><b data-ko="실행" data-en="Execute">실행</b><span data-ko="아두이노 + 3D프린팅" data-en="Arduino + 3D printing">아두이노 + 3D프린팅</span></span>
+                <span class="flow-arrow" aria-hidden="true">→</span>
+                <span class="flow-step"><b data-ko="성과" data-en="Result">성과</b><span data-ko="최우수상 · 언론 보도" data-en="Grand Prize · Press">최우수상 · 언론 보도</span></span>
+            </div>
+            <div class="star-grid">
+                <div class="star-item"><span class="star-key">S</span><span class="star-label" data-ko="상황 · 배경" data-en="Situation">상황 · 배경</span>
+                    <p data-ko="물놀이 익수 사고는 구조자가 도달하기까지의 골든타임이 생존을 좌우하지만, 기존 구명장비는 스스로 움직이지 못합니다. 캠프에서 이 문제를 프로젝트 주제로 선정했습니다."
+                        data-en="In drowning accidents, survival hinges on how fast rescue reaches the victim — yet conventional gear can't move on its own. I picked this problem as our camp project.">
+                        물놀이 익수 사고는 구조자가 도달하기까지의 골든타임이 생존을 좌우하지만, 기존 구명장비는 스스로 움직이지 못합니다. 캠프에서 이 문제를 프로젝트 주제로 선정했습니다.</p></div>
+                <div class="star-item"><span class="star-key">T</span><span class="star-label" data-ko="역할 · 목표" data-en="Task">역할 · 목표</span>
+                    <p data-ko="익수자에게 자동으로 추진력을 전달하는 구명장치 시제품 완성이 목표였고, 하드웨어 설계와 제작을 주도했습니다."
+                        data-en="The goal was a working prototype of a self-propelled rescue device; I led the hardware design and fabrication.">
+                        익수자에게 자동으로 추진력을 전달하는 구명장치 시제품 완성이 목표였고, 하드웨어 설계와 제작을 주도했습니다.</p></div>
+                <div class="star-item"><span class="star-key">A</span><span class="star-label" data-ko="실행" data-en="Action">실행</span>
+                    <p data-ko="아두이노로 제어 로직을 구성하고 3D프린팅으로 하우징을 설계 · 출력해 시제품을 조립했습니다. 테스트와 개선을 반복하며 완성도를 높였습니다."
+                        data-en="Built the control logic on Arduino, designed and 3D-printed the housing, assembled the prototype, and iterated through testing.">
+                        아두이노로 제어 로직을 구성하고 3D프린팅으로 하우징을 설계 · 출력해 시제품을 조립했습니다. 테스트와 개선을 반복하며 완성도를 높였습니다.</p></div>
+                <div class="star-item"><span class="star-key">R</span><span class="star-label" data-ko="성과" data-en="Result">성과</span>
+                    <p data-ko="2025 제품제작역량 창업대회 최우수상 🏆 을 수상했고, 한국강사신문에 캠프 성과가 보도됐습니다."
+                        data-en="Won the Grand Prize 🏆 at the 2025 competition; the camp's results were covered by Lecturer News.">
+                        2025 제품제작역량 창업대회 최우수상 🏆 을 수상했고, 한국강사신문에 캠프 성과가 보도됐습니다.</p></div>
+            </div>
+            <a href="https://www.lecturernews.com/news/articleView.html?idxno=192892" class="project-link"
+                target="_blank" rel="noopener noreferrer" data-ko="관련 기사 보기 →" data-en="Read the article →">관련 기사 보기 →</a>
+        </div>
+
+        <!-- 프로젝트 2: 올담 해커톤 -->
+        <div class="dm-pane" id="dm-p2" hidden>
+            <span class="project-badge" data-ko="🏆 2025 최우수상" data-en="🏆 2025 Grand Prize">🏆 2025 최우수상</span>
+            <h3 class="dm-title" data-ko="올담 데이터 활용 해커톤" data-en="Oldam Data Hackathon">올담 데이터 활용 해커톤</h3>
+            <p class="dm-sub" data-ko="충남 공공데이터 포털 '올담' 제1회 해커톤 — 2025. 07 - 08" data-en="1st hackathon of Chungnam's 'Oldam' open-data portal — Jul–Aug 2025">충남 공공데이터 포털 '올담' 제1회 해커톤 — 2025. 07 - 08</p>
+            <div class="flow-steps" aria-label="프로젝트 흐름">
+                <span class="flow-step"><b data-ko="문제" data-en="Problem">문제</b><span data-ko="데이터 활용 사례 부족" data-en="Unused open data">데이터 활용 사례 부족</span></span>
+                <span class="flow-arrow" aria-hidden="true">→</span>
+                <span class="flow-step"><b data-ko="기획" data-en="Plan">기획</b><span data-ko="데이터 기반 서비스" data-en="Data-driven service">데이터 기반 서비스</span></span>
+                <span class="flow-arrow" aria-hidden="true">→</span>
+                <span class="flow-step"><b data-ko="실행" data-en="Execute">실행</b><span data-ko="분석 · 기획 · 발표" data-en="Analyze · plan · pitch">분석 · 기획 · 발표</span></span>
+                <span class="flow-arrow" aria-hidden="true">→</span>
+                <span class="flow-step"><b data-ko="성과" data-en="Result">성과</b><span data-ko="최우수상 · 위원 위촉" data-en="Grand Prize · appointed">최우수상 · 위원 위촉</span></span>
+            </div>
+            <div class="star-grid">
+                <div class="star-item"><span class="star-key">S</span><span class="star-label" data-ko="상황 · 배경" data-en="Situation">상황 · 배경</span>
+                    <p data-ko="충청남도가 공공데이터 포털 '올담'을 열었지만, 개방 데이터가 실제 서비스로 이어진 사례는 부족했습니다. 활용 사례를 발굴하는 제1회 해커톤에 참가했습니다."
+                        data-en="Chungnam had opened the 'Oldam' data portal, but few real services were built on it. I joined the first hackathon aimed at changing that.">
+                        충청남도가 공공데이터 포털 '올담'을 열었지만, 개방 데이터가 실제 서비스로 이어진 사례는 부족했습니다. 활용 사례를 발굴하는 제1회 해커톤에 참가했습니다.</p></div>
+                <div class="star-item"><span class="star-key">T</span><span class="star-label" data-ko="역할 · 목표" data-en="Task">역할 · 목표</span>
+                    <p data-ko="올담 개방 데이터를 활용해 실생활 문제를 해결하는 서비스를 기획하는 것이 목표였고, 데이터 분석과 서비스 기획을 맡았습니다."
+                        data-en="The goal was a service that solves a real-life problem with Oldam's open data; I handled the data analysis and service planning.">
+                        올담 개방 데이터를 활용해 실생활 문제를 해결하는 서비스를 기획하는 것이 목표였고, 데이터 분석과 서비스 기획을 맡았습니다.</p></div>
+                <div class="star-item"><span class="star-key">A</span><span class="star-label" data-ko="실행" data-en="Action">실행</span>
+                    <p data-ko="개방 데이터를 탐색 · 분석해 문제를 정의하고, 데이터 근거를 바탕으로 서비스 기획안을 완성해 발표했습니다."
+                        data-en="Explored and analyzed the datasets, framed the problem, and pitched a service plan grounded in the data.">
+                        개방 데이터를 탐색 · 분석해 문제를 정의하고, 데이터 근거를 바탕으로 서비스 기획안을 완성해 발표했습니다.</p></div>
+                <div class="star-item"><span class="star-key">R</span><span class="star-label" data-ko="성과" data-en="Result">성과</span>
+                    <p data-ko="최우수상 🏆 을 수상했고, 이후 올담 대학생 모니터링단 위원으로 위촉되어(2025. 08 - 12) 포털 개선 활동을 이어갔습니다. 발족 소식은 언론에도 보도됐습니다."
+                        data-en="Won the Grand Prize 🏆 and was then appointed to the student monitoring board (Aug–Dec 2025), continuing to improve the portal. The launch made the news.">
+                        최우수상 🏆 을 수상했고, 이후 올담 대학생 모니터링단 위원으로 위촉되어(2025. 08 - 12) 포털 개선 활동을 이어갔습니다. 발족 소식은 언론에도 보도됐습니다.</p></div>
+            </div>
+            <a href="https://www.newsro.kr/article243/1198849/" class="project-link"
+                target="_blank" rel="noopener noreferrer" data-ko="관련 기사 보기 →" data-en="Read the article →">관련 기사 보기 →</a>
+        </div>
+
+        <!-- 프로젝트 3: SNS 콘텐츠 -->
+        <div class="dm-pane" id="dm-p3" hidden>
+            <span class="project-badge badge-alt" data-ko="📱 릴스 20 · 카드뉴스 9" data-en="📱 20 Reels · 9 Card News">📱 릴스 20 · 카드뉴스 9</span>
+            <h3 class="dm-title" data-ko="SNS 콘텐츠 기획 · 제작" data-en="SNS Content Production">SNS 콘텐츠 기획 · 제작</h3>
+            <p class="dm-sub" data-ko="홍보대사 '슈케터' · 삼성 갤럭시 서포터즈 — 2024 ~ 현재" data-en="PR Ambassador & Samsung Galaxy Supporters — 2024–present">홍보대사 '슈케터' · 삼성 갤럭시 서포터즈 — 2024 ~ 현재</p>
+            <div class="flow-steps" aria-label="프로젝트 흐름">
+                <span class="flow-step"><b data-ko="문제" data-en="Problem">문제</b><span data-ko="도달 · 전달력" data-en="Reach & delivery">도달 · 전달력</span></span>
+                <span class="flow-arrow" aria-hidden="true">→</span>
+                <span class="flow-step"><b data-ko="기획" data-en="Plan">기획</b><span data-ko="타깃 · 트렌드 기획" data-en="Target & trend fit">타깃 · 트렌드 기획</span></span>
+                <span class="flow-arrow" aria-hidden="true">→</span>
+                <span class="flow-step"><b data-ko="실행" data-en="Execute">실행</b><span data-ko="29편 제작 · 발행" data-en="29 pieces published">29편 제작 · 발행</span></span>
+                <span class="flow-arrow" aria-hidden="true">→</span>
+                <span class="flow-step"><b data-ko="성과" data-en="Result">성과</b><span data-ko="3개 기수 연속 발탁" data-en="Re-selected 3 times">3개 기수 연속 발탁</span></span>
+            </div>
+            <div class="star-grid">
+                <div class="star-item"><span class="star-key">S</span><span class="star-label" data-ko="상황 · 배경" data-en="Situation">상황 · 배경</span>
+                    <p data-ko="홍보대사 '슈케터'와 갤럭시 서포터즈로 활동하며, 학교와 브랜드 소식을 또래 대학생에게 효과적으로 전달할 콘텐츠가 필요했습니다."
+                        data-en="As PR ambassador and Galaxy supporter, I needed content that actually lands school and brand stories with fellow students.">
+                        홍보대사 '슈케터'와 갤럭시 서포터즈로 활동하며, 학교와 브랜드 소식을 또래 대학생에게 효과적으로 전달할 콘텐츠가 필요했습니다.</p></div>
+                <div class="star-item"><span class="star-key">T</span><span class="star-label" data-ko="역할 · 목표" data-en="Task">역할 · 목표</span>
+                    <p data-ko="릴스 · 카드뉴스의 기획부터 발행까지 전 과정을 맡아, 보는 사람이 끝까지 머무는 콘텐츠를 만드는 것이 목표였습니다."
+                        data-en="Owning every step from planning to publishing, the goal was content people watch to the end.">
+                        릴스 · 카드뉴스의 기획부터 발행까지 전 과정을 맡아, 보는 사람이 끝까지 머무는 콘텐츠를 만드는 것이 목표였습니다.</p></div>
+                <div class="star-item"><span class="star-key">A</span><span class="star-label" data-ko="실행" data-en="Action">실행</span>
+                    <p data-ko="트렌드 리서치로 소재를 잡고 직접 촬영 · 편집해 릴스 20편, 카드뉴스 9편을 발행했습니다."
+                        data-en="Sourced ideas via trend research, then filmed and edited 20 reels and 9 card-news pieces myself.">
+                        트렌드 리서치로 소재를 잡고 직접 촬영 · 편집해 릴스 20편, 카드뉴스 9편을 발행했습니다.</p></div>
+                <div class="star-item"><span class="star-key">R</span><span class="star-label" data-ko="성과" data-en="Result">성과</span>
+                    <p data-ko="갤럭시 고등리더 1기 우수활동자로 시작해 3기, 대학생 서포터즈 6기까지 연속 발탁됐습니다. 전체 콘텐츠는 갤러리에서 확인할 수 있습니다."
+                        data-en="Started as a Best Performer in Galaxy HS Leader 1st, re-selected through the 3rd class and the university supporters 6th. All 29 pieces are in the gallery.">
+                        갤럭시 고등리더 1기 우수활동자로 시작해 3기, 대학생 서포터즈 6기까지 연속 발탁됐습니다. 전체 콘텐츠는 갤러리에서 확인할 수 있습니다.</p></div>
+            </div>
+            <a class="project-link" href="#reels" data-ko="콘텐츠 갤러리 보기 →" data-en="Open the content gallery →">콘텐츠 갤러리 보기 →</a>
+        </div>
+    </div>
+
+    <!-- ===== DETAIL MODAL (zoom-in dialog) ===== -->
+    <div class="dmodal" id="dmodal" hidden>
+        <div class="dmodal-backdrop" data-dmodal-close></div>
+        <div class="dmodal-card" role="dialog" aria-modal="true" tabindex="-1">
+            <button class="dmodal-close" type="button" data-dmodal-close aria-label="닫기"
+                data-arialabel-ko="닫기" data-arialabel-en="Close">✕</button>
+            <div class="dmodal-content" id="dmodalContent"></div>
+        </div>
+    </div>
+
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <!-- ===== BACK TO TOP ===== -->
@@ -898,7 +1236,7 @@
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
     </button>
 
-    <script src="script.js?v=59"></script>
+    <script src="script.js?v=60"></script>
 </body>
 
 </html>

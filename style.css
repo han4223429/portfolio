@@ -1601,3 +1601,361 @@ body.menu-open .scroll-progress { display: none; }
     .gradient-text, .sec-num { background-position: 0 0 !important; }
     .status-dot, .scroll-cue-dot, .type-cursor { animation: none !important; }
 }
+
+/* ============================================================
+   RESUME LAYER — hero keywords · glance summary · STAR modal
+   ============================================================ */
+
+/* ── Hero role-keyword pills ── */
+.hero-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.1rem 0 0.4rem;
+}
+.hk-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.38rem 0.85rem;
+    border: 1px solid var(--border-hover);
+    border-radius: var(--r-pill);
+    background: var(--bg-card);
+    color: var(--text-main);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+.hk-pill::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--grad);
+    flex: none;
+}
+
+/* ── Glance (resume summary) cards ── */
+.glance-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2.2rem;
+}
+.glance-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 1.4rem 1.3rem 1.2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    cursor: pointer;
+    transition: transform 0.3s var(--ease-out), border-color 0.3s, box-shadow 0.3s;
+}
+.glance-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover);
+    box-shadow: var(--sh), var(--sh-glow);
+}
+.glance-icon { font-size: 1.5rem; line-height: 1; }
+.glance-card h3 {
+    font-family: 'Sora', 'Pretendard Variable', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--text-white);
+}
+.glance-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin: 0;
+    padding: 0;
+}
+.glance-list li {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    padding-left: 0.85rem;
+    position: relative;
+}
+.glance-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0.15rem;
+    color: var(--accent-bright);
+    font-weight: 800;
+}
+
+/* ── "See details" affordance (shared by glance & project cards) ── */
+.card-more {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent-bright);
+    letter-spacing: 0.02em;
+    transition: opacity 0.25s;
+}
+.glance-card:hover .card-more,
+.project-mini:hover .card-more,
+.project-card:hover .card-more { opacity: 0.75; }
+
+/* Clickable project cards */
+.project-card[data-dmodal-card],
+.project-mini[data-dmodal-card] { cursor: pointer; }
+.project-card .card-more { display: inline-block; margin-top: 0.9rem; }
+
+/* ── Mini project cards (2-up under the featured card) ── */
+.project-mini-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+}
+.project-mini {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 1.7rem 1.6rem 1.4rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    transition: transform 0.3s var(--ease-out), border-color 0.3s, box-shadow 0.3s;
+}
+.project-mini:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover);
+    box-shadow: var(--sh), var(--sh-glow);
+}
+.project-mini .project-title { font-size: 1.25rem; }
+.project-mini .project-desc { font-size: 0.9rem; }
+.project-badge.badge-alt {
+    background: var(--accent-dim);
+    color: var(--accent-bright);
+}
+
+/* ── Detail modal (zoom-in) ── */
+.dmodal {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+}
+.dmodal[hidden] { display: none; }
+.dmodal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 8, 14, 0.62);
+    opacity: 0;
+    transition: opacity 0.28s var(--ease);
+}
+.dmodal-card {
+    position: relative;
+    width: min(720px, 100%);
+    max-height: min(86vh, 900px);
+    overflow-y: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--r-xl);
+    padding: 2.1rem 2rem 1.9rem;
+    box-shadow: var(--sh), var(--sh-glow);
+    transform: scale(0.88) translateY(16px);
+    opacity: 0;
+    transition: transform 0.32s var(--ease-out), opacity 0.26s var(--ease);
+}
+.dmodal.show .dmodal-backdrop { opacity: 1; }
+.dmodal.show .dmodal-card { transform: none; opacity: 1; }
+body.dmodal-open { overflow: hidden; }
+
+.dmodal-close {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--bg-surface);
+    color: var(--text-main);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.dmodal-close:hover {
+    color: var(--text-white);
+    border-color: var(--border-hover);
+    transform: rotate(90deg);
+}
+
+/* ── Modal pane content ── */
+.dm-pane { display: flex; flex-direction: column; gap: 1rem; }
+.dm-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+}
+.dm-title {
+    font-family: 'Sora', 'Pretendard Variable', sans-serif;
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--text-white);
+    line-height: 1.25;
+    padding-right: 2.2rem;
+}
+.dm-sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: -0.5rem;
+}
+.dm-pane .project-badge { align-self: flex-start; }
+.dm-pane .project-link { align-self: flex-start; }
+
+.dm-rows { display: flex; flex-direction: column; gap: 0.9rem; }
+.dm-row {
+    padding: 1rem 1.1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+}
+.dm-row-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.35rem;
+}
+.dm-row-head strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-white);
+    line-height: 1.4;
+}
+.dm-date {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+.dm-row p {
+    font-size: 0.87rem;
+    color: var(--text-main);
+    line-height: 1.65;
+}
+
+/* ── Problem → Plan → Execute → Result stepper ── */
+.flow-steps {
+    display: flex;
+    align-items: stretch;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+}
+.flow-step {
+    flex: 1 1 0;
+    min-width: 108px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.18rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--accent-dim);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+}
+.flow-step b {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--accent-bright);
+}
+.flow-step span {
+    font-size: 0.78rem;
+    color: var(--text-main);
+    line-height: 1.35;
+}
+.flow-arrow {
+    align-self: center;
+    color: var(--text-dim);
+    font-weight: 700;
+}
+
+/* ── STAR grid ── */
+.star-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+}
+.star-item {
+    position: relative;
+    padding: 1rem 1.1rem 1.05rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+}
+.star-key {
+    display: inline-block;
+    font-family: 'Sora', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-right: 0.45rem;
+    vertical-align: -2px;
+}
+.star-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+.star-item p {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    line-height: 1.65;
+}
+
+/* ── Focus visibility for the new interactive cards ── */
+.glance-card:focus-visible,
+.project-card:focus-visible,
+.project-mini:focus-visible,
+.dmodal-close:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .glance-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+    .project-mini-grid { grid-template-columns: 1fr; }
+    .star-grid { grid-template-columns: 1fr; }
+    .flow-arrow { display: none; }
+    .flow-step { min-width: calc(50% - 0.45rem); }
+    .dmodal { padding: 0.9rem; }
+    .dmodal-card { padding: 1.6rem 1.25rem 1.5rem; max-height: 88vh; }
+    .dm-title { font-size: 1.3rem; }
+}
+@media (max-width: 480px) {
+    .glance-grid { grid-template-columns: 1fr; }
+    .hero-keywords { gap: 0.4rem; }
+    .hk-pill { font-size: 0.72rem; padding: 0.32rem 0.7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .glance-card, .project-mini, .dmodal-card, .dmodal-backdrop { transition: none !important; }
+}

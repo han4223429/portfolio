@@ -462,6 +462,97 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // ── 5.8 Detail modal (glance summary + project STAR panes) ──
+    const dmodal = document.getElementById('dmodal');
+    if (dmodal) {
+        const dCard = dmodal.querySelector('.dmodal-card');
+        const dContent = document.getElementById('dmodalContent');
+        const dStore = document.getElementById('dmStore');
+        let openPane = null;
+        let lastTrigger = null;
+        let closing = false;
+
+        function openModal(paneId, trigger) {
+            const pane = document.getElementById(paneId);
+            if (!pane || closing) return;
+            if (openPane) restorePane();
+            openPane = pane;
+            lastTrigger = trigger || null;
+            dContent.appendChild(pane);
+            pane.hidden = false;
+            const heading = pane.querySelector('.dm-title');
+            if (heading) dCard.setAttribute('aria-label', heading.textContent.trim());
+            dmodal.hidden = false;
+            document.body.classList.add('dmodal-open');
+            dCard.scrollTop = 0;
+            // Next tick so the transition actually plays from the initial state.
+            setTimeout(() => dmodal.classList.add('show'), 20);
+            dCard.focus({ preventScroll: true });
+        }
+
+        function restorePane() {
+            if (!openPane) return;
+            openPane.hidden = true;
+            dStore.appendChild(openPane);
+            openPane = null;
+        }
+
+        function closeModal() {
+            if (dmodal.hidden || closing) return;
+            closing = true;
+            dmodal.classList.remove('show');
+            setTimeout(() => {
+                dmodal.hidden = true;
+                restorePane();
+                document.body.classList.remove('dmodal-open');
+                closing = false;
+                if (lastTrigger) {
+                    lastTrigger.focus({ preventScroll: true });
+                    lastTrigger = null;
+                }
+            }, prefersReducedMotion ? 0 : 300);
+        }
+
+        document.querySelectorAll('[data-dmodal-card]').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('a, button')) return; // real links/buttons keep their behavior
+                openModal(card.getAttribute('data-dmodal-card'), card);
+            });
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModal(card.getAttribute('data-dmodal-card'), card);
+                }
+            });
+        });
+
+        dmodal.querySelectorAll('[data-dmodal-close]').forEach(el => {
+            el.addEventListener('click', closeModal);
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+        // In-page anchors inside a pane (e.g. "콘텐츠 갤러리 보기") should close the modal first.
+        dContent.addEventListener('click', (e) => {
+            if (e.target.closest('a[href^="#"]')) closeModal();
+        });
+        // Minimal focus trap: keep Tab cycling inside the open dialog.
+        dmodal.addEventListener('keydown', (e) => {
+            if (e.key !== 'Tab' || dmodal.hidden) return;
+            const focusables = dmodal.querySelectorAll('button, a[href]');
+            if (!focusables.length) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.shiftKey && (document.activeElement === first || document.activeElement === dCard)) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        });
+    }
+
     // ── 6. Language toggle ──
     const langBtns = document.querySelectorAll('.lang-btn');
 
