@@ -1,0 +1,25 @@
+Use case: ui-mockup.
+Create realistic, production-quality UI design with clear hierarchy, strong typography, intentional imagery, purposeful spacing.
+Create ONE independent desktop homepage concept for Korean multidisciplinary portfolio 김한용. Design direction name FIELD NOTES, but do not display this direction name as UI.
+Target dimensions: 1440 × 1024 pixels, desktop landing page viewport. Render webpage only, no browser chrome, device, bezel, collage, or multiple options.
+Current date anchor: 2026-09-06.
+
+Input image roles:
+Image 1 (/Users/handak/popo/portfolio/design-audit/2026-09-06/01-home-before.png): current homepage for real identity/content grounding, explicitly redesign it completely; do not retain its centered purple hero layout.
+Image 2 (/Users/handak/popo/portfolio/images/rescue-jet.jpg): actual project image to insert faithfully into selected project preview. Preserve orange rescue propulsion device rather than inventing an unrelated project visual.
+
+Primary request: uncommon, contemporary premium portfolio that feels like a precision editorial field notebook/studio index, utterly modern with no retro/vintage/weathering. Express a person joining planning, development, and marketing through actual work, with subtle discovery and playful click/scroll interactions suggested by a deliberate instrument-like selector. No AI aesthetic.
+
+Visual system: mineral offwhite (#F4F3EE) flat untextured page, near-black ink (#191A17), one restrained signal red/orange (#EF482F) accent. Confident Korean sans-serif typography with tight large heading and small precise mono-like Latin labels. Maximum 2 fonts. Large purposeful whitespace, fine rules, asymmetric editorial columns. Avoid distressed textures, notebook doodles, paper scraps, serif nostalgia.
+
+Layout:
+- Narrow tall left vertical rail, approximately 95 px wide, divided from rest by thin ink line. At upper left a strong stacked 'HAN' / 'INDEX' wordmark. At bottom small vertical 'PORTFOLIO — 2026'. Quiet precise composition.
+- Main surface starts at x≈145. Top band small '김한용' and '기획 · 개발 · 마케팅', right aligned clean WORK / ABOUT / ARCHIVE / CONTACT navigation, WORK subtly active. Small SOUND OFF control located unobtrusively.
+- Hero is asymmetric and work-first. Massive left-aligned two-line Korean heading taking about two-thirds of available width: '생각을 잇고,' then '직접 만듭니다.' with careful Korean glyphs, airy negative space around. Heading must read exactly. It should be visually distinctive through baseline alignment and immense typographic confidence, no giant centered hero.
+- Supporting concise copy sits to the right/lower right of headline, readable 16px: '기획에서 구현까지.\n아이디어를 실제로 작동하는 경험으로 만듭니다.' Don't fill the page with claims, badges, metrics, panels.
+- Under hero a wide exact, refined three-position linear selector representing '기획' / '개발' / '마케팅'. Thin long ink track, sparse tiny calibration ticks and one restrained small red physical slider indicator, clean labels at three meaningful positions. It should be clearly functional as a content selector; no decorative fake control wall. Label 'SELECT A LENS' in tiny type if helpful.
+- Below the selector, horizontal selected project preview using typography/whitespace and one simple top rule, not a rounded card. Left text shows 'SELECTED WORK / 01', large 'RESCUE JET', concise '자동 구명 추진 장치', short '기획에서 프로토타입까지, 구조의 가능성을 설계하다.' then primary textual detail action '프로젝트 자세히 보기 ↗'. Right insert the real orange device image from Image 2, in a large clean rectangular crop, natural aspect ratio and no distortion. Image position and height should ensure project section is clearly visible by lower part of 1024 viewport.
+- There are 3 real selected projects in the portfolio; if indicating total use '01 / 03' sparingly. Do not invent projects, prices, clients, accomplishments, or extraneous features.
+- Single tiny scroll affordance near a rule; optional motion hint should remain restrained.
+
+Focus on one clear primary action and one or two supporting content areas. Use page surface first, spacing and alignment then separators. Body 14–16px minimum. No cards inside cards, no bento grids, glows, gradients, glassmorphism, 3D decorative forms, generic purple startup design, enormous empty hero that pushes all work below screen. The result must look buildable, distinctive, current, spacious, and polished, with sharp readable typography. No option numbering or labels.

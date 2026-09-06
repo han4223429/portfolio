@@ -1,0 +1,34 @@
+{
+  "displayName": "Han Field Index",
+  "kind": "image",
+  "galleryKind": "product-design",
+  "skillName": "artifact-template-han-field-index",
+  "skillPath": "/Users/handak/.codex/skills/artifact-template-han-field-index",
+  "createdAt": "2026-09-06",
+  "sourcePath": "/Users/handak/popo/portfolio/design-audit/2026-09-06/concept-field-notes.png",
+  "previewInputPath": "/Users/handak/popo/portfolio/design-audit/2026-09-06/template-preview.png",
+  "runtimeNode": "/Users/handak/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node",
+  "runtimeVersion": "v24.19.0",
+  "creatorScript": "/Users/handak/.codex/plugins/cache/openai-primary-runtime/template-creator/26.904.11930/skills/template-creator/scripts/create-template-skill.mjs",
+  "verification": {
+    "requiredFiles": [
+      "SKILL.md",
+      "artifact-template.json",
+      "agents/openai.yaml",
+      "assets/reference.png",
+      "assets/preview.png"
+    ],
+    "referenceAndPreviewSHA256": "9be1e8c5409d46414aa35dd989f3fd5b49ae80671577d541d7522b241871e170",
+    "referenceAndPreviewUnchanged": true,
+    "visualPreviewVerified": true
+  },
+  "artifactTemplateDirective": "::artifact-template{skill_name=\"artifact-template-han-field-index\" skill_directory=\"/Users/handak/.codex/skills/artifact-template-han-field-index\" display_name=\"Han Field Index\" artifact_kind=\"image\" gallery_kind=\"product-design\"}",
+  "cleanup": {
+    "date": "2026-09-06",
+    "previewInputPathIsHistorical": true,
+    "removedDuplicatePreviewPath": "/Users/handak/popo/portfolio/design-audit/2026-09-06/template-preview.png",
+    "retainedEquivalentPreviewPath": "/Users/handak/popo/portfolio/design-audit/2026-09-06/concept-field-notes.png",
+    "sha256": "9be1e8c5409d46414aa35dd989f3fd5b49ae80671577d541d7522b241871e170",
+    "reason": "The original creation input was byte-identical to the retained concept. Removed only the repository duplicate; installed template reference and preview assets remain unchanged."
+  }
+}

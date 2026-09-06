@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-06",
+  "source": "http://localhost:5501/",
+  "display_order": [
+    {
+      "option": 1,
+      "image": "concept-kinetic-type.png"
+    },
+    {
+      "option": 2,
+      "image": "concept-object-index.png"
+    },
+    {
+      "option": 3,
+      "image": "concept-field-notes.png"
+    }
+  ],
+  "status": "Implemented FIELD NOTES after user confirmed no reference PNG; direction chosen under original delegated design judgment.",
+  "generated_with": "built-in ImageGen",
+  "requested_dimensions": "1440x1024",
+  "actual_dimensions": "1487x1058",
+  "references": [
+    "01-home-before.jpg",
+    "../../images/rescue-jet.jpg"
+  ],
+  "selected_option": 3,
+  "preview_url": "http://localhost:4173/",
+  "template_receipt": "template-receipt.json"
+}

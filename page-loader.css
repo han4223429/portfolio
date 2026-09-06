@@ -1,0 +1,66 @@
+/* Hidden by default: if JavaScript is unavailable, the normal page stays usable. */
+.page-loader {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    place-items: center;
+    padding: 28px;
+    background: var(--paper, #f4f3ee);
+    color: var(--ink, #191a18);
+    font-family: var(--sans, 'Pretendard Variable', Pretendard, Arial, sans-serif);
+    opacity: 1;
+    transition: opacity 220ms ease;
+}
+html.page-loading .page-loader,
+html.page-loader-leaving .page-loader { display: grid; }
+html.page-loader-leaving .page-loader { opacity: 0; pointer-events: none; }
+.page-loader-inner { width: min(100%, 320px); }
+.page-loader-wordmark {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    margin-bottom: 38px;
+    font-size: clamp(48px, 10vw, 64px);
+    line-height: .95;
+    font-weight: 800;
+    letter-spacing: -.065em;
+}
+.page-loader-wordmark span:last-child { color: var(--accent, #c84021); }
+.page-loader-status { margin: 0 0 18px; font-size: 13px; line-height: 1.65; color: var(--muted, #686b64); }
+.page-loader-track { position: relative; height: 2px; overflow: hidden; background: var(--line, #c7c8c0); }
+.page-loader-track::after {
+    content: '';
+    display: block;
+    width: 36%;
+    height: 100%;
+    background: var(--accent, #c84021);
+    animation: page-loader-sweep 1.15s ease-in-out infinite;
+}
+.page-loader-skip {
+    appearance: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+    min-height: 44px;
+    padding: 8px 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: left;
+}
+.page-loader-skip:hover { color: var(--accent, #c84021); }
+.page-loader-skip:focus-visible { outline: 2px solid var(--accent, #c84021); outline-offset: 5px; }
+@keyframes page-loader-sweep {
+    0% { transform: translateX(-105%); }
+    100% { transform: translateX(385%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .page-loader { transition: none; }
+    .page-loader-track::after { animation: none; transform: translateX(90%); }
+}
