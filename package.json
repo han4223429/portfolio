@@ -1,0 +1,19 @@
+{
+  "name": "hanyong-portfolio-preview",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/showreel.jsx --bundle --splitting --format=esm --target=es2022 --minify --outdir=. --entry-names=app.bundle --chunk-names=chunks/[name]-[hash]",
+    "build:dev": "esbuild src/showreel.jsx --bundle --splitting --format=esm --target=es2022 --sourcemap --outdir=. --entry-names=app.bundle --chunk-names=chunks/[name]-[hash]"
+  },
+  "dependencies": {
+    "gsap": "3.15.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}
