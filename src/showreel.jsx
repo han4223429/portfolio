@@ -36,10 +36,13 @@ function Hero({replayIntro,paused}) {
     <div className="hero__back" aria-hidden="true">HANYONG</div>
     <div className="studio-hero__grid">
       <div className="hero__front"><p className="kicker">HANYONG'S STUDIO / PERSONAL PORTFOLIO</p><h1 id="heroTitle">KIM<br/><em>HANYONG.</em></h1><p className="hero__line">생각을 기획하고,<br/>직접 만들고, 콘텐츠로 전합니다.</p><p className="hero__school">김한용 · 순천향대학교 사물인터넷학과</p><div className="hero__actions"><a className="hero__primary" href="#work">작업 둘러보기 <span aria-hidden="true">↗</span></a><a href="#contact">연락하기 <span aria-hidden="true">↗</span></a></div></div>
-      <div className="hero__canvas"><StudioCanvas paused={paused}/></div>
+      <figure className="hero__portrait"><img src="images/profile.jpg" width="1067" height="1600" fetchPriority="high" alt="김한용 인물 사진"/><figcaption><span>김한용 / HANYONG KIM</span><span>PERSON / 01</span></figcaption></figure>
     </div>
-    <nav className="hero__foot" aria-label="첫 화면 탐색"><span>기획 · 개발 · 콘텐츠 / 2022—2026</span><a href="#work">SCROLL TO EXPLORE ↓</a><button type="button" onClick={replayIntro}>인트로 다시 보기 ↺</button></nav>
+    <nav className="hero__foot" aria-label="첫 화면 탐색"><span>기획 · 개발 · 콘텐츠 / 2022—2026</span><a href="#space">EXPLORE THE SPACE ↓</a><button type="button" onClick={replayIntro}>인트로 다시 보기 ↺</button></nav>
   </section>;
+}
+function StudioSpace({paused}){
+  return <section id="space" className="studio-space chapter" aria-labelledby="spaceTitle"><div className="section-label"><span>INTERACTIVE SPACE</span><span>기획 · 개발 · 콘텐츠</span></div><div className="studio-space__grid"><div className="studio-space__copy"><p className="eyebrow">FORM & FLOW</p><h2 id="spaceTitle">형태와 흐름을<br/><i>움직여 보세요.</i></h2><p>기획·개발·콘텐츠를 선택하고,<br/>마우스나 손가락으로 공간을 돌려보세요.</p><a className="text-link" href="#work">실제 작업 보기 <span aria-hidden="true">↗</span></a></div><div className="hero__canvas"><StudioCanvas paused={paused}/></div></div></section>;
 }
 function SelectedWork(){
   return <section id="work" className="selected-work chapter" aria-labelledby="workTitle"><div className="section-label"><span>01 / SELECTED WORK</span><span>기획 · 개발 · 콘텐츠</span></div><div className="selected-work__head"><h2 id="workTitle" className="motion-target">생각이 작업이<br/>되는 <i>세 가지 방식.</i></h2><p className="motion-target">데이터에서 문제를 찾고, 손으로 시제품을 만들고, 콘텐츠로 사람에게 닿았습니다.</p></div><div className="project-grid">
@@ -114,11 +117,11 @@ function App(){
     if(motionQuery.matches)return;
     const context=gsap.context(()=>{
       gsap.to('.hero__back',{xPercent:-5,opacity:.3,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.7}});
-      gsap.to('.hero__canvas',{y:-36,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.7}});
+      gsap.to('.hero__canvas',{y:-36,ease:'none',scrollTrigger:{trigger:'.studio-space',start:'top bottom',end:'bottom top',scrub:.7}});
     });
     document.fonts.ready.then(()=>ScrollTrigger.refresh());
     return()=>context.revert();
   },[]);
-  return <><a className="skip" href="#content">본문으로 건너뛰기</a><Nav paused={paused} setPaused={setPaused}/><Intro key={introReplay} replayToken={introReplay} paused={paused}/><main><Hero paused={paused} replayIntro={()=>{if(!paused&&!motionQuery.matches){scrollTo({top:0,behavior:'instant'});setIntroReplay(v=>v+1)}}}/><SelectedWork/><Content/><Plan/><Build/><Craft/><People/></main><Outro/></>
+  return <><a className="skip" href="#content">본문으로 건너뛰기</a><Nav paused={paused} setPaused={setPaused}/><Intro key={introReplay} replayToken={introReplay} paused={paused}/><main><Hero paused={paused} replayIntro={()=>{if(!paused&&!motionQuery.matches){scrollTo({top:0,behavior:'instant'});setIntroReplay(v=>v+1)}}}/><StudioSpace paused={paused}/><SelectedWork/><Content/><Plan/><Build/><Craft/><People/></main><Outro/></>
 }
 createRoot(document.getElementById('app')).render(<App/>);
