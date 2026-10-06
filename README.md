@@ -10,6 +10,6 @@ npm run build
 python3 -m http.server 4173
 ```
 
-`src/showreel.jsx`와 `src/content-index.json`이 현재 화면의 원본입니다. 빌드 결과인 `app.bundle.js`와 `chunks/`를 함께 저장소에 포함합니다. GitHub Pages는 `main` 브랜치의 루트를 게시하므로 경로는 모두 저장소 하위 주소에서 동작하는 상대 경로를 사용합니다.
+`src/showreel.jsx`, `src/studio-canvas.jsx`, `src/content-index.json`이 현재 화면의 원본입니다. 사용자 제공 STUDIO PRD v1.0.0을 개인 포트폴리오에 맞게 정리한 [디자인 가이드](docs/DESIGN.md)에 색상·레이아웃·3D·접근성 원칙을 기록했습니다. 빌드 결과인 `app.bundle.js`와 `chunks/`를 함께 저장소에 포함합니다. GitHub Pages는 `main` 브랜치의 루트를 게시하므로 경로는 모두 저장소 하위 주소에서 동작하는 상대 경로를 사용합니다.
 
 `archive.html`은 이전 공개 사이트를 보관한 페이지입니다. 현재 화면의 전체 기록 링크에서 접근할 수 있습니다. 새 콘텐츠 갤러리의 게시물 38건은 확인된 Instagram 원본 링크를 사용합니다.
