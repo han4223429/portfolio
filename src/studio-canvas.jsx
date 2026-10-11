@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const studies = [
-  { tag:'01 / PLAN', label:'기획', project:'올담 데이터 해커톤', href:'#plan', color:0x86e9dd },
+  { tag:'01 / PLAN', label:'기획', project:'올담 데이터 해커톤', href:'#plan', color:0x38bdf8 },
   { tag:'02 / BUILD', label:'개발', project:'RESCUE JET', href:'#build', color:0x7d9bff },
   { tag:'03 / SHARE', label:'콘텐츠', project:'릴스와 카드뉴스 38편', href:'#content', color:0xf0e7ca },
 ];
@@ -85,7 +85,7 @@ export default function StudioCanvas({paused}) {
   useEffect(()=>{api.current?.pause()},[paused]);
   const study=studies[selected];
   return <div className="spatial-shell" data-study={selected}>
-    <div className="spatial-toolbar"><span><i aria-hidden="true"/>FORM & FLOW</span><span>INTERACTION STUDY / 0{selected+1}</span></div>
+    <div className="spatial-toolbar"><span><i aria-hidden="true"/>SYS.01 / FORM & FLOW</span><span>{status==='ready'?'WEBGL / INTERACTIVE':status==='fallback'?'STATIC / VIEW':'LOADING'}</span></div>
     <div className="spatial-stage" ref={host} data-renderer={status} data-motion={paused?'paused':'active'} tabIndex={status==='ready'?0:-1} role="group" aria-label="형태와 흐름을 탐색하는 3D 공간. 좌우 방향키로 회전할 수 있습니다." onKeyDown={e=>{if(e.target!==e.currentTarget)return;if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();api.current?.turn(e.key==='ArrowLeft'?-.3:.3)}if(e.key==='Home'){e.preventDefault();api.current?.reset()}}}>
       <div className="spatial-poster" aria-hidden="true"><div className="spatial-poster__slab"><div className="spatial-poster__bars">{Array.from({length:44},(_,i)=><i key={i} style={{height:`${12+Math.sin(i/43*Math.PI)*(24+(Math.sin(i*.4+selected)+1)*28)}%`}}/>)}</div></div><div className="spatial-poster__orbit"/></div>
       <canvas ref={canvas} aria-hidden="true"/>
