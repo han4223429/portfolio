@@ -1,0 +1,22 @@
+{
+  "name": "경통넷 · 토마토들 학생회",
+  "short_name": "경통넷",
+  "description": "토마토 대학교 토마토들 학생회의 경험·노하우 공유 앱 (가상 자료 기반 콘셉트 시연)",
+  "lang": "ko",
+  "start_url": "app.html?splash=1#/home",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FCEFDA",
+  "theme_color": "#B83B31",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "시연 시작", "url": "app.html?view=phone#/demo/start/mvp" },
+    { "name": "기록 찾기", "url": "app.html#/ask" }
+  ]
+}

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>경통넷 · 토마토들 학생회</title>
+<meta name="theme-color" content="#B83B31">
+<meta name="description" content="토마토 대학교 토마토들 학생회의 경험·노하우 공유 앱 (가상 자료 기반 콘셉트 시연)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="경통넷">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body class="app">
+<div id="splash" class="splash" role="dialog" aria-modal="true" aria-label="경통넷 로딩 중">
+  <div class="splash-logo"><img src="assets/original/logo-img.svg" alt="" width="48" height="48"><span>경통넷</span></div>
+  <p class="splash-sub">토마토 대학교 · 토마토들 학생회</p>
+  <div class="splash-crew" aria-hidden="true">
+    <img id="splashCrew1" src="assets/characters/yellow-think.anim.svg" alt="" width="88" height="90">
+    <img id="splashCrew2" src="assets/characters/red-happy.anim.svg" alt="" width="104" height="106">
+    <img id="splashCrew3" src="assets/characters/green-default.anim.svg" alt="" width="88" height="90">
+  </div>
+  <div class="bar-wrap"><div id="splashTrack" class="bar-track" role="progressbar" aria-label="불러오는 중" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="splashFill" class="bar-fill"></div></div><img id="splashRunner" class="runner" src="assets/characters/red-default.anim.svg" alt="" aria-hidden="true" width="36" height="37"></div>
+  <p id="splashStage" class="splash-stage" role="status">자료를 모으는 중…</p>
+  <p id="splashTip" class="splash-tip" aria-live="off"></p>
+  <button type="button" id="splashSkip" class="btn small">건너뛰기</button>
+</div>
+
+<div class="stage">
+  <div class="shell" id="shell">
+    <header class="appbar">
+      <button type="button" id="backBtn" class="icon-btn" aria-label="뒤로" hidden>←</button>
+      <img class="appbar-logo" src="assets/original/logo-img.svg" alt="" width="32" height="32">
+      <p id="appTitle" class="app-title">홈</p>
+      <span id="accessPill" class="badge" hidden></span>
+      <span id="demoPill" class="badge" hidden>시연 중</span>
+    </header>
+    <main id="view" class="view" aria-live="off"></main>
+    <section id="coach" class="coach" role="region" aria-label="시연 안내" aria-live="polite" hidden></section>
+    <nav class="tabbar" aria-label="주 메뉴">
+      <p class="side-brand" aria-hidden="true"><img src="assets/original/logo-img.svg" alt="" width="32" height="32">경통넷<small>토마토 대학교<br>토마토들 학생회</small></p>
+      <a data-tab="home" href="#/home"><img alt="" aria-hidden="true" width="32" height="32"><span>홈</span></a>
+      <a data-tab="archive" href="#/archive"><img alt="" aria-hidden="true" width="32" height="32"><span>기록</span></a>
+      <a data-tab="ask" href="#/ask"><img alt="" aria-hidden="true" width="32" height="32"><span>찾기</span></a>
+      <a data-tab="decisions" href="#/decisions"><img alt="" aria-hidden="true" width="32" height="32"><span>결정</span></a>
+      <a data-tab="demo" href="#/demo"><img alt="" aria-hidden="true" width="32" height="32"><span>시연</span></a>
+      <a data-tab="more" href="#/more"><img alt="" aria-hidden="true" width="32" height="32"><span>더보기</span></a>
+    </nav>
+  </div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="js/data.js"></script>
+<script src="js/search.js"></script>
+<script src="js/store.js"></script>
+<script src="js/mascots.js"></script>
+<script src="js/demo-steps.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/splash.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

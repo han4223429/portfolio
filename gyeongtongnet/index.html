@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>경통넷 · 토마토 대학교 토마토들 학생회 (가상 자료 기반 콘셉트 시연)</title>
+<meta name="theme-color" content="#B83B31">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body class="hub">
+<div id="splash" class="splash" role="dialog" aria-modal="true" aria-label="경통넷 로딩 중">
+  <div class="splash-logo"><img src="assets/original/logo-img.svg" alt="" width="48" height="48"><span>경통넷</span></div>
+  <p class="splash-sub">토마토 대학교 · 토마토들 학생회</p>
+  <div class="splash-crew" aria-hidden="true">
+    <img id="splashCrew1" src="assets/characters/yellow-think.anim.svg" alt="" width="88" height="90">
+    <img id="splashCrew2" src="assets/characters/red-happy.anim.svg" alt="" width="104" height="106">
+    <img id="splashCrew3" src="assets/characters/green-default.anim.svg" alt="" width="88" height="90">
+  </div>
+  <div class="bar-wrap"><div id="splashTrack" class="bar-track" role="progressbar" aria-label="불러오는 중" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="splashFill" class="bar-fill"></div></div><img id="splashRunner" class="runner" src="assets/characters/red-default.anim.svg" alt="" aria-hidden="true" width="36" height="37"></div>
+  <p id="splashStage" class="splash-stage" role="status">자료를 모으는 중…</p>
+  <p id="splashTip" class="splash-tip" aria-live="off"></p>
+  <button type="button" id="splashSkip" class="btn small">건너뛰기</button>
+</div>
+
+<header class="top">
+  <div class="bar">
+    <span class="brand"><img src="assets/original/logo-img.svg" alt="" width="32" height="32">경통넷</span>
+    <span class="badge">가상 자료 기반 콘셉트 시연</span>
+  </div>
+</header>
+
+<main id="main" class="hub-wrap">
+  <div class="hub-grid">
+    <div class="hub-actions">
+      <section class="hero hub-hero" aria-labelledby="t">
+        <p class="kicker">토마토 대학교 · 토마토들 학생회</p>
+        <h1 id="t">작년의 경험,<br><mark>올해의 결정!</mark></h1>
+        <p>자료가 없는 게 아니에요. 자료는 있는데 <strong>“왜 그렇게 했는지”</strong>와 시행착오는 전해지지 않아요. <strong>경통넷</strong>은 우리 학생회와 다른 학생자치기구의 경험을 연결해 다음 담당자의 의사결정에 쓰게 해 줘요.</p>
+        <p class="bubble">작년엔 이랬대요!</p>
+        <div class="crew" aria-hidden="true">
+          <img src="assets/characters/yellow-think.anim.svg" alt="">
+          <img class="mid" src="assets/characters/red-happy.anim.svg" alt="">
+          <img src="assets/characters/green-default.anim.svg" alt="">
+        </div>
+      </section>
+
+      <nav class="hub-actions" aria-label="화면 이동">
+        <a class="hub-btn primary" href="app.html?view=phone#/demo/start/mvp"><img src="assets/characters/red-cheer.anim.svg" alt="" width="64" height="65"><div><strong>발표용 시연 시작 (약 1분)</strong><span>개강총회 접수 — 사례 찾기, 우리 조건과 비교, 결정과 결과 남기기</span></div></a>
+        <a class="hub-btn" href="app.html?view=phone#/demo/start/ot"><img src="assets/characters/yellow-happy.anim.svg" alt="" width="64" height="65"><div><strong>전체 시연 (약 4분)</strong><span>“작년에 왜 프로그램을 5개 했지?” — 구조화, 종합 답변, 다른 기구 사례까지</span></div></a>
+        <a class="hub-btn" href="app.html?view=phone#/home"><img src="assets/characters/green-default.svg" alt="" width="64" height="65"><div><strong>앱 화면으로 열기</strong><span>모바일 앱처럼 하단 탭으로 이동해요. 데스크톱에서는 폰 프레임으로 보여요.</span></div></a>
+        <a class="hub-btn" href="app.html#/home"><img src="assets/characters/yellow-think.svg" alt="" width="64" height="65"><div><strong>PC 웹 화면으로 열기</strong><span>넓은 화면에서 사례를 나란히 비교해요 (사이드 메뉴).</span></div></a>
+        <a class="hub-btn" href="characters.html"><img src="assets/characters/red-happy.svg" alt="" width="64" height="65"><div><strong>캐릭터 에셋</strong><span>3색 × 7표정, 모션 포함. 경로 복사.</span></div></a>
+        <button type="button" class="hub-btn" id="replay"><img src="assets/characters/yellow-sleepy.svg" alt="" width="64" height="65"><div><strong>로딩 화면 다시 보기</strong><span>진입 로딩 애니메이션을 처음부터 봐요.</span></div></button>
+      </nav>
+      <p class="hint">드라이브가 자료를 보관하는 곳이라면 경통넷은 그 자료를 실제 의사결정에 활용하도록 돕는 곳이에요. AI는 결정을 대신하지 않아요. 담당자가 더 나은 결정을 하도록 과거 경험을 출처와 함께 찾아 줘요.</p>
+      <p class="hint">앱 화면을 연 뒤 브라우저 메뉴의 ‘앱 설치’ 또는 ‘홈 화면에 추가’를 누르면 앱처럼 실행돼요(한 번 열면 오프라인에서도 열려요).</p>
+    </div>
+
+    <aside class="hub-preview" aria-label="앱 화면 미리보기">
+      <div class="phone-frame"><iframe title="경통넷 앱 미리보기" src="app.html?view=embed&amp;splash=0#/home" loading="lazy"></iframe></div>
+    </aside>
+  </div>
+  <footer class="foot">토마토 대학교·토마토들 학생회·새싹 동아리연합·가상 C 학회는 이 시연의 가상 조직입니다. 원문과 수치는 시연용이며 실제 학생회 기록이나 성과가 아닙니다. 캐릭터는 토마토들 원본을 바탕으로 한 파생 이미지이며 주최 측 공식 서비스·제휴·승인이 아닙니다.</footer>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/mascots.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/splash.js"></script>
+<script src="js/hub.js"></script>
+</body>
+</html>

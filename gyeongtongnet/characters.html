@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>토마토들 캐릭터 에셋 · 경통넷</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="top"><div class="bar"><a class="brand" href="index.html"><img src="assets/original/logo-img.svg" alt="">경통넷</a><span class="badge">캐릭터 에셋 · 가상 시연용</span></div></header>
+<main id="main" class="wrap">
+  <section class="panel" aria-labelledby="h">
+    <h2 id="h"><span class="stamp" aria-hidden="true">★</span>토마토들 캐릭터 · 표정과 모션</h2>
+    <p>3색 × 7표정. 각 표정은 정지 이미지(<code>.svg</code>)와 모션 내장 이미지(<code>.anim.svg</code>) 두 가지입니다. 모션은 SVG 안에 들어 있어 <code>&lt;img src&gt;</code>만으로 움직이고 시스템의 ‘동작 줄이기’ 설정이면 멈춥니다.</p>
+    <div class="toolbar" style="margin-top:var(--s3)">
+      <button type="button" class="btn small" id="toggle" aria-pressed="true">모션 켜짐</button>
+      <label class="row gap"><span class="lbl" style="width:auto">색</span>
+        <select id="color" style="width:auto"><option value="">전체</option><option value="red">빨강</option><option value="yellow">노랑</option><option value="green">초록</option></select></label>
+      <span class="hint" id="status" role="status" aria-live="polite"></span>
+    </div>
+    <p class="hint">토마토들 원본 캐릭터 도형을 바탕으로 만든 파생 이미지입니다. 저작권은 토마토들에 있어요. 주최 측 공식 자료가 아니에요.</p>
+  </section>
+  <section class="panel" aria-label="캐릭터 목록"><div class="gal" id="gal"></div></section>
+  <section class="panel" aria-labelledby="u">
+    <h2 id="u"><span class="stamp" aria-hidden="true">?</span>이렇게 쓰세요</h2>
+    <pre class="quote" style="overflow:auto;margin:0">&lt;img src="assets/characters/green-cheer.anim.svg" alt="" width="120"&gt;
+
+/* JS (js/mascots.js 로드 후) */
+GT.MASCOTS.find(m =&gt; m.id === "red-happy").animated</pre>
+    <p class="hint">장식용이면 <code>alt=""</code>, 상태를 전달하는 이미지면 의미 있는 alt를 쓰세요. 다시 만들려면 <code>node tools/build-characters.js</code>.</p>
+  </section>
+</main>
+<script src="js/mascots.js"></script>
+<script>
+"use strict";
+(function () {
+  const $ = (id) => document.getElementById(id);
+  let anim = true;
+  function el(tag, props, kids) { const n = document.createElement(tag); for (const [k, v] of Object.entries(props || {})) { if (k === "class") n.className = v; else if (k === "text") n.textContent = v; else n.setAttribute(k, v); } for (const c of kids || []) n.append(c); return n; }
+  function render() {
+    const color = $("color").value;
+    const box = $("gal"); box.replaceChildren();
+    for (const m of GT.MASCOTS.filter((x) => !color || x.color === color)) {
+      const btn = el("button", { type: "button", class: "btn small", text: "경로 복사" });
+      const path = anim ? m.animated : m.static;
+      btn.addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(path); $("status").textContent = "복사했습니다: " + path; }
+        catch { $("status").textContent = "복사 권한이 없습니다. 경로: " + path; }
+      });
+      box.append(el("figure", { class: m.color }, [
+        el("img", { src: path, alt: `${m.colorLabel} 토마토 · ${m.label}`, loading: "lazy" }),
+        el("figcaption", { text: `${m.colorLabel} · ${m.label}` }),
+        el("code", { text: path }),
+        btn,
+      ]));
+    }
+  }
+  $("toggle").addEventListener("click", () => { anim = !anim; $("toggle").setAttribute("aria-pressed", String(anim)); $("toggle").textContent = anim ? "모션 켜짐" : "모션 꺼짐"; render(); });
+  $("color").addEventListener("change", render);
+  render();
+})();
+</script>
+</body>
+</html>
