@@ -125,7 +125,10 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--muted, var(--gray));
 
 /* 콘텐츠 */
 .content .project__head p { max-width: 38em; font-size: 17px; font-weight: 400; line-height: 1.75; }
-.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 40px; }
+.galaxy { margin-top: clamp(48px, 7vw, 72px); padding-top: 32px; border-top: 3px solid var(--black); }
+.galaxy h3 { font: 400 clamp(28px, 4vw, 44px)/1.2 var(--display); }
+.galaxy .project__cols { margin-top: 32px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(48px, 7vw, 72px); }
 .filters button { min-height: 44px; padding: 8px 16px; border: 2px solid var(--black); background: var(--white); font-weight: 600; font-size: 15px; cursor: pointer; }
 .filters button span { margin-left: 4px; font-weight: 400; }
 .filters button:hover { background: var(--fill); }
