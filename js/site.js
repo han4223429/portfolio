@@ -207,7 +207,12 @@ function setupDemo(demo) {
     frame.title = demo.dataset.title || "경통넷 앱 시연";
     frame.src = demo.dataset.src;
     frame.addEventListener("error", () => { screen.replaceChildren(message("앱을 불러오지 못했습니다. 아래 링크로 새 창에서 열어 주세요.")); });
-    screen.replaceChildren(frame);
+    const loading = document.createElement("p");
+    loading.className = "demo__loading";
+    loading.setAttribute("role", "status");
+    loading.textContent = "불러오는 중";
+    frame.addEventListener("load", () => loading.remove(), { once: true });
+    screen.replaceChildren(frame, loading);
     demo.classList.add("is-live");
     frame.focus();
   }, { once: true });
@@ -350,6 +355,9 @@ function setupCopy() {
   });
 }
 
+// 로딩 화면은 CSS만으로 사라지지만, 움직임이 멈춘 환경에서도 남지 않게 한 번 더 치운다.
+if (!document.documentElement.classList.contains("seen")) document.documentElement.classList.add("booted");
+setTimeout(() => document.documentElement.classList.add("seen"), 1800);
 watchSections();
 setupPeek();
 setupWiring();
