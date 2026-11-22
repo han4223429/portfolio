@@ -19,9 +19,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/site.css?v=2026.12.7">
+  <link rel="stylesheet" href="css/site.css?v=2026.12.8">
   <script src="js/boot.js?v=2026.12.4"></script>
-  <script type="module" src="js/site.js?v=2026.12.7"></script>
+  <script type="module" src="js/site.js?v=2026.12.8"></script>
 </head>
 <body>
 <div class="loader" aria-hidden="true">
@@ -68,6 +68,10 @@
           <div><dt>지금까지</dt><dd id="visitTotal">–</dd></div>
         </dl>
       </div>
+      <div class="hero__3d" id="hero3d">
+        <div class="hero__stage" id="heroStage" data-cursor="끌기"></div>
+        <p class="hero__caption">직접 설계하고 만든 RESCUE JET입니다. 끌어서 돌려 보세요. <a href="#rescue">작업 설명 보기</a></p>
+      </div>
     </div>
 
     <div class="ticker">
@@ -76,7 +80,7 @@
           <li>경통넷 우수상</li>
           <li>RESCUE JET 최우수상</li>
           <li>촌넷스코어 최우수상</li>
-          <li>눌러 볼 수 있는 시연 여섯 개</li>
+          <li>눌러 볼 수 있는 시연 일곱 개</li>
           <li>릴스 31편</li>
           <li>카드뉴스 14편</li>
         </ul>
@@ -84,7 +88,7 @@
           <li>경통넷 우수상</li>
           <li>RESCUE JET 최우수상</li>
           <li>촌넷스코어 최우수상</li>
-          <li>눌러 볼 수 있는 시연 여섯 개</li>
+          <li>눌러 볼 수 있는 시연 일곱 개</li>
           <li>릴스 31편</li>
           <li>카드뉴스 14편</li>
         </ul>
@@ -219,6 +223,20 @@
           </dl>
         </div>
       </div>
+
+      <div class="stage3d" id="rescue3d">
+        <div class="stage3d__view" id="rescueStage">
+          <button class="btn stage3d__start" type="button" id="rescueStart" data-cursor="열기">3D로 돌려 보기</button>
+        </div>
+        <div class="stage3d__controls" id="rescueControls" hidden>
+          <button type="button" id="rescueDrive" aria-pressed="false">추진 데모</button>
+          <button type="button" id="rescueExplode" aria-pressed="false">분해 보기</button>
+          <button type="button" id="rescueReset">처음 각도로</button>
+        </div>
+        <p class="demo__help" id="rescueHelp">버튼을 누르면 3D 모델이 열립니다. 끌거나 방향키로 돌릴 수 있고, 추진 데모를 켜면 프로펠러가 돕니다.</p>
+      </div>
+
+      <p class="note">3D 모델은 설계 이미지를 보고 형태만 옮긴 발표용입니다. 치수, 프로펠러와 가드의 구조는 실제 설계와 다릅니다.</p>
     </div>
   </section>
 

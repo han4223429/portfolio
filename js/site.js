@@ -220,6 +220,45 @@ async function setupLive() {
   }
 }
 
+/* ---------- RESCUE JET 3D: 첫 화면(넓은 화면에서만 자동)과 작업 구간(눌렀을 때) ---------- */
+function setup3d() {
+  const load = () => import("./rescue3d.js");
+  const hero = $("#heroStage");
+  // 첫 화면은 넓은 화면이고 데이터 절약 모드가 아닐 때만, 첫 그림이 끝난 뒤에 불러온다.
+  if (hero && matchMedia("(min-width: 900px)").matches && !navigator.connection?.saveData) {
+    const begin = () => load().then(({ mountRescue }) => mountRescue(hero, { drag: true, follow: true })).catch(() => { $("#hero3d").hidden = true; });
+    if ("requestIdleCallback" in window) requestIdleCallback(begin, { timeout: 2500 }); else setTimeout(begin, 1200);
+  }
+  const start = $("#rescueStart");
+  if (!start) return;
+  start.addEventListener("click", async () => {
+    const view = $("#rescueStage");
+    const help = $("#rescueHelp");
+    start.disabled = true;
+    start.textContent = "불러오는 중";
+    try {
+      const { mountRescue } = await load();
+      start.remove();
+      const engine = await mountRescue(view, { drag: true });
+      const controls = $("#rescueControls");
+      controls.hidden = false;
+      const toggle = (id, apply) => $(id).addEventListener("click", (event) => {
+        const on = event.currentTarget.getAttribute("aria-pressed") !== "true";
+        event.currentTarget.setAttribute("aria-pressed", String(on));
+        apply(on);
+      });
+      toggle("#rescueDrive", (on) => engine.setDrive(on));
+      toggle("#rescueExplode", (on) => engine.setExploded(on));
+      $("#rescueReset").addEventListener("click", () => engine.reset());
+      help.textContent = "끌거나 방향키로 돌릴 수 있습니다. 추진 데모를 켜면 프로펠러가 돌고, 분해 보기를 켜면 윗면과 양쪽 추진부가 벌어집니다.";
+    } catch {
+      start.disabled = false;
+      start.textContent = "3D 다시 불러오기";
+      help.textContent = "3D 모델을 불러오지 못했습니다. 이 브라우저가 WebGL을 지원하지 않거나 연결이 끊겼을 수 있습니다. 위의 설계 이미지로 형태를 볼 수 있습니다.";
+    }
+  });
+}
+
 /* ---------- 시연: 눌렀을 때만 앱을 불러온다 ---------- */
 function setupDemo(demo) {
   const screen = $(".demo__screen", demo);
@@ -382,6 +421,7 @@ if (!document.documentElement.classList.contains("seen")) document.documentEleme
 setTimeout(() => document.documentElement.classList.add("seen"), 1800);
 watchSections();
 setupRail();
+setup3d();
 setupCursor();
 setupWiring();
 setupLive();
