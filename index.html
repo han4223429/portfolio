@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/site.css?v=2026.11.4">
+  <link rel="stylesheet" href="css/site.css?v=2026.11.7">
   <script type="module" src="js/site.js?v=2026.11.3"></script>
 </head>
 <body>
@@ -163,25 +163,67 @@
 
       <div class="project__cols">
         <div class="prose">
-          <p>위험한 현장을 멀리서 관제할 때는 화면의 값이 방금 잰 값인지, 통신이 끊기기 직전의 마지막 값인지부터 구별해야 합니다. NetTwin은 현장 장치와 관제 화면을 연구망 KOREN으로 잇고, 지연·손실·단절 정도에 따라 제어 권한을 제한합니다.</p>
+          <p>위험한 현장을 멀리서 관제할 때는 화면의 값이 방금 잰 값인지, 통신이 끊기기 직전의 마지막 값인지부터 구별해야 합니다. 값이 멈춘 화면을 보고 장비를 움직이면 사고로 이어질 수 있기 때문입니다.</p>
+          <p>NetTwin은 현장 장치와 관제 화면을 연구망 KOREN으로 잇고 센서값과 함께 그 값이 언제 만들어졌는지와 통신 품질을 보여 주고 지연, 손실, 단절이 심해지면 제어 권한을 단계적으로 줄입니다.</p>
           <ol class="steps">
-            <li>현장 엣지가 센서값에 시각과 순번을 붙여 보냅니다</li>
-            <li>MQTT 중계가 장치별로 데이터와 명령을 전달합니다</li>
-            <li>Unity 관제 화면이 상태와 통신 품질을 함께 보여 줍니다</li>
+            <li>현장 엣지가 센서값에 장치 ID, 시각, 순번을 붙여 보냅니다</li>
+            <li>KOREN 위의 MQTT 브로커가 장치별로 데이터와 명령을 전달합니다</li>
+            <li>Unity 관제 화면이 3D 장면에 값을 반영하고 통신 품질을 함께 보여 줍니다</li>
           </ol>
-          <p>통신 상태는 정상, 주의, 제한, 끊김 네 단계로 나눕니다. 다시 연결되더라도 안정 구간과 운영자 승인을 거쳐야 제어권이 돌아옵니다. 명령에는 ID와 유효기간을 넣어, 중복되거나 늦게 도착한 명령은 실행하지 않습니다.</p>
-          <p>로컬 시험에서 단절, 손실, 지연을 30회씩 주입했고 90회 모두 이상 상태로 바뀌는 것을 감지했습니다. 단절 판정까지 걸린 시간은 중앙값 2,980ms, 상위 5% 기준 3,016ms로 목표인 3초를 조금 넘겨 개선 항목으로 남겼습니다. 가상 장치 두 대를 30분간 돌린 시험에서는 중복·만료 명령 실행과 장치 혼선이 0건이었습니다.</p>
+          <p>팀장으로 프로젝트 관리와 시스템 구조, 공통 메시지 규격, Python 엣지 시뮬레이터, 센서와 안전모드를 맡았습니다. Unity 관제 화면과 KOREN 서버 구성은 팀원 두 명이 나눠 맡았습니다.</p>
         </div>
         <dl class="facts">
           <div><dt>대회</dt><dd>K-디지털 챌린지 넷 챌린지 캠프 시즌13 (한국지능정보사회진흥원)</dd></div>
+          <div><dt>과제명</dt><dd>NetTwin: 위험 현장 원격 관제를 위한 KOREN 기반 실시간 디지털 트윈 플랫폼</dd></div>
           <div><dt>형태</dt><dd>팀 ‘널투원(NullToOne)’ 3명, 팀장</dd></div>
           <div><dt>맡은 일</dt><dd>프로젝트 관리, 시스템 구조와 메시지 규격, Python 엣지 시뮬레이터, 센서와 안전모드</dd></div>
-          <div><dt>기술</dt><dd>Python, MQTT, Raspberry Pi 5, Unity, KOREN</dd></div>
-          <div><dt>일정</dt><dd>2026년 8월 중간평가, 10월 최종보고서 제출</dd></div>
+          <div><dt>기술</dt><dd>Python, MQTT(Mosquitto), Raspberry Pi 5, Unity 6, KOREN Edge VM</dd></div>
+          <div><dt>일정</dt><dd>2026년 7월 기획과 규격, 8월 19일 중간평가 시연, 9–10월 장애 시험, 10월 18일 최종보고서 제출</dd></div>
         </dl>
       </div>
 
-      <p class="note">한국지능정보사회진흥원 K-디지털 챌린지 넷 챌린지 캠프 시즌13의 연구망 활용 연구과제 결과입니다. 위 시험 수치는 PC 한 대에서 로컬 브로커와 합성 데이터로 얻은 것이며, 실물 장치와 KOREN을 이은 통합 시험 결과가 아닙니다.</p>
+      <div class="detail">
+        <div>
+          <h3>KOREN을 쓴 방식</h3>
+          <p>KOREN은 한국지능정보사회진흥원이 운영하는 연구·시험용 국가 네트워크입니다. 대전에 있는 KOREN Edge VM에 Mosquitto MQTT 브로커를 올리고 계정 인증과 IP 화이트리스트를 걸어 아산의 현장 엣지와 인천의 Unity 관제 화면이 이 브로커를 거쳐 데이터를 주고받게 했습니다.</p>
+          <p>8월 19일 중간평가에서 이 세 거점 경로로 시연했습니다. 당시 발표자료에 적은 값은 브로커 왕복 20ms, 센서값이 화면에 반영되기까지 중앙값 10ms(상위 5% 24ms), 명령에서 ACK까지 약 60ms입니다.</p>
+        </div>
+        <div>
+          <h3>메시지와 명령 규격</h3>
+          <p>모든 텔레메트리에 device_id, timestamp, sequence를 넣어 어느 장치가 언제 몇 번째로 보낸 값인지 알 수 있게 했습니다. 토픽은 nettwin/{device_id}/ 아래에 telemetry, command, status, alert로 나눕니다.</p>
+          <p>명령에는 command_id와 expires_at을 넣습니다. 엣지는 이미 처리한 ID의 명령과 유효기간이 지난 명령을 실행하지 않고 거부 사유를 ACK로 돌려줍니다. 통신 재시도로 같은 명령이 두 번 오거나 늦게 도착해도 장비가 두 번 움직이지 않습니다.</p>
+        </div>
+        <div>
+          <h3>통신 상태와 제어권</h3>
+          <dl class="facts">
+            <div><dt>정상</dt><dd>손실 5% 미만, 지연 200ms 미만. 모든 제어를 허용합니다</dd></div>
+            <div><dt>주의</dt><dd>손실 5% 이상 또는 지연 200ms 이상. 제어는 되지만 경고를 띄웁니다</dd></div>
+            <div><dt>제한</dt><dd>손실 15% 이상 또는 지연 500ms 이상. 위험한 제어를 잠급니다</dd></div>
+            <div><dt>끊김</dt><dd>3초 동안 유효한 수신이 없음. 엣지는 출력을 끄고 안전모드로 갑니다</dd></div>
+          </dl>
+          <p>다시 연결돼도 제어권이 바로 돌아오지 않습니다. 안정 구간을 지난 뒤 운영자가 승인해야 복원됩니다.</p>
+        </div>
+        <div>
+          <h3>로컬 시험 결과</h3>
+          <dl class="facts facts--wide">
+            <div><dt>단절 30회</dt><dd>30회 모두 감지. 끊김 판정까지 중앙값 2,980ms, 상위 5% 3,016ms로 목표 3초를 조금 넘겨 개선 항목으로 남겼습니다</dd></div>
+            <div><dt>손실 25% 30회</dt><dd>30회 모두 감지. 제한 도달 중앙값 2,886ms</dd></div>
+            <div><dt>지연 600ms 30회</dt><dd>30회 모두 감지. 제한 도달 중앙값 1,075ms</dd></div>
+            <div><dt>QoS 0과 1</dt><dd>각 5회, 회당 1,000건. 수신률 100%, 지연 중앙값 0.78ms와 0.88ms</dd></div>
+            <div><dt>가상 장치 2대</dt><dd>약 30분. 정상 명령 308건 모두 ACK, 만료 거부 63건, 중복 거부 77건. 잘못 실행된 명령과 장치 혼선은 0건, 장치마다 18,006건을 누락 없이 수신</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="demo demo--wide" data-demo data-src="nettwin/index.html" data-title="NetTwin 관제 시뮬레이터">
+        <div class="demo__screen">
+          <img src="images/nettwin-poster.jpg" width="1280" height="800" loading="lazy" alt="NetTwin 관제 시뮬레이터 화면. 위쪽에 통신 구간 선과 장애 버튼이, 아래에 현장 엣지와 원격 관제가 보입니다.">
+          <button class="btn demo__start" type="button">직접 눌러보기</button>
+        </div>
+        <p class="demo__help">버튼을 누르면 이 자리에서 시뮬레이터가 열립니다. ‘단절’을 눌러 3초 기다리면 끊김과 안전모드로 바뀌고 다시 ‘정상’으로 돌린 뒤 승인해야 제어권이 돌아옵니다. <a href="nettwin/index.html">새 창에서 크게 열기</a></p>
+      </div>
+
+      <p class="note">한국지능정보사회진흥원 K-디지털 챌린지 넷 챌린지 캠프 시즌13의 연구망 활용 연구과제 결과입니다. 로컬 시험 수치는 PC 한 대에서 로컬 브로커와 합성 데이터로 얻은 것이며 실물 장치와 KOREN을 이은 통합 시험 결과가 아닙니다. 위 시뮬레이터는 포트폴리오용으로 같은 판정 규칙을 브라우저에 옮긴 것으로, 실제 브로커나 KOREN에 연결하지 않습니다.</p>
     </div>
   </section>
 

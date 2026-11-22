@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NetTwin 관제 시뮬레이터</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>NetTwin 관제 시뮬레이터</h1>
+    <p class="top__clock">시작한 지 <span id="clock">0.0</span>초</p>
+  </header>
+  <p class="notice">브라우저 안에서만 도는 모의 시연입니다. 실제 MQTT 브로커, 장치, KOREN에는 연결하지 않습니다. 센서값은 원본 엣지 시뮬레이터와 같은 수식으로 만든 합성값이고 판정 기준은 로컬 시험에 쓴 설정값입니다.</p>
+
+  <section class="link" aria-labelledby="linkTitle">
+    <h2 id="linkTitle">통신 구간</h2>
+    <div class="wire">
+      <canvas id="wire" width="1200" height="96" role="img" aria-label="현장 엣지에서 브로커를 거쳐 관제로 가는 메시지 흐름"></canvas>
+      <ul class="wire__ends" aria-hidden="true">
+        <li>현장 엣지</li>
+        <li>브로커</li>
+        <li>원격 관제</li>
+      </ul>
+    </div>
+    <div class="link__row">
+      <div class="faults" role="group" aria-label="통신 장애 넣기">
+        <button type="button" data-fault="none" aria-pressed="true">정상</button>
+        <button type="button" data-fault="delay" aria-pressed="false">지연 600ms</button>
+        <button type="button" data-fault="loss" aria-pressed="false">손실 25%</button>
+        <button type="button" data-fault="cut" aria-pressed="false">단절</button>
+      </div>
+      <dl class="meters">
+        <div><dt>마지막 수신 뒤</dt><dd><span id="mSince">0</span>ms</dd></div>
+        <div><dt>최근 2초 손실</dt><dd><span id="mLoss">0</span>%</dd></div>
+        <div><dt>평균 지연</dt><dd><span id="mDelay">0</span>ms</dd></div>
+      </dl>
+    </div>
+    <p class="hint" id="faultHint">버튼으로 통신을 나쁘게 만들고 아래 관제가 어떻게 바뀌는지 보세요.</p>
+  </section>
+
+  <main class="sides">
+    <section class="side side--edge" aria-labelledby="edgeTitle">
+      <h2 id="edgeTitle">현장 엣지</h2>
+      <p class="side__sub">edge-01, 1초에 10번 보냅니다</p>
+      <dl class="values">
+        <div><dt>온도</dt><dd><span id="eTemp">0</span>℃</dd></div>
+        <div><dt>거리</dt><dd><span id="eDist">0</span>cm</dd></div>
+        <div><dt>기울기</dt><dd><span id="ePitch">0</span>°</dd></div>
+        <div><dt>보낸 순번</dt><dd id="eSeq">0</dd></div>
+        <div><dt>경광등</dt><dd><span class="lamp" id="eLamp" data-on="false">꺼짐</span></dd></div>
+        <div><dt>모드</dt><dd><span class="mode" id="eMode" data-safe="false">원격 제어</span></dd></div>
+      </dl>
+    </section>
+
+    <section class="side side--ctrl" aria-labelledby="ctrlTitle">
+      <h2 id="ctrlTitle">원격 관제</h2>
+      <div class="status">
+        <p class="state" id="state" data-state="NORMAL" role="status">정상</p>
+        <p class="status__why" id="stateWhy">손실과 지연이 기준 안쪽입니다.</p>
+      </div>
+      <div class="ctrl__cols">
+        <div>
+          <div class="twin" id="twin" data-stale="false">
+            <div class="twin__body" id="twinBody"></div>
+            <p class="twin__label" id="twinLabel">방금 받은 값</p>
+          </div>
+          <dl class="values">
+            <div><dt>화면의 온도</dt><dd><span id="cTemp">–</span>℃</dd></div>
+            <div><dt>화면의 거리</dt><dd><span id="cDist">–</span>cm</dd></div>
+            <div><dt>받은 순번</dt><dd id="cSeq">–</dd></div>
+          </dl>
+        </div>
+        <div class="ctrl__act">
+          <p class="authority"><span>제어권</span><strong id="authority" data-level="ok">허용</strong></p>
+          <button type="button" id="cmdToggle" class="primary">경광등 켜기 명령</button>
+          <button type="button" id="cmdDup" disabled>같은 명령 다시 보내기</button>
+          <button type="button" id="cmdExpired">만료된 명령 보내기</button>
+          <button type="button" id="approve" class="approve" disabled>제어권 복원 승인</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="log" aria-labelledby="logTitle">
+    <h2 id="logTitle">기록</h2>
+    <ol id="log" aria-live="polite"><li class="log__empty">아직 기록이 없습니다. 통신 상태를 바꾸거나 명령을 보내 보세요.</li></ol>
+  </section>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
