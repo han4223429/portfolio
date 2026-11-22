@@ -17,6 +17,9 @@
   --sunsia-bg: #f3aa45;
   --sunsia-ink: #17291e;
   --sunsia-accent: #174e37;
+  --nettwin-bg: #18273f;
+  --nettwin-ink: #f2f6fb;
+  --nettwin-accent: #8fc1ff;
   --rescue-bg: #f4f4f4;
   --rescue-accent: #1259b8;
   --rescue-orange: #f26a1b;
@@ -79,6 +82,7 @@ button { font: inherit; color: inherit; }
 .index__row span:last-child { font-weight: 600; color: var(--black); }
 .index__row--gt { --row: var(--gt-accent); --row-ink: var(--white); }
 .index__row--sunsia { --row: var(--sunsia-bg); --row-ink: var(--black); }
+.index__row--nettwin { --row: var(--nettwin-bg); --row-ink: var(--white); }
 .index__row--rescue { --row: var(--rescue-orange); --row-ink: var(--black); }
 .index__row--oldam { --row: var(--oldam-bg); --row-ink: var(--white); }
 .index__row--content { --row: var(--black); --row-ink: var(--white); }
@@ -124,6 +128,11 @@ figcaption { margin-top: 8px; font-size: 14px; color: var(--muted, var(--gray));
 .demo--wide .demo__screen img { object-position: top; }
 .demo--wide .demo__start { border-color: var(--sunsia-ink); background: var(--sunsia-ink); box-shadow: 4px 4px 0 var(--sunsia-bg); }
 .demo--wide .demo__start:hover { background: var(--white); color: var(--sunsia-ink); box-shadow: 4px 4px 0 var(--sunsia-ink); }
+
+/* NetTwin */
+.project--nettwin { --accent: var(--nettwin-accent); --rule: color-mix(in srgb, var(--nettwin-ink) 24%, transparent); --muted: color-mix(in srgb, var(--nettwin-ink) 80%, var(--nettwin-bg)); background: var(--nettwin-bg); color: var(--nettwin-ink); }
+.project--nettwin .project__head h2 { color: var(--nettwin-accent); }
+.project--nettwin :focus-visible { outline-color: var(--nettwin-accent); }
 
 /* RESCUE JET */
 .project--rescue { --accent: var(--rescue-accent); background: var(--rescue-bg); }

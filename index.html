@@ -12,15 +12,15 @@
   <title>김한용 포트폴리오</title>
   <meta property="og:type" content="website">
   <meta property="og:title" content="김한용 포트폴리오">
-  <meta property="og:description" content="기획하고, 만들고, 찍어서 올립니다. 경통넷, 썬시아, RESCUE JET, 올담 공공데이터, 콘텐츠 45편.">
+  <meta property="og:description" content="기획하고, 만들고, 찍어서 올립니다. 경통넷, 썬시아, NetTwin, RESCUE JET, 올담 공공데이터, 콘텐츠 45편.">
   <meta property="og:url" content="https://han4223429.github.io/portfolio/">
   <meta property="og:image" content="https://han4223429.github.io/portfolio/images/profile.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/site.css?v=2026.11.3">
-  <script type="module" src="js/site.js?v=2026.11.2"></script>
+  <link rel="stylesheet" href="css/site.css?v=2026.11.4">
+  <script type="module" src="js/site.js?v=2026.11.3"></script>
 </head>
 <body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -50,10 +50,11 @@
     </div>
 
     <div class="wrap" id="work">
-      <h2 class="index__title">작업 다섯 가지</h2>
+      <h2 class="index__title">작업 여섯 가지</h2>
       <ul class="index">
         <li><a class="index__row index__row--gt" href="#gyeongtongnet"><strong>경통넷</strong><span>학생자치 인수인계 서비스 프로토타입</span><span>2026</span><span>우수상</span></a></li>
         <li><a class="index__row index__row--sunsia" href="#sunsia"><strong>썬시아</strong><span>식재료 가격변동 대응 도구</span><span>2026</span><span>참가</span></a></li>
+        <li><a class="index__row index__row--nettwin" href="#nettwin"><strong>NetTwin</strong><span>위험 현장 원격 관제 디지털 트윈</span><span>2026</span><span>팀장</span></a></li>
         <li><a class="index__row index__row--rescue" href="#rescue"><strong>RESCUE JET</strong><span>자동 구명 추진 장치 시제품</span><span>2025</span><span>최우수상</span></a></li>
         <li><a class="index__row index__row--oldam" href="#oldam"><strong>올담 공공데이터</strong><span>서비스 두 가지, 모니터링단 1, 2기</span><span>2025부터</span><span>최우수상</span></a></li>
         <li><a class="index__row index__row--content" href="#content"><strong>릴스와 카드뉴스</strong><span>기획, 촬영, 편집, 발행</span><span>2022–2026</span><span>45편</span></a></li>
@@ -150,6 +151,37 @@
       </div>
 
       <p class="note">메뉴, 가격, 대체 후보는 모두 연습용으로 만든 가상 자료입니다. 실제 절감 효과나 영양·알레르기 안전을 판정하지 않습니다. 사진 판독은 Mac에서 로컬로 실행할 때만 동작해, 웹에서는 예시 문구로 대신합니다.</p>
+    </div>
+  </section>
+
+  <section class="project project--nettwin" id="nettwin" aria-labelledby="nettwinTitle">
+    <div class="wrap">
+      <header class="project__head">
+        <h2 id="nettwinTitle">NetTwin</h2>
+        <p>통신이 나빠지면 원격 제어 권한을 스스로 줄이는 위험 현장 관제 플랫폼</p>
+      </header>
+
+      <div class="project__cols">
+        <div class="prose">
+          <p>위험한 현장을 멀리서 관제할 때는 화면의 값이 방금 잰 값인지, 통신이 끊기기 직전의 마지막 값인지부터 구별해야 합니다. NetTwin은 현장 장치와 관제 화면을 연구망 KOREN으로 잇고, 지연·손실·단절 정도에 따라 제어 권한을 제한합니다.</p>
+          <ol class="steps">
+            <li>현장 엣지가 센서값에 시각과 순번을 붙여 보냅니다</li>
+            <li>MQTT 중계가 장치별로 데이터와 명령을 전달합니다</li>
+            <li>Unity 관제 화면이 상태와 통신 품질을 함께 보여 줍니다</li>
+          </ol>
+          <p>통신 상태는 정상, 주의, 제한, 끊김 네 단계로 나눕니다. 다시 연결되더라도 안정 구간과 운영자 승인을 거쳐야 제어권이 돌아옵니다. 명령에는 ID와 유효기간을 넣어, 중복되거나 늦게 도착한 명령은 실행하지 않습니다.</p>
+          <p>로컬 시험에서 단절, 손실, 지연을 30회씩 주입했고 90회 모두 이상 상태로 바뀌는 것을 감지했습니다. 단절 판정까지 걸린 시간은 중앙값 2,980ms, 상위 5% 기준 3,016ms로 목표인 3초를 조금 넘겨 개선 항목으로 남겼습니다. 가상 장치 두 대를 30분간 돌린 시험에서는 중복·만료 명령 실행과 장치 혼선이 0건이었습니다.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>대회</dt><dd>K-디지털 챌린지 넷 챌린지 캠프 시즌13 (한국지능정보사회진흥원)</dd></div>
+          <div><dt>형태</dt><dd>팀 ‘널투원(NullToOne)’ 3명, 팀장</dd></div>
+          <div><dt>맡은 일</dt><dd>프로젝트 관리, 시스템 구조와 메시지 규격, Python 엣지 시뮬레이터, 센서와 안전모드</dd></div>
+          <div><dt>기술</dt><dd>Python, MQTT, Raspberry Pi 5, Unity, KOREN</dd></div>
+          <div><dt>일정</dt><dd>2026년 8월 중간평가, 10월 최종보고서 제출</dd></div>
+        </dl>
+      </div>
+
+      <p class="note">한국지능정보사회진흥원 K-디지털 챌린지 넷 챌린지 캠프 시즌13의 연구망 활용 연구과제 결과입니다. 위 시험 수치는 PC 한 대에서 로컬 브로커와 합성 데이터로 얻은 것이며, 실물 장치와 KOREN을 이은 통합 시험 결과가 아닙니다.</p>
     </div>
   </section>
 
@@ -273,6 +305,7 @@
         <ul>
           <li><span>11월 20일</span><strong>토마토들 주최 학생회 아이디어톤 우수상 (경통넷)</strong><em>수상</em></li>
           <li><span>10월 31일</span><strong>K-푸드테크 해커톤 참가 (썬시아)</strong><em>교외</em></li>
+          <li><span>10월 18일</span><strong>넷 챌린지 캠프 시즌13 최종보고서 제출 (NetTwin, 팀장)</strong><em>교외</em></li>
           <li><span>7–8월</span><strong>필리핀 Kalibrr 마케팅 인턴</strong><em>인턴</em></li>
           <li><span>3월부터</span><strong>학군사관후보생(ROTC) 66기, 167학군단</strong><em>교내</em></li>
           <li><span>3월부터</span><strong>순천향대학교 또래멘토</strong><em>멘토링</em></li>

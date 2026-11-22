@@ -9,7 +9,7 @@ const INSTAGRAM = /^https:\/\/www\.instagram\.com\/(p|reel)\/[\w-]+\/$/;
 /* ---------- 메뉴: 지금 보고 있는 구간 표시 ---------- */
 function watchSections() {
   const links = $$(".top__nav a");
-  const groups = { work: ["work", "gyeongtongnet", "sunsia", "rescue", "oldam"], content: ["content"], about: ["about"], activity: ["activity"], contact: ["contact"] };
+  const groups = { work: ["work", "gyeongtongnet", "sunsia", "nettwin", "rescue", "oldam"], content: ["content"], about: ["about"], activity: ["activity"], contact: ["contact"] };
   const owner = new Map(Object.entries(groups).flatMap(([menu, ids]) => ids.map((id) => [id, menu])));
   const visible = new Set();
   const observer = new IntersectionObserver((entries) => {
