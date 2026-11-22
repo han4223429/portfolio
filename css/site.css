@@ -125,22 +125,20 @@ html[data-section="sunsia"] { --now: var(--sunsia-green); }
 .btn:disabled:hover { background: transparent; color: var(--black); }
 
 /* 첫 화면 */
-.hero { padding-block: var(--space-xl) var(--section); overflow-x: clip; }
-.hero__top { position: relative; display: grid; gap: 32px; }
-.hero__under { margin-top: var(--space-l); }
-/* 제목은 사진 위로 겹친다. 영상 섬네일 글자처럼 흰 테두리를 둘러 사진 위에서도 읽힌다. */
-.hero h1 { position: relative; z-index: 1; font: 400 var(--d1)/1.06 var(--display); -webkit-text-stroke: 0.14em var(--white); paint-order: stroke fill; }
+.hero { padding-block: var(--space-l) var(--section); overflow-x: clip; }
+/* 첫 화면: 왼쪽에 글, 오른쪽에 3D 작업대. 좁은 화면에서는 글 아래에 작업대가 온다. */
+.hero__scene { display: grid; gap: 32px; }
+.hero h1 { font: 400 clamp(46px, 6.4vw, 96px)/1.06 var(--display); }
 .cut { position: relative; display: block; width: fit-content; }
-.hero__lead { max-width: 34em; font-size: var(--text-l); }
+.hero__lead { max-width: 30em; margin-top: 32px; font-size: var(--text-l); }
 .hero__links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
-.hero__photo { order: 2; width: min(100%, 240px); aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 12%; background: var(--fill); }
-
-/* 첫 화면의 3D */
-.hero__3d { margin-top: 32px; }
-.hero__3d[hidden] { display: none; }
-.hero__stage { height: 240px; }
+.hero__bench[hidden] { display: none; }
+.hero__stage { position: relative; height: clamp(320px, 52vh, 420px); }
 .hero__stage canvas, .stage3d__view canvas { display: block; width: 100%; height: 100%; }
-.hero__caption { font-size: var(--text-s); color: var(--gray); }
+.hero__caption { margin-top: 8px; font-size: var(--text-s); color: var(--gray); }
+.scene__label { position: absolute; left: 0; top: 0; z-index: 1; width: max-content; max-width: 16em; margin: 0; padding: 4px 12px; background: var(--black); color: var(--white); font-weight: 600; font-size: var(--text-s); translate: -9999px 0; transform: translate(-50%, -100%); pointer-events: none; visibility: hidden; }
+.scene__label.is-on { visibility: visible; }
+.about__photo { width: min(100%, 240px); margin-bottom: 32px; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 12%; box-shadow: 12px 12px 0 var(--camo); }
 
 /* 흐르는 띠 */
 .ticker { width: 104vw; margin: var(--space-xl) 0 0 -2vw; padding: 12px 0; overflow: hidden; background: var(--camo); color: var(--white); rotate: -1.5deg; }
@@ -372,15 +370,12 @@ html[data-section="mygpt"] { --now: var(--camo); }
 }
 
 @media (min-width: 900px) {
+  .hero__scene { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 32px; align-items: center; min-height: calc(100svh - 56px - var(--space-l) - var(--section)); }
+  .hero__stage { height: clamp(420px, 64vh, 640px); }
   :root { --gutter: 48px; --section: 128px; --space-xl: 72px; --space-l: 56px; }
-  .hero__top { min-height: clamp(380px, 37vw, 460px); }
-  .hero__under { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: end; }
-  .hero__3d { margin-top: 0; }
-  .hero__stage { height: 320px; }
   .wiring__board { grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr) minmax(0, 1fr); gap: 0 clamp(72px, 12vw, 160px); padding-left: 0; }
   .wiring__col { align-items: stretch; justify-content: center; gap: 16px; padding-top: 40px; }
   .wiring__col h3 { position: absolute; left: 0; top: 0; }
-  .hero__photo { position: absolute; right: 0; top: 0; width: clamp(240px, 27vw, 340px); rotate: 2deg; box-shadow: 12px 12px 0 var(--camo); }
   .stamp { position: absolute; right: 0; top: 16px; margin: 0; }
   .project__cols { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 72px; }
   .project__cols--image { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
@@ -398,7 +393,6 @@ html[data-section="mygpt"] { --now: var(--camo); }
   .cut::after { content: ""; position: absolute; inset: 0; background: var(--signal); animation: cut-block 0.64s var(--out) both; animation-delay: calc(var(--boot) + var(--i, 0) * 0.12s); }
   .cut:nth-child(2) { --i: 1; }
   .cut:nth-child(3) { --i: 2; }
-  .hero__photo { animation: shutter var(--t4) var(--out) calc(var(--boot) + 0.4s) backwards; }
   .ticker__track { animation: ticker 36s linear infinite; }
   .live > div:first-child dt::before { animation: blink 1.6s steps(2, jump-none) infinite; }
   .demo__loading::after { animation: loading 0.8s var(--out) infinite alternate; }

@@ -224,9 +224,10 @@ async function setupLive() {
 function setup3d() {
   const load = () => import("./rescue3d.js");
   const hero = $("#heroStage");
-  // 첫 화면은 데이터 절약 모드가 아닐 때, 첫 그림이 끝난 뒤에 불러온다(폰 포함).
+  // 첫 화면의 작업대는 데이터 절약 모드가 아닐 때, 첫 그림이 끝난 뒤에 불러온다(폰 포함).
   if (hero && !navigator.connection?.saveData) {
-    const begin = () => load().then(({ mountRescue }) => mountRescue(hero, { drag: true, follow: true })).catch(() => { $("#hero3d").hidden = true; });
+    const items = $$("#rail .card").map((card) => ({ id: card.hash.slice(1), name: $("strong", card).textContent, note: $("em", card).textContent }));
+    const begin = () => import("./scene.js").then(({ mountScene }) => mountScene(hero, $("#sceneLabel"), items)).catch(() => { $("#hero3d").hidden = true; });
     if ("requestIdleCallback" in window) requestIdleCallback(begin, { timeout: 2500 }); else setTimeout(begin, 1200);
   } else if (hero) $("#hero3d").hidden = true;
   const start = $("#rescueStart");
