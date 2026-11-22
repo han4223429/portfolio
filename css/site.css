@@ -125,17 +125,18 @@ html[data-section="sunsia"] { --now: var(--sunsia-green); }
 .btn:disabled:hover { background: transparent; color: var(--black); }
 
 /* 첫 화면 */
-.hero { padding-block: var(--space-l) var(--section); overflow-x: clip; }
-/* 첫 화면: 왼쪽에 글, 오른쪽에 3D 작업대. 좁은 화면에서는 글 아래에 작업대가 온다. */
-.hero__scene { display: grid; gap: 32px; }
-.hero h1 { font: 400 clamp(46px, 6.4vw, 96px)/1.06 var(--display); }
+.hero { position: relative; padding-block: var(--space-l) var(--section); overflow-x: clip; }
+/* 첫 화면: 3D 작업대가 화면 전체를 쓰고 글이 그 위 왼쪽에 얹힌다. 좁은 화면에서는 글 아래에 작업대가 온다. */
+.hero__scene { position: relative; z-index: 1; }
+.hero h1 { font: 400 clamp(46px, 7.6vw, 120px)/1.06 var(--display); -webkit-text-stroke: 0.12em var(--white); paint-order: stroke fill; }
 .cut { position: relative; display: block; width: fit-content; }
 .hero__lead { max-width: 30em; margin-top: 32px; font-size: var(--text-l); }
 .hero__links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
 .hero__bench[hidden] { display: none; }
-.hero__stage { position: relative; height: clamp(320px, 52vh, 420px); }
+.hero__bench { margin-top: 16px; }
+.hero__stage { position: relative; height: min(100vw, 72vh); }
 .hero__stage canvas, .stage3d__view canvas { display: block; width: 100%; height: 100%; }
-.hero__caption { margin-top: 8px; font-size: var(--text-s); color: var(--gray); }
+.hero__caption { padding-inline: var(--gutter); font-size: var(--text-s); color: var(--gray); }
 .scene__label { position: absolute; left: 0; top: 0; z-index: 1; width: max-content; max-width: 16em; margin: 0; padding: 4px 12px; background: var(--black); color: var(--white); font-weight: 600; font-size: var(--text-s); translate: -9999px 0; transform: translate(-50%, -100%); pointer-events: none; visibility: hidden; }
 .scene__label.is-on { visibility: visible; }
 .about__photo { width: min(100%, 240px); margin-bottom: 32px; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 12%; box-shadow: 12px 12px 0 var(--camo); }
@@ -370,8 +371,16 @@ html[data-section="mygpt"] { --now: var(--camo); }
 }
 
 @media (min-width: 900px) {
-  .hero__scene { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 32px; align-items: center; min-height: calc(100svh - 56px - var(--space-l) - var(--section)); }
-  .hero__stage { height: clamp(420px, 64vh, 640px); }
+  .hero__scene { min-height: calc(100svh - 56px - var(--space-l)); pointer-events: none; }
+  .hero__scene a, .hero__scene .live { pointer-events: auto; }
+  .hero__text { max-width: 40%; }
+  .hero__text h1 { width: max-content; margin-bottom: 32px; }
+  /* 글이 작업대 위에 걸쳐도 읽히도록 줄마다 흰 바탕을 깐다 */
+  .hero__lead { display: inline; margin-top: 0; padding: 4px 0; background: var(--white); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .hero__bench { position: absolute; inset: 0 0 auto 0; height: calc(100svh - 56px); margin-top: 0; }
+  .hero__stage { height: 100%; }
+  .hero__caption { position: absolute; right: 0; bottom: 16px; max-width: 24em; text-align: right; }
+  .hero .ticker { margin-top: 0; }
   :root { --gutter: 48px; --section: 128px; --space-xl: 72px; --space-l: 56px; }
   .wiring__board { grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr) minmax(0, 1fr); gap: 0 clamp(72px, 12vw, 160px); padding-left: 0; }
   .wiring__col { align-items: stretch; justify-content: center; gap: 16px; padding-top: 40px; }

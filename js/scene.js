@@ -94,9 +94,13 @@ export async function mountScene(host, label, items) {
     const w = host.clientWidth || 1, h = host.clientHeight || 1;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    const far = camera.aspect < 1.5 ? (1.5 - camera.aspect) * 13 : 0;
-    camera.position.set(0, 6.6 + far * 0.6, 10.5 + far);
-    camera.lookAt(0, 0.5, 0);
+    // 넓은 화면: 글이 왼쪽에 얹히므로 판을 오른쪽으로 밀고 크게 본다. 좁은 화면: 가운데에 두고 잘리지 않을 만큼만 물러난다.
+    const wide = camera.aspect > 1.35;
+    const far = wide ? 0 : (1.35 - camera.aspect) * 12;
+    const fit = wide ? Math.max(1, 1.7 / camera.aspect) : 1; // 덜 넓은 화면에서는 그만큼 물러난다
+    rig.position.x = wide ? 3.5 / fit : 0;
+    camera.position.set(0, (wide ? 7.6 * fit : 6) + far * 0.6, (wide ? 16.5 * fit : 9.2) + far);
+    camera.lookAt(0, wide ? 0.9 : 0.4, 0);
     camera.updateProjectionMatrix();
   };
   const sizer = new ResizeObserver(size);
