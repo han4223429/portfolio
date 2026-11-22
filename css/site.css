@@ -135,9 +135,10 @@ html[data-section="sunsia"] { --now: var(--sunsia-green); }
 .hero__links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
 .hero__photo { order: 2; width: min(100%, 240px); aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 12%; background: var(--fill); }
 
-/* 첫 화면의 3D: 넓은 화면에서만 불러온다 */
-.hero__3d { display: none; }
-.hero__stage { height: 320px; }
+/* 첫 화면의 3D */
+.hero__3d { margin-top: 32px; }
+.hero__3d[hidden] { display: none; }
+.hero__stage { height: 240px; }
 .hero__stage canvas, .stage3d__view canvas { display: block; width: 100%; height: 100%; }
 .hero__caption { font-size: var(--text-s); color: var(--gray); }
 
@@ -374,7 +375,8 @@ html[data-section="mygpt"] { --now: var(--camo); }
   :root { --gutter: 48px; --section: 128px; --space-xl: 72px; --space-l: 56px; }
   .hero__top { min-height: clamp(380px, 37vw, 460px); }
   .hero__under { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: end; }
-  .hero__3d { display: block; }
+  .hero__3d { margin-top: 0; }
+  .hero__stage { height: 320px; }
   .wiring__board { grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr) minmax(0, 1fr); gap: 0 clamp(72px, 12vw, 160px); padding-left: 0; }
   .wiring__col { align-items: stretch; justify-content: center; gap: 16px; padding-top: 40px; }
   .wiring__col h3 { position: absolute; left: 0; top: 0; }

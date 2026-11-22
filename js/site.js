@@ -220,15 +220,15 @@ async function setupLive() {
   }
 }
 
-/* ---------- RESCUE JET 3D: 첫 화면(넓은 화면에서만 자동)과 작업 구간(눌렀을 때) ---------- */
+/* ---------- RESCUE JET 3D: 첫 화면(자동)과 작업 구간(눌렀을 때) ---------- */
 function setup3d() {
   const load = () => import("./rescue3d.js");
   const hero = $("#heroStage");
-  // 첫 화면은 넓은 화면이고 데이터 절약 모드가 아닐 때만, 첫 그림이 끝난 뒤에 불러온다.
-  if (hero && matchMedia("(min-width: 900px)").matches && !navigator.connection?.saveData) {
+  // 첫 화면은 데이터 절약 모드가 아닐 때, 첫 그림이 끝난 뒤에 불러온다(폰 포함).
+  if (hero && !navigator.connection?.saveData) {
     const begin = () => load().then(({ mountRescue }) => mountRescue(hero, { drag: true, follow: true })).catch(() => { $("#hero3d").hidden = true; });
     if ("requestIdleCallback" in window) requestIdleCallback(begin, { timeout: 2500 }); else setTimeout(begin, 1200);
-  }
+  } else if (hero) $("#hero3d").hidden = true;
   const start = $("#rescueStart");
   if (!start) return;
   start.addEventListener("click", async () => {
