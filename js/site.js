@@ -416,6 +416,14 @@ function setupCopy() {
   });
 }
 
+// 새로고침이면 맨 위 첫 화면에서 다시 시작한다(boot.js가 표시해 둔다). 브라우저가 뒤늦게 위치를 되돌리는 경우까지 막는다.
+if (document.documentElement.dataset.reload) {
+  const top = () => scrollTo({ top: 0, left: 0, behavior: "instant" });
+  top();
+  addEventListener("load", top, { once: true });
+  addEventListener("pageshow", top, { once: true });
+}
+
 // 로딩 화면은 CSS만으로 사라지지만, 움직임이 멈춘 환경에서도 남지 않게 한 번 더 치운다.
 if (!document.documentElement.classList.contains("seen")) document.documentElement.classList.add("booted");
 setTimeout(() => document.documentElement.classList.add("seen"), 1800);
