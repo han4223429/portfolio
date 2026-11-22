@@ -12,7 +12,7 @@ function watchSections() {
   const links = $$(".top__nav a");
   const tocLinks = $$(".toc a");
   const toc = $(".toc");
-  const groups = { work: ["work", "gyeongtongnet", "rescue", "oldam", "nettwin", "sunsia"], content: ["content"], about: ["about"], activity: ["activity"], contact: ["contact"] };
+  const groups = { work: ["wiring", "work", "gyeongtongnet", "rescue", "oldam", "nettwin", "sunsia"], content: ["content"], about: ["about"], activity: ["activity"], contact: ["contact"] };
   const owner = new Map(Object.entries(groups).flatMap(([menu, ids]) => ids.map((id) => [id, menu])));
   const visible = new Set();
   const root = document.documentElement;
@@ -75,6 +75,127 @@ function setupStamps() {
     }
   }, { rootMargin: "0px 0px -20% 0px" });
   for (const stamp of $$(".stamp")) observer.observe(stamp);
+}
+
+/* ---------- 배선도: 노드를 고르면 위아래로 이어진 선만 남긴다 ---------- */
+function setupWiring() {
+  const board = $("[data-wiring]");
+  if (!board) return;
+  const svg = $(".wiring__lines", board);
+  const nodes = new Map($$(".node", board).map((el) => [el.dataset.id, el]));
+  const edges = [];
+  for (const [id, el] of nodes) for (const to of (el.dataset.to || "").split(" ").filter(Boolean)) if (nodes.has(to)) edges.push({ from: id, to });
+  const NS = "http://www.w3.org/2000/svg";
+  for (const edge of edges) { edge.path = document.createElementNS(NS, "path"); svg.append(edge.path); }
+
+  // 회로도처럼 직각으로 꺾는다. 꺾이는 자리는 선마다 조금씩 달리해 겹치지 않게 한다.
+  const draw = () => {
+    const box = board.getBoundingClientRect();
+    svg.setAttribute("viewBox", `0 0 ${box.width} ${box.height}`);
+    const lanes = new Map();
+    edges.forEach((edge) => {
+      const a = nodes.get(edge.from).getBoundingClientRect();
+      const b = nodes.get(edge.to).getBoundingClientRect();
+      const side = b.left >= a.right - 1;
+      const key = nodes.get(edge.from).parentElement === board.children[1] ? "first" : "second";
+      const lane = lanes.get(key) || 0;
+      lanes.set(key, lane + 1);
+      const total = edges.filter((e) => (nodes.get(e.from).parentElement === board.children[1] ? "first" : "second") === key).length;
+      const t = (lane + 1) / (total + 1);
+      if (side) {
+        const x1 = a.right - box.left, y1 = a.top + a.height / 2 - box.top, x2 = b.left - box.left, y2 = b.top + b.height / 2 - box.top;
+        const mid = x1 + (x2 - x1) * t;
+        edge.path.setAttribute("d", `M${x1} ${y1}H${mid}V${y2}H${x2}`);
+      } else {
+        // 좁은 화면: 왼쪽 여백을 배선 통로로 쓴다. 선이 노드를 가로지르지 않는다.
+        const x1 = a.left - box.left, y1 = a.top + a.height / 2 - box.top, x2 = b.left - box.left, y2 = b.top + b.height / 2 - box.top;
+        const lane = 4 + (Math.min(x1, x2) - 12) * t;
+        edge.path.setAttribute("d", `M${x1} ${y1}H${lane}V${y2}H${x2}`);
+      }
+    });
+  };
+
+  const reach = (start, dir) => {
+    const seen = new Set([start]);
+    const queue = [start];
+    while (queue.length) {
+      const id = queue.pop();
+      for (const edge of edges) {
+        const next = dir === "down" && edge.from === id ? edge.to : dir === "up" && edge.to === id ? edge.from : null;
+        if (next && !seen.has(next)) { seen.add(next); queue.push(next); }
+      }
+    }
+    return seen;
+  };
+  let picked = null;
+  const show = (id) => {
+    const down = id ? reach(id, "down") : new Set();
+    const up = id ? reach(id, "up") : new Set();
+    for (const [key, el] of nodes) {
+      const on = down.has(key) || up.has(key);
+      el.classList.toggle("is-on", Boolean(id) && on);
+      el.classList.toggle("is-off", Boolean(id) && !on);
+      if (el.tagName === "BUTTON") el.setAttribute("aria-pressed", String(key === picked));
+    }
+    for (const edge of edges) {
+      const on = Boolean(id) && ((down.has(edge.from) && down.has(edge.to)) || (up.has(edge.from) && up.has(edge.to)));
+      edge.path.classList.toggle("is-on", on);
+      if (on) edge.path.style.setProperty("--c", getComputedStyle(nodes.get(edge.to)).getPropertyValue("--c"));
+    }
+  };
+  for (const [id, el] of nodes) {
+    // 읽어 주는 이름에 이어진 곳을 함께 적는다.
+    const names = [...reach(id, "down"), ...reach(id, "up")].filter((key) => key !== id).map((key) => nodes.get(key).firstChild.textContent.trim());
+    el.setAttribute("aria-label", `${el.textContent.trim()}. 이어진 곳: ${names.join(", ")}`);
+    el.addEventListener("pointerenter", () => show(id));
+    el.addEventListener("focus", () => show(id));
+    el.addEventListener("pointerleave", () => show(picked));
+    el.addEventListener("blur", () => show(picked));
+    if (el.tagName === "BUTTON") el.addEventListener("click", () => { picked = picked === id ? null : id; show(picked); });
+  }
+  new ResizeObserver(draw).observe(board);
+  document.fonts?.ready.then(draw);
+  draw();
+  picked = "gdm";
+  show(picked);
+}
+
+/* ---------- 방문 수와 아산 시각 ---------- */
+// 방문 수는 외부 카운터(abacus)에 숫자만 올린다. 같은 브라우저는 하루에 한 번만 센다. 응답이 없으면 표시를 비워 둔다.
+async function setupLive() {
+  const today = $("#visitToday");
+  const total = $("#visitTotal");
+  const clock = $("#clockAsan");
+  if (!today || !total || !clock) return;
+  const time = new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit", hour12: false });
+  const tick = () => { clock.textContent = time.format(new Date()); };
+  tick();
+  setInterval(tick, 20000);
+
+  const day = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(new Date());
+  const local = ["localhost", "127.0.0.1"].includes(location.hostname);
+  const space = local ? "pf-kr-9x4t2q-dev" : "pf-kr-9x4t2q";
+  let counted = false;
+  try { counted = localStorage.getItem("visit-day") === day; } catch { /* 저장을 못 쓰면 매번 조회만 한다 */ counted = true; }
+  const ask = async (key, hit) => {
+    const response = await fetch(`https://abacus.jasoncameron.dev/${hit ? "hit" : "get"}/${space}/${key}`, { signal: AbortSignal.timeout(5000) });
+    if (response.status === 404) return 0;
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const value = Number((await response.json()).value);
+    if (!Number.isFinite(value)) throw new Error("값이 숫자가 아닙니다");
+    return value;
+  };
+  const number = new Intl.NumberFormat("ko-KR");
+  try {
+    const [a, b] = await Promise.all([ask(`d-${day}`, !counted), ask("total", !counted)]);
+    today.textContent = number.format(a);
+    total.textContent = number.format(b);
+    if (!counted) { try { localStorage.setItem("visit-day", day); } catch { /* 무시 */ } }
+  } catch {
+    today.textContent = "–";
+    total.textContent = "–";
+    $("#live").title = "방문 수를 불러오지 못했습니다";
+  }
 }
 
 /* ---------- 시연: 눌렀을 때만 앱을 불러온다 ---------- */
@@ -231,6 +352,8 @@ function setupCopy() {
 
 watchSections();
 setupPeek();
+setupWiring();
+setupLive();
 setupStamps();
 $$("[data-demo]").forEach(setupDemo);
 setupCopy();

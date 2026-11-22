@@ -117,6 +117,32 @@ html[data-section="sunsia"] { --now: var(--sunsia-bg); }
 .ticker li { display: flex; align-items: center; }
 .ticker li::after { content: ""; width: 0.4em; height: 0.4em; margin-inline: 32px; background: var(--white); }
 
+/* 방문 기록과 시각: 기기 상태 표시처럼 숫자만 크게 */
+.live { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; margin-top: 32px; border: 2px solid var(--black); width: fit-content; max-width: 100%; }
+.live > div { padding: 8px 16px; }
+.live > div + div { border-left: 2px solid var(--black); }
+.live dt { font-size: var(--text-s); color: var(--gray); white-space: nowrap; }
+.live dd { font: 400 var(--d5)/1.25 var(--display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* 배선도: 배운 곳, 하는 일, 만든 것을 회로도처럼 직각 선으로 잇는다 */
+.wiring__lead { max-width: 36em; margin-top: 16px; }
+.wiring__board { position: relative; display: grid; gap: 40px; margin-top: 40px; padding-left: 56px; }
+.wiring__lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.wiring__lines path { fill: none; stroke: var(--line); stroke-width: 2; transition: stroke var(--t1), stroke-width var(--t1); }
+.wiring__lines path.is-on { stroke: var(--c, var(--black)); stroke-width: 4; stroke-dasharray: 12 8; }
+.wiring__col { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.wiring__col h3 { font-size: var(--text-s); font-weight: 600; color: var(--gray); }
+.node { --c: var(--black); position: relative; z-index: 1; display: inline-flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 8px 16px; border: 2px solid var(--black); background: var(--white); color: var(--black); font: 400 var(--text-l)/1.3 var(--display); text-align: left; text-decoration: none; cursor: pointer; transition: background-color var(--t1), color var(--t1), translate var(--t1) var(--out), box-shadow var(--t1) var(--out), opacity var(--t1); }
+.node small { font: 400 var(--text-s)/1.4 var(--body); }
+.node:hover { translate: -2px -2px; box-shadow: 4px 4px 0 var(--black); }
+.node.is-on { background: var(--c); border-color: var(--c); color: var(--c-ink, var(--white)); }
+.node.is-off { opacity: 0.35; }
+.node--gt { --c: var(--gt-accent); }
+.node--rescue { --c: var(--rescue-orange); --c-ink: var(--black); }
+.node--oldam { --c: var(--oldam-bg); }
+.node--nettwin { --c: var(--nettwin-bg); }
+.node--sunsia { --c: var(--sunsia-bg); --c-ink: var(--black); }
+
 .index__title { margin-top: var(--section); padding-bottom: 8px; border-bottom: 3px solid var(--black); font: 400 var(--d4)/1.2 var(--display); }
 .index__row { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 20px 8px; border-bottom: 1px solid var(--line); text-decoration: none; background: linear-gradient(var(--row), var(--row)) no-repeat 0 0 / 0% 100%; transition: background-size var(--t2) var(--out), color var(--t1), padding-left var(--t2) var(--out); }
 .index__row strong { grid-column: 1 / -1; font: 400 var(--d3)/1.15 var(--display); }
@@ -278,6 +304,9 @@ figcaption { margin-top: 8px; font-size: var(--text-s); color: var(--muted, var(
 @media (min-width: 900px) {
   :root { --gutter: 48px; --section: 128px; --space-xl: 72px; --space-l: 56px; }
   .hero__top { min-height: clamp(380px, 37vw, 460px); }
+  .wiring__board { grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr) minmax(0, 1fr); gap: 0 clamp(72px, 12vw, 160px); padding-left: 0; }
+  .wiring__col { align-items: stretch; justify-content: center; gap: 16px; padding-top: 40px; }
+  .wiring__col h3 { position: absolute; left: 0; top: 0; }
   .hero__photo { position: absolute; right: 0; top: 0; width: clamp(240px, 27vw, 340px); rotate: 2deg; box-shadow: 12px 12px 0 var(--black); }
   .stamp { position: absolute; right: 0; top: 16px; margin: 0; }
   .project__cols { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 72px; }
@@ -298,6 +327,7 @@ figcaption { margin-top: 8px; font-size: var(--text-s); color: var(--muted, var(
   .cut:nth-child(3) { --i: 2; }
   .hero__photo { animation: shutter var(--t4) var(--out) 0.4s backwards; }
   .ticker__track { animation: ticker 36s linear infinite; }
+  .wiring__lines path.is-on { animation: flow 0.8s linear infinite; }
   .ticker:hover .ticker__track { animation-play-state: paused; }
   .js .stamp { scale: 1.8; opacity: 0; }
   .js .stamp.is-in { scale: 1; opacity: 1; transition: scale var(--t1) cubic-bezier(0.7, 0, 0.84, 0); }
@@ -305,6 +335,7 @@ figcaption { margin-top: 8px; font-size: var(--text-s); color: var(--muted, var(
 @keyframes cut-block { 0% { clip-path: inset(0 100% 0 0); } 50% { clip-path: inset(0); } 100% { clip-path: inset(0 0 0 100%); } }
 @keyframes cut-text { 0%, 49.9% { opacity: 0; } 50%, 100% { opacity: 1; } }
 @keyframes shutter { from { clip-path: inset(50% 0); } to { clip-path: inset(0); } }
+@keyframes flow { to { stroke-dashoffset: -20; } }
 @keyframes ticker { to { translate: -50% 0; } }
 
 /* 스크롤에 맞춰: 위쪽 진행 막대가 차오르고, 작업 제목은 테두리만 있다가 색이 채워진다 */
@@ -319,7 +350,7 @@ figcaption { margin-top: 8px; font-size: var(--text-s); color: var(--muted, var(
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .btn, .index__row, .year li, .demo__screen, .peek, .viewer[open] { transition: none; }
+  .btn, .index__row, .year li, .demo__screen, .peek, .viewer[open], .node, .wiring__lines path { transition: none; }
   .ticker { rotate: none; }
   .ticker__track { width: auto; }
   .ticker ul { flex-wrap: wrap; white-space: normal; }
