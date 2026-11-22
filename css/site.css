@@ -25,6 +25,9 @@
   --nettwin-bg: #0a3d91;
   --nettwin-ink: #ffffff;
   --nettwin-accent: #ffd60a;
+  --mygpt-bg: #68574f;
+  --mygpt-ink: #ffffff;
+  --mygpt-accent: #1fd17a;
   --rescue-bg: #f4f4f4;
   --rescue-accent: #1259b8;
   --rescue-orange: #f26a1b;
@@ -167,21 +170,31 @@ html[data-section="sunsia"] { --now: var(--sunsia-green); }
 .node--sunsia { --c: var(--sunsia-green); }
 
 .index__title { margin-top: var(--section); padding-bottom: 8px; border-bottom: 3px solid var(--black); font: 400 var(--d4)/1.2 var(--display); }
-.index__row { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 20px 8px; border-bottom: 1px solid var(--line); text-decoration: none; background: linear-gradient(var(--row), var(--row)) no-repeat 0 0 / 0% 100%; transition: background-size var(--t2) var(--out), color var(--t1), padding-left var(--t2) var(--out); }
-.index__row strong { grid-column: 1 / -1; font: 400 var(--d3)/1.15 var(--display); }
-.index__row span { font-size: var(--text-m); color: var(--gray); }
-.index__row span:nth-of-type(2) { display: none; }
-.index__row span:last-child { font-weight: 600; color: var(--black); }
-.index__row--gt { --row: var(--gt-accent); --row-ink: var(--white); }
-.index__row--sunsia { --row: var(--sunsia-green); --row-ink: var(--white); }
-.index__row--nettwin { --row: var(--nettwin-bg); --row-ink: var(--white); }
-.index__row--rescue { --row: var(--rescue-orange); --row-ink: var(--black); }
-.index__row--oldam { --row: var(--oldam-bg); --row-ink: var(--white); }
-.index__row--content { --row: var(--black); --row-ink: var(--white); }
-.index__row:hover, .index__row:focus-visible { background-size: 100% 100%; color: var(--row-ink); padding-left: 24px; }
-.peek { position: fixed; left: 0; top: 0; z-index: 5; width: 240px; height: 160px; object-fit: cover; object-position: top; border: 3px solid var(--black); box-shadow: 8px 8px 0 var(--black); pointer-events: none; rotate: -3deg; clip-path: inset(0 100% 0 0); transition: clip-path var(--t2) var(--out); }
-.peek.is-on { clip-path: inset(0); }
-.index__row:hover span, .index__row:focus-visible span { color: var(--row-ink); }
+/* 차례 띠: 옆으로 끌어 넘기는 카드. 끄는 속도만큼 카드가 기운다. 터치에서는 그냥 밀면 된다. */
+.rail__lead { margin-top: 16px; color: var(--gray); }
+.rail { --tilt: 0deg; display: flex; gap: 24px; --edge: max(var(--gutter), calc((100vw - 1240px) / 2 + var(--gutter))); margin-top: 32px; padding: 8px var(--edge) 24px; scroll-padding-inline: var(--edge); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; cursor: grab; perspective: 1200px; }
+.rail::-webkit-scrollbar { display: none; }
+.rail.is-drag { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.rail li { flex: 0 0 auto; scroll-snap-align: start; }
+.card { --c: var(--black); --c-ink: var(--white); display: grid; grid-template-rows: auto auto auto 1fr; width: min(72vw, 320px); height: 100%; border: 2px solid var(--black); background: var(--white); color: var(--black); text-decoration: none; rotate: y var(--tilt); transition: translate var(--t1) var(--out), box-shadow var(--t1) var(--out), rotate var(--t1) var(--out); -webkit-user-drag: none; }
+.card img, .card__type { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: top; border-bottom: 2px solid var(--black); pointer-events: none; }
+.card__type { display: grid; place-content: center; background: var(--c); color: var(--c-ink); font: 400 var(--d4)/1.2 var(--display); text-align: center; }
+.card strong { padding: 16px 16px 0; font: 400 var(--d5)/1.2 var(--display); }
+.card span { padding: 4px 16px 0; font-size: var(--text-m); color: var(--gray); }
+.card em { align-self: end; margin: 16px; padding-top: 8px; border-top: 4px solid var(--c); font-style: normal; font-weight: 600; font-size: var(--text-s); }
+.card:hover, .card:focus-visible { translate: -4px -4px; box-shadow: 8px 8px 0 var(--c); }
+.card--gt { --c: var(--gt-accent); }
+.card--rescue { --c: var(--rescue-orange); --c-ink: var(--black); }
+.card--oldam { --c: var(--oldam-bg); }
+.card--oldam img { object-position: center; }
+.card--nettwin { --c: var(--nettwin-bg); }
+.card--sunsia { --c: var(--sunsia-green); }
+.card--mygpt { --c: var(--camo); }
+
+/* 마우스를 따라다니는 초록 점. 끌 수 있는 곳과 열 수 있는 곳에서 글자가 든 원으로 커진다. 원래 커서는 그대로 둔다. */
+.cursor { position: fixed; left: 0; top: 0; z-index: 90; display: none; place-content: center; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--signal); color: var(--black); font-size: 0; font-weight: 700; pointer-events: none; transition: width var(--t1) var(--out), height var(--t1) var(--out), margin var(--t1) var(--out), font-size var(--t1); }
+.cursor.is-on { display: grid; }
+.cursor.is-big { width: 72px; height: 72px; margin: -36px 0 0 -36px; font-size: var(--text-s); }
 
 /* 작업 구간 공통 */
 .project, .content, .about, .activity { padding-block: var(--section); }
@@ -246,6 +259,19 @@ figcaption { margin-top: 8px; font-size: var(--text-s); color: var(--muted, var(
 .detail h3 { font: 400 var(--d5)/1.2 var(--display); color: var(--accent, inherit); }
 .detail p { max-width: 36em; }
 .facts--wide > div { grid-template-columns: 7.5em 1fr; }
+
+/* my-gpt */
+.project--mygpt { --accent: var(--mygpt-accent); --rule: color-mix(in srgb, var(--mygpt-ink) 28%, transparent); --muted: color-mix(in srgb, var(--mygpt-ink) 90%, var(--mygpt-bg)); background: var(--mygpt-bg); color: var(--mygpt-ink); }
+.project--mygpt .project__head h2 { color: var(--mygpt-accent); }
+.project--mygpt :focus-visible { outline-color: var(--mygpt-accent); }
+.project--mygpt a { color: var(--mygpt-accent); }
+.project--mygpt .demo--wide { --frame: var(--black); --start-bg: var(--mygpt-accent); --start-ink: var(--black); --start-shadow: var(--black); }
+.demo__screen--plain { display: grid; place-content: center; justify-items: center; padding: 24px; background: var(--white); color: var(--black); }
+.demo--wide .demo__screen--plain:not(:has(iframe)) { height: clamp(280px, 40vh, 360px); }
+.demo.is-live .demo__screen--plain { display: block; padding: 0; }
+.demo__plain { max-width: 20em; padding-bottom: 96px; font: 400 var(--d5)/1.4 var(--display); text-align: center; }
+.node--mygpt { --c: var(--camo); }
+html[data-section="mygpt"] { --now: var(--camo); }
 
 /* RESCUE JET */
 .project--rescue { --accent: var(--rescue-accent); background: var(--rescue-bg); }
@@ -326,10 +352,6 @@ figcaption { margin-top: 8px; font-size: var(--text-s); color: var(--muted, var(
   .top__nav { gap: 4px; }
   .top__nav a { padding-inline: 12px; }
   .posts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .index__row { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) 7em 5em; align-items: baseline; padding: 24px 8px; }
-  .index__row strong { grid-column: auto; }
-  .index__row span:nth-of-type(2) { display: inline; }
-  .index__row span:last-child { text-align: right; }
   .year li { grid-template-columns: 9em 1fr auto; }
   .year li span { grid-column: auto; font-size: var(--text-m); }
   .gt-media__side { grid-template-columns: minmax(0, 1fr); }
@@ -389,7 +411,7 @@ figcaption { margin-top: 8px; font-size: var(--text-s); color: var(--muted, var(
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .loader { display: none; }
-  .btn, .index__row, .year li, .demo__screen, .peek, .viewer[open], .node, .wiring__lines path { transition: none; }
+  .btn, .card, .cursor, .year li, .demo__screen, .viewer[open], .node, .wiring__lines path { transition: none; }
   .ticker { rotate: none; }
   .ticker__track { width: auto; }
   .ticker ul { flex-wrap: wrap; white-space: normal; }

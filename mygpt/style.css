@@ -1,0 +1,32 @@
+/* my-gpt 회칙 점검 시연. 포트폴리오와 같은 색(사진의 갈색, 신호 초록)을 쓴다. */
+:root {
+  --white: #ffffff; --black: #2a211e; --camo: #68574f; --line: #ddd5ce; --fill: #f4efeb; --signal: #1fd17a; --link: #0a7d48;
+  --display: "Black Han Sans", "Apple SD Gothic Neo", sans-serif;
+  --body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-family: var(--body); color: var(--black); background: var(--white);
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 16px; font-size: 16px; line-height: 1.6; }
+h1, h2, p, ol { margin: 0; }
+ol { padding: 0; list-style: none; }
+button, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+.sr { position: absolute; left: -9999px; }
+.top h1 { font: 400 28px/1.2 var(--display); }
+.top p { max-width: 40em; margin-top: 8px; font-size: 14px; color: var(--camo); }
+.cols { display: grid; gap: 24px; margin-top: 24px; }
+h2 { padding-bottom: 8px; border-bottom: 4px solid var(--black); font: 400 24px/1.2 var(--display); }
+h2 span { margin-left: 8px; font: 600 16px/1 var(--body); color: var(--link); }
+textarea { display: block; width: 100%; margin-top: 16px; padding: 12px; border: 2px solid var(--black); background: var(--fill); line-height: 1.7; resize: vertical; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.actions button { min-height: 44px; padding: 8px 16px; border: 2px solid var(--black); background: var(--white); font-weight: 600; cursor: pointer; }
+.actions button:hover { background: var(--signal); }
+.actions .primary { background: var(--black); color: var(--white); box-shadow: 4px 4px 0 var(--signal); }
+.actions .primary:hover { color: var(--black); box-shadow: 4px 4px 0 var(--black); }
+.actions button:active { translate: 2px 2px; }
+#result { margin-top: 16px; }
+#result li { display: grid; gap: 4px; padding: 12px 0 12px 16px; border-bottom: 1px solid var(--line); border-left: 8px solid var(--signal); margin-bottom: 8px; }
+#result strong { font-weight: 700; }
+#result .where { font-weight: 600; color: var(--link); }
+#result .empty { border-left-color: var(--line); color: var(--camo); }
+@media (min-width: 820px) { body { padding: 24px 32px; } .cols { grid-template-columns: 1fr 1fr; gap: 40px; } }

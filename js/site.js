@@ -7,12 +7,12 @@ const PAGE_SIZE = 6;
 const INSTAGRAM = /^https:\/\/www\.instagram\.com\/(p|reel)\/[\w-]+\/$/;
 
 /* ---------- 메뉴와 차례: 지금 보고 있는 구간 표시 ---------- */
-const WORKS = ["gyeongtongnet", "rescue", "oldam", "nettwin", "sunsia", "content"];
+const WORKS = ["gyeongtongnet", "rescue", "oldam", "nettwin", "sunsia", "mygpt", "content"];
 function watchSections() {
   const links = $$(".top__nav a");
   const tocLinks = $$(".toc a");
   const toc = $(".toc");
-  const groups = { work: ["wiring", "work", "gyeongtongnet", "rescue", "oldam", "nettwin", "sunsia"], content: ["content"], about: ["about"], activity: ["activity"], contact: ["contact"] };
+  const groups = { work: ["wiring", "work", "gyeongtongnet", "rescue", "oldam", "nettwin", "sunsia", "mygpt"], content: ["content"], about: ["about"], activity: ["activity"], contact: ["contact"] };
   const owner = new Map(Object.entries(groups).flatMap(([menu, ids]) => ids.map((id) => [id, menu])));
   const visible = new Set();
   const root = document.documentElement;
@@ -41,27 +41,54 @@ function watchSections() {
   for (const id of owner.keys()) { const el = document.getElementById(id); if (el) observer.observe(el); }
 }
 
-/* ---------- 차례: 줄에 올리면 그 작업의 화면이 따라온다(마우스가 있을 때만) ---------- */
-function setupPeek() {
-  const peek = $("#peek");
-  const list = $(".index");
-  if (!peek || !list || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-  peek.hidden = false;
+/* ---------- 차례 띠: 마우스로 끌어 넘긴다. 터치와 키보드는 브라우저 기본 스크롤을 쓴다 ---------- */
+function setupRail() {
+  const rail = $("#rail");
+  if (!rail) return;
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let down = false, startX = 0, startLeft = 0, moved = 0, lastX = 0, settle;
+  rail.addEventListener("pointerdown", (event) => {
+    if (event.pointerType !== "mouse" || event.button !== 0) return;
+    down = true; moved = 0; startX = lastX = event.clientX; startLeft = rail.scrollLeft;
+  });
+  addEventListener("pointermove", (event) => {
+    if (!down) return;
+    const dx = event.clientX - startX;
+    moved = Math.max(moved, Math.abs(dx));
+    if (moved > 4) rail.classList.add("is-drag");
+    rail.scrollLeft = startLeft - dx;
+    if (!calm) rail.style.setProperty("--tilt", `${Math.max(-14, Math.min(14, (event.clientX - lastX) * 0.9))}deg`);
+    lastX = event.clientX;
+    clearTimeout(settle);
+    settle = setTimeout(() => rail.style.setProperty("--tilt", "0deg"), 80);
+  });
+  addEventListener("pointerup", () => {
+    if (!down) return;
+    down = false;
+    rail.classList.remove("is-drag");
+    rail.style.setProperty("--tilt", "0deg");
+  });
+  // 끌다가 놓았을 때 카드가 눌린 것으로 처리되지 않게 한다.
+  rail.addEventListener("click", (event) => { if (moved > 4) { event.preventDefault(); moved = 0; } }, true);
+  rail.addEventListener("dragstart", (event) => event.preventDefault());
+}
+
+/* ---------- 따라다니는 점: 마우스가 있을 때만 ---------- */
+function setupCursor() {
+  const dot = $("#cursor");
+  if (!dot || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
   let x = 0, y = 0, queued = false;
-  const place = () => { queued = false; peek.style.translate = `${x + 24}px ${y - 80}px`; };
-  list.addEventListener("pointermove", (event) => {
-    x = Math.min(event.clientX, innerWidth - 300);
-    y = event.clientY;
+  const place = () => { queued = false; dot.style.translate = `${x}px ${y}px`; };
+  addEventListener("pointermove", (event) => {
+    if (event.pointerType !== "mouse") return;
+    x = event.clientX; y = event.clientY;
+    dot.classList.add("is-on");
+    const target = event.target.closest?.("[data-cursor]");
+    dot.classList.toggle("is-big", Boolean(target));
+    dot.textContent = target ? target.dataset.cursor : "";
     if (!queued) { queued = true; requestAnimationFrame(place); }
   });
-  for (const row of $$(".index__row", list)) {
-    row.addEventListener("pointerenter", () => {
-      if (!row.dataset.peek) { peek.classList.remove("is-on"); return; }
-      peek.src = row.dataset.peek;
-      peek.classList.add("is-on");
-    });
-  }
-  list.addEventListener("pointerleave", () => peek.classList.remove("is-on"));
+  document.addEventListener("pointerleave", () => dot.classList.remove("is-on"));
 }
 
 /* ---------- 상 도장: 화면에 들어올 때 한 번 찍힌다 ---------- */
@@ -354,7 +381,8 @@ function setupCopy() {
 if (!document.documentElement.classList.contains("seen")) document.documentElement.classList.add("booted");
 setTimeout(() => document.documentElement.classList.add("seen"), 1800);
 watchSections();
-setupPeek();
+setupRail();
+setupCursor();
 setupWiring();
 setupLive();
 setupStamps();

@@ -19,9 +19,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/site.css?v=2026.12.6">
+  <link rel="stylesheet" href="css/site.css?v=2026.12.7">
   <script src="js/boot.js?v=2026.12.4"></script>
-  <script type="module" src="js/site.js?v=2026.12.6"></script>
+  <script type="module" src="js/site.js?v=2026.12.7"></script>
 </head>
 <body>
 <div class="loader" aria-hidden="true">
@@ -30,6 +30,7 @@
   <div class="loader__bar"></div>
 </div>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
 
 <header class="top">
   <a class="top__name" href="#top">김한용</a>
@@ -47,6 +48,7 @@
     <a href="#oldam">올담 공공데이터</a>
     <a href="#nettwin">NetTwin</a>
     <a href="#sunsia">썬시아</a>
+    <a href="#mygpt">my-gpt</a>
     <a href="#content">릴스와 카드뉴스</a>
   </nav>
 </header>
@@ -74,7 +76,7 @@
           <li>경통넷 우수상</li>
           <li>RESCUE JET 최우수상</li>
           <li>촌넷스코어 최우수상</li>
-          <li>눌러 볼 수 있는 시연 세 개</li>
+          <li>눌러 볼 수 있는 시연 다섯 개</li>
           <li>릴스 31편</li>
           <li>카드뉴스 14편</li>
         </ul>
@@ -82,7 +84,7 @@
           <li>경통넷 우수상</li>
           <li>RESCUE JET 최우수상</li>
           <li>촌넷스코어 최우수상</li>
-          <li>눌러 볼 수 있는 시연 세 개</li>
+          <li>눌러 볼 수 있는 시연 다섯 개</li>
           <li>릴스 31편</li>
           <li>카드뉴스 14편</li>
         </ul>
@@ -102,9 +104,9 @@
         </div>
         <div class="wiring__col">
           <h3>하는 일</h3>
-          <button class="node" type="button" data-id="dev" data-to="w-gt w-rescue w-oldam w-nettwin w-sunsia">개발</button>
-          <button class="node" type="button" data-id="plan" data-to="w-oldam w-nettwin w-content">기획</button>
-          <button class="node" type="button" data-id="design" data-to="w-gt w-rescue w-oldam w-nettwin w-sunsia w-content">디자인</button>
+          <button class="node" type="button" data-id="dev" data-to="w-gt w-rescue w-oldam w-nettwin w-sunsia w-mygpt">개발</button>
+          <button class="node" type="button" data-id="plan" data-to="w-oldam w-nettwin w-mygpt w-content">기획</button>
+          <button class="node" type="button" data-id="design" data-to="w-gt w-rescue w-oldam w-nettwin w-sunsia w-mygpt w-content">디자인</button>
           <button class="node" type="button" data-id="make" data-to="w-content">콘텐츠 제작</button>
         </div>
         <div class="wiring__col">
@@ -114,6 +116,7 @@
           <a class="node node--oldam" data-id="w-oldam" href="#oldam">올담 공공데이터</a>
           <a class="node node--nettwin" data-id="w-nettwin" href="#nettwin">NetTwin</a>
           <a class="node node--sunsia" data-id="w-sunsia" href="#sunsia">썬시아</a>
+          <a class="node node--mygpt" data-id="w-mygpt" href="#mygpt">my-gpt</a>
           <a class="node node--content" data-id="w-content" href="#content">릴스와 카드뉴스</a>
         </div>
       </div>
@@ -121,15 +124,18 @@
 
     <div class="wrap" id="work">
       <h2 class="index__title">차례</h2>
-      <ul class="index">
-        <li><a class="index__row index__row--gt" href="#gyeongtongnet" data-peek="images/gyeongtongnet-demo.jpg"><strong>경통넷</strong><span>학생자치 인수인계 서비스 프로토타입</span><span>2026</span><span>우수상</span></a></li>
-        <li><a class="index__row index__row--rescue" href="#rescue" data-peek="images/rescue-jet.jpg"><strong>RESCUE JET</strong><span>자동 구명 추진 장치 시제품</span><span>2025</span><span>최우수상</span></a></li>
-        <li><a class="index__row index__row--oldam" href="#oldam"><strong>올담 공공데이터</strong><span>서비스 두 가지, 모니터링단 1, 2기</span><span>2025부터</span><span>최우수상</span></a></li>
-        <li><a class="index__row index__row--nettwin" href="#nettwin" data-peek="images/nettwin-poster.jpg"><strong>NetTwin</strong><span>위험 현장 원격 관제 디지털 트윈</span><span>2026</span><span>시연</span></a></li>
-        <li><a class="index__row index__row--sunsia" href="#sunsia" data-peek="images/sunsia-poster.jpg"><strong>썬시아</strong><span>식재료 가격 대응 모바일 서비스</span><span>2026</span><span>시연</span></a></li>
-        <li><a class="index__row index__row--content" href="#content"><strong>릴스와 카드뉴스</strong><span>기획, 촬영, 편집, 발행</span><span>2022–2026</span><span>45편</span></a></li>
-      </ul>
-      <img class="peek" id="peek" alt="" hidden>
+      <p class="rail__lead">옆으로 끌거나 밀어서 넘겨 보세요. 카드를 누르면 그 작업으로 갑니다.</p>
+    </div>
+    <ul class="rail" id="rail" data-cursor="끌기" aria-label="작업 일곱 가지">
+      <li><a class="card card--gt" href="#gyeongtongnet"><img src="images/gyeongtongnet-demo.jpg" alt="" width="1920" height="1080" loading="lazy"><strong>경통넷</strong><span>학생자치 인수인계 서비스</span><em>2026, 우수상</em></a></li>
+      <li><a class="card card--rescue" href="#rescue"><img src="images/rescue-jet.jpg" alt="" loading="lazy"><strong>RESCUE JET</strong><span>자동 구명 추진 장치 시제품</span><em>2025, 최우수상</em></a></li>
+      <li><a class="card card--oldam" href="#oldam"><img src="images/oldam-on-poster.jpg" alt="" width="1600" height="1000" loading="lazy"><strong>올담 공공데이터</strong><span>서비스 두 가지, 모니터링단 1, 2기</span><em>2025부터, 최우수상</em></a></li>
+      <li><a class="card card--nettwin" href="#nettwin"><img src="images/nettwin-poster.jpg" alt="" width="1280" height="800" loading="lazy"><strong>NetTwin</strong><span>위험 현장 원격 관제 디지털 트윈</span><em>2026, 시연</em></a></li>
+      <li><a class="card card--sunsia" href="#sunsia"><img src="images/sunsia-poster.jpg" alt="" width="500" height="1000" loading="lazy"><strong>썬시아</strong><span>식재료 가격 대응 모바일 서비스</span><em>2026, 시연</em></a></li>
+      <li><a class="card card--mygpt" href="#mygpt"><b class="card__type" aria-hidden="true">검증하는<br>AI</b><strong>my-gpt</strong><span>직접 만드는 법률·코딩·글쓰기 AI</span><em>진행 중, 시연</em></a></li>
+      <li><a class="card card--content" href="#content"><b class="card__type" aria-hidden="true">릴스 31<br>카드 14</b><strong>릴스와 카드뉴스</strong><span>기획, 촬영, 편집, 발행</span><em>2022–2026, 45편</em></a></li>
+    </ul>
+    <div class="wrap">
     </div>
   </section>
 
@@ -165,7 +171,7 @@
         <div class="demo" data-demo data-src="gyeongtongnet/app.html?view=embed&amp;splash=0#/demo/start/mvp">
           <div class="demo__screen">
             <img src="images/gyeongtongnet-poster.jpg" width="1080" height="1920" loading="lazy" alt="경통넷 포스터. 우수상 글자와 토마토 캐릭터, 앱 로딩 화면이 보입니다.">
-            <button class="btn demo__start" type="button">직접 눌러보기</button>
+            <button class="btn demo__start" type="button" data-cursor="열기">직접 눌러보기</button>
           </div>
           <p class="demo__help">버튼을 누르면 이 화면에서 앱이 열리고, ‘다음’을 누르면서 1분 정도 따라가 볼 수 있습니다. <a href="gyeongtongnet/index.html">새 창에서 크게 열기</a></p>
         </div>
@@ -245,7 +251,7 @@
       <div class="demo demo--wide" data-demo data-src="oldam-on/index.html" data-title="올담 ON 시연">
         <div class="demo__screen">
           <img src="images/oldam-on-poster.jpg" width="1600" height="1000" loading="lazy" alt="올담 ON 화면. 충남 지도 위에 공공 Wi-Fi와 수요 지점, 설치 후보지가 표시돼 있습니다.">
-          <button class="btn demo__start" type="button">올담 ON 직접 눌러보기</button>
+          <button class="btn demo__start" type="button" data-cursor="열기">올담 ON 직접 눌러보기</button>
         </div>
         <p class="demo__help">버튼을 누르면 이 자리에서 지도형 대시보드가 열립니다. 후보지를 누르면 취약지수와 가장 가까운 Wi-Fi까지의 거리, 현장 검증 계획이 바뀝니다. <a href="oldam-on/index.html">새 창에서 크게 열기</a></p>
       </div>
@@ -319,7 +325,7 @@
       <div class="demo demo--wide" data-demo data-src="nettwin/index.html" data-title="NetTwin 관제 시뮬레이터">
         <div class="demo__screen">
           <img src="images/nettwin-poster.jpg" width="1280" height="800" loading="lazy" alt="NetTwin 관제 시뮬레이터 화면. 위쪽에 통신 구간 선과 장애 버튼이, 아래에 현장 엣지와 원격 관제가 보입니다.">
-          <button class="btn demo__start" type="button">직접 눌러보기</button>
+          <button class="btn demo__start" type="button" data-cursor="열기">직접 눌러보기</button>
         </div>
         <p class="demo__help">버튼을 누르면 이 자리에서 시뮬레이터가 열립니다. ‘단절’을 눌러 3초 기다리면 끊김과 안전모드로 바뀌고 다시 ‘정상’으로 돌린 뒤 승인해야 제어권이 돌아옵니다. <a href="nettwin/index.html">새 창에서 크게 열기</a></p>
       </div>
@@ -357,7 +363,7 @@
         <div class="demo" data-demo data-src="sunsia/index.html" data-title="퐁당퐁당 모바일 시연">
           <div class="demo__screen">
             <img src="images/sunsia-poster.jpg" width="500" height="1000" loading="lazy" alt="퐁당퐁당 첫 화면. 물방울 캐릭터와 ‘식재료 가격, 오르내려도 대응해요’ 문구, 아래에 홈, 가격 비교, 재료 보기, 제품·라벨 확인 탭이 보입니다.">
-            <button class="btn demo__start" type="button">직접 눌러보기</button>
+            <button class="btn demo__start" type="button" data-cursor="열기">직접 눌러보기</button>
           </div>
           <p class="demo__help">버튼을 누르면 이 화면에서 앱이 열립니다. <a href="sunsia/index.html">새 창에서 크게 열기</a></p>
         </div>
@@ -375,6 +381,62 @@
       </div>
 
       <p class="note">가격은 2026년 10월까지의 공공 자료이고 시장 평균이라 실제 계약가와 다를 수 있습니다. 예측은 과거 통계로 계산한 참고값입니다. 제품 검색(약 33만 건 DB)과 라벨 사진 판독은 로컬 서버가 있어야 해서 웹 시연에서는 동작하지 않습니다.</p>
+    </div>
+  </section>
+
+  <section class="project project--mygpt" id="mygpt" aria-labelledby="mygptTitle">
+    <div class="wrap">
+      <header class="project__head">
+        <h2 id="mygptTitle">my-gpt</h2>
+        <p>내 맥에서 돌아가고, 답을 기계로 검증하는 법률·코딩·글쓰기 AI. 지금도 만들고 있습니다</p>
+      </header>
+
+      <div class="project__cols">
+        <div class="prose">
+          <p>돈을 들이지 않고 내 컴퓨터에서 돌면서 검증된 답을 주는 AI를 목표로 혼자 만들고 있습니다. 지식은 모델에 외우게 하지 않고 검색, 법령 색인, 내 문서에서 가져오고, 답은 기계로 다시 확인합니다.</p>
+          <p>코드는 테스트를 실제로 실행해 통과한 것만 완료로 표시합니다. 법률과 검색 답변은 답에 쓴 조문 번호, 인용문, 숫자, 연도가 근거 원문에 있는지 대조합니다. 끝까지 검증에 실패하면 숨기지 않고 ‘검증 실패’와 근거 문장을 함께 보여 줍니다.</p>
+          <p>두뇌는 갈아 끼울 수 있습니다. 로컬 공개 모델을 기본으로 쓰고, 무료 API 라우터나 직접 학습한 모델로 바꿀 수 있습니다. 직접 학습한 모델은 아직 지시를 따르지 못하고 글을 이어 쓰는 수준입니다.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>형태</dt><dd>개인 프로젝트, 진행 중</dd></div>
+          <div><dt>맡은 일</dt><dd>설계, 개발, 학습, 시험 전부</dd></div>
+          <div><dt>두뇌</dt><dd>Ollama 로컬 모델(qwen2.5:3b, gemma4:26b), 무료 API 라우터, 직접 학습한 GPT(약 9,395만 파라미터)</dd></div>
+          <div><dt>화면</dt><dd>터미널 대화(CLI), Streamlit 웹(대화, 법률, 글쓰기, 코드 검증, 웹 읽기 탭)</dd></div>
+          <div><dt>기술</dt><dd>Python, PyTorch(MPS 학습), Ollama, Streamlit, 파이썬 ast 기반 저장소 맵, macOS 샌드박스</dd></div>
+          <div><dt>시험</dt><dd>자동 시험 506개 통과 (2026년 10월 26일 기록)</dd></div>
+        </dl>
+      </div>
+
+      <div class="detail">
+        <div>
+          <h3>법률과 규정</h3>
+          <p>질문에 나온 법령 이름을 뽑아 그 법에서 먼저 찾습니다. 핵심 법령 19개, 5,293개 조문을 색인해 인터넷 없이도 동작하고, 원문이 없는 법령은 ‘자료가 없어 확인할 수 없다’를 답 맨 앞에 밝힙니다.</p>
+          <p>회칙과 세칙은 모델 없이 규칙으로 점검합니다. 조 번호 빠짐과 중복, 문서에 없는 조 참조, 모호한 표현, 한 문장에 섞인 의무와 재량을 찾습니다. 아래 시연이 이 기능입니다.</p>
+        </div>
+        <div>
+          <h3>코딩 에이전트</h3>
+          <p>저장소 맵으로 파일별 클래스, 함수, 임포트를 파악하고 바꿀 부분만 수정합니다. 저장할 때마다 기계 진단을 돌리고, 정해 둔 검사 명령이 통과해야만 완료로 인정합니다. 테스트 파일은 기본으로 보호해 시험지를 고쳐서 통과하는 일을 막았습니다.</p>
+          <p>기본은 수동 모드라서 파일 수정과 명령 실행을 할 때마다 변경 내용을 보여 주고 승인을 받습니다.</p>
+        </div>
+        <div>
+          <h3>글쓰기와 디자인</h3>
+          <p>초안을 쓰고 AI 티를 채점한 뒤, 찾은 문제에 해당하는 규칙만 꺼내 고쳐 씁니다. 웹페이지를 만들면 크롬으로 실제 렌더링해 글자 대비, 누르는 영역 44px, 모바일 넘침을 재고 고칩니다.</p>
+        </div>
+        <div>
+          <h3>직접 학습</h3>
+          <p>글자 단위 GPT(1,160만 파라미터)를 직접 구현해 위키로 학습하는 데서 시작했습니다. 지금은 약 9,395만 파라미터 모델을 맥의 MPS로 사전학습하고 있습니다. 학습 초반에 손실값이 발산해, 건너뛰기와 되돌리기, 학습률 절반 낮추기를 넣은 뒤로는 재발하지 않았습니다.</p>
+        </div>
+      </div>
+
+      <div class="demo demo--wide" data-demo data-src="mygpt/index.html" data-title="my-gpt 회칙 점검 시연">
+        <div class="demo__screen demo__screen--plain">
+          <p class="demo__plain">회칙을 넣으면 조 번호 빠짐과 중복, 없는 조 참조, 모호한 표현을 찾습니다</p>
+          <button class="btn demo__start" type="button" data-cursor="열기">회칙 점검 직접 해보기</button>
+        </div>
+        <p class="demo__help">버튼을 누르면 예시 회칙이 들어 있는 점검 화면이 열립니다. 내용을 바꾸거나 다른 회칙을 붙여 넣어도 됩니다. <a href="mygpt/index.html">새 창에서 크게 열기</a></p>
+      </div>
+
+      <p class="note">시연은 my-gpt의 규정 점검 함수 하나를 브라우저로 옮긴 것이고, 원본과 같은 예시에서 같은 결과가 나오는 것을 확인했습니다. 대화, 검색, 법령 답변, 코딩 에이전트는 로컬 모델과 파일 접근이 필요해 웹에서는 돌리지 않습니다.</p>
     </div>
   </section>
 
