@@ -160,17 +160,12 @@ function setupWiring() {
   show(picked);
 }
 
-/* ---------- 방문 수와 아산 시각 ---------- */
+/* ---------- 방문 수 ---------- */
 // 방문 수는 외부 카운터(abacus)에 숫자만 올린다. 같은 브라우저는 하루에 한 번만 센다. 응답이 없으면 표시를 비워 둔다.
 async function setupLive() {
   const today = $("#visitToday");
   const total = $("#visitTotal");
-  const clock = $("#clockAsan");
-  if (!today || !total || !clock) return;
-  const time = new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit", hour12: false });
-  const tick = () => { clock.textContent = time.format(new Date()); };
-  tick();
-  setInterval(tick, 20000);
+  if (!today || !total) return;
 
   const day = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(new Date());
   const local = ["localhost", "127.0.0.1"].includes(location.hostname);

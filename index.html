@@ -19,9 +19,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/site.css?v=2026.12.5">
+  <link rel="stylesheet" href="css/site.css?v=2026.12.6">
   <script src="js/boot.js?v=2026.12.4"></script>
-  <script type="module" src="js/site.js?v=2026.12.5"></script>
+  <script type="module" src="js/site.js?v=2026.12.6"></script>
 </head>
 <body>
 <div class="loader" aria-hidden="true">
@@ -64,7 +64,6 @@
         <dl class="live" id="live">
           <div><dt>오늘 방문</dt><dd id="visitToday">–</dd></div>
           <div><dt>지금까지</dt><dd id="visitTotal">–</dd></div>
-          <div><dt>아산 시각</dt><dd id="clockAsan">–</dd></div>
         </dl>
       </div>
     </div>
@@ -127,7 +126,7 @@
         <li><a class="index__row index__row--rescue" href="#rescue" data-peek="images/rescue-jet.jpg"><strong>RESCUE JET</strong><span>자동 구명 추진 장치 시제품</span><span>2025</span><span>최우수상</span></a></li>
         <li><a class="index__row index__row--oldam" href="#oldam"><strong>올담 공공데이터</strong><span>서비스 두 가지, 모니터링단 1, 2기</span><span>2025부터</span><span>최우수상</span></a></li>
         <li><a class="index__row index__row--nettwin" href="#nettwin" data-peek="images/nettwin-poster.jpg"><strong>NetTwin</strong><span>위험 현장 원격 관제 디지털 트윈</span><span>2026</span><span>시연</span></a></li>
-        <li><a class="index__row index__row--sunsia" href="#sunsia" data-peek="images/sunsia-poster.jpg"><strong>썬시아</strong><span>식재료 가격변동 대응 도구</span><span>2026</span><span>시연</span></a></li>
+        <li><a class="index__row index__row--sunsia" href="#sunsia" data-peek="images/sunsia-poster.jpg"><strong>썬시아</strong><span>식재료 가격 대응 모바일 서비스</span><span>2026</span><span>시연</span></a></li>
         <li><a class="index__row index__row--content" href="#content"><strong>릴스와 카드뉴스</strong><span>기획, 촬영, 편집, 발행</span><span>2022–2026</span><span>45편</span></a></li>
       </ul>
       <img class="peek" id="peek" alt="" hidden>
@@ -228,17 +227,30 @@
       <div class="project__cols">
         <div class="prose">
           <p>충청남도가 공공데이터 포털 ‘올담’을 열었지만, 개방 데이터가 실제 서비스로 이어진 사례는 많지 않았습니다. 올담 데이터로 서비스 두 가지를 기획하고 구현했습니다.</p>
-          <p>‘촌넷스코어’는 농어촌의 통신 격차를 진단하는 플랫폼으로, 제1회 올담 데이터 활용 해커톤에서 최우수상을 받았습니다. ‘올담 ON’은 공공 Wi-Fi가 부족한 곳을 찾아 추천하는 서비스입니다.</p>
+          <p>‘촌넷스코어’는 농어촌의 통신 격차를 진단하는 플랫폼으로, 제1회 올담 데이터 활용 해커톤에서 최우수상을 받았습니다.</p>
+          <p>‘올담 ON’은 제2회 해커톤에 낸 발표용 MVP입니다. 공공 Wi-Fi 위치에 경로당, 마을회관, 디지털배움터 같은 수요 지점을 겹쳐 통신 접근성 취약지수를 계산하고, 저비용 와이파이 리피터를 놓을 후보지를 추천합니다. 지수는 설치 확정값이 아니라 후보를 고르는 지표라서, 상위 후보는 현장에서 신호 세기와 속도를 재어 보정하도록 했습니다.</p>
           <p>모니터링단 1, 2기 위원으로는 포털의 시스템 오류와 버그를 점검하고 UI/UX 개선 의견을 냈습니다. 개방 데이터가 최신인지, 좌표와 포맷이 맞는지도 정기적으로 검수했습니다.</p>
         </div>
         <dl class="facts">
           <div><dt>기간</dt><dd>2025년 7월부터</dd></div>
           <div><dt>맡은 일</dt><dd>데이터 분석, 서비스 기획과 구현, 포털 점검</dd></div>
           <div><dt>만든 것</dt><dd>촌넷스코어(농어촌 통신 격차 진단 플랫폼), 올담 ON(공공 Wi-Fi 취약지 추천 서비스)</dd></div>
+          <div><dt>올담 ON 자료</dt><dd>충남 무료 와이파이 표준데이터, 청양군 경로당 312곳과 마을회관 186곳, 디지털배움터 현황</dd></div>
+          <div><dt>올담 ON 산식</dt><dd>거리 점수 + 수요 가중치 + 품질 저하 추정 − 기존 공급 패널티</dd></div>
           <div><dt>점검한 것</dt><dd>시스템 오류와 버그, UI/UX, 데이터의 최신성과 좌표·포맷 정합성</dd></div>
           <div><dt>결과</dt><dd>제1회 올담 데이터 활용 해커톤 최우수상, 모니터링단 1, 2기 위원 위촉. <a href="https://www.newsro.kr/article243/1198849/" target="_blank" rel="noopener noreferrer">뉴스로 보도</a></dd></div>
         </dl>
       </div>
+
+      <div class="demo demo--wide" data-demo data-src="oldam-on/index.html" data-title="올담 ON 시연">
+        <div class="demo__screen">
+          <img src="images/oldam-on-poster.jpg" width="1600" height="1000" loading="lazy" alt="올담 ON 화면. 충남 지도 위에 공공 Wi-Fi와 수요 지점, 설치 후보지가 표시돼 있습니다.">
+          <button class="btn demo__start" type="button">올담 ON 직접 눌러보기</button>
+        </div>
+        <p class="demo__help">버튼을 누르면 이 자리에서 지도형 대시보드가 열립니다. 후보지를 누르면 취약지수와 가장 가까운 Wi-Fi까지의 거리, 현장 검증 계획이 바뀝니다. <a href="oldam-on/index.html">새 창에서 크게 열기</a></p>
+      </div>
+
+      <p class="note">올담 ON의 지도는 OpenStreetMap 타일을 불러옵니다. 좌표가 없는 수요 자료는 읍면과 주소로 어림한 위치에 표시했습니다. 촌넷스코어는 원본 코드를 찾지 못해 시연을 넣지 못했습니다.</p>
     </div>
   </section>
 
@@ -320,35 +332,49 @@
     <div class="wrap">
       <header class="project__head">
         <h2 id="sunsiaTitle">썬시아</h2>
-        <p>식재료 가격이 오르면 같은 예산에서 무엇을 얼마나 바꿀지 계산하는 도구</p>
+        <p>식재료 가격이 오르기 전엔 미리, 오른 뒤엔 바로 대응하게 돕는 모바일 서비스 ‘퐁당퐁당’</p>
       </header>
 
       <div class="project__cols">
         <div class="prose">
-          <p>식재료를 직접 구매하는 급식·외식 업장은 가격이 오르면 같은 예산 안에서 무엇을 바꿀지 빨리 정해야 합니다. 썬시아는 같은 대체 후보와 같은 예산으로 ‘가장 싼 안’과 ‘가장 적게 바꾸는 안’을 나란히 계산합니다.</p>
-          <p>재료는 포장 단위로 사야 하므로 필요한 양을 포장 수로 올려 계산하고, 남는 양과 발주표까지 보여 줍니다. 바꾸는 재료를 하나 줄이려면 구매비가 얼마나 더 드는지도 함께 나옵니다.</p>
-          <p>가공식품 표시사항은 글자를 항목별로 나눠 초안을 만들고, 사람이 원본과 대조해 확인한 기록만 남깁니다. 알레르기 표시를 확인하지 않은 재료가 있으면 추천을 보류합니다.</p>
-          <p>수상은 하지 못했습니다. 설계부터 계산 엔진, 화면, 테스트까지 개발 전체를 맡았습니다.</p>
+          <p>구내식당이나 재료를 직접 사는 가게는 식재료 가격이 오르면 무엇을 바꾸고 얼마나 줄일지 그날 정해야 합니다. 팀 썬시아의 ‘퐁당퐁당’은 공공 가격 자료만으로 이 결정을 돕습니다.</p>
+          <p>자주 사는 재료와 주기를 등록해 두면 다음 구매일과 가격 흐름을 보고 미리 살지 기다릴지 알려 줍니다. 가게에서 본 오늘 가격을 넣으면 평소 시장가보다 몇 퍼센트 비싼지 판정하고 바꾸기, 줄이기, 미루기를 금액과 함께 보여 준 뒤 발주표까지 만듭니다.</p>
+          <p>급하게 고른 대체 가공식품은 포장 라벨의 글자로 알레르기 19종을 대조합니다. 읽지 못한 항목은 ‘확인 불가’로 두고 안전하다고 말하지 않습니다.</p>
+          <p>수상은 하지 못했습니다. 디자인과 개발 전체를 맡았습니다.</p>
         </div>
         <dl class="facts">
-          <div><dt>대회</dt><dd>K-푸드테크 해커톤 (2026년 10월 31일, 무박 2일)</dd></div>
+          <div><dt>대회</dt><dd>K-푸드테크 해커톤 (2026년 10월 31일부터 무박 2일, 포항)</dd></div>
           <div><dt>분야</dt><dd>외식·조리환경 개선</dd></div>
           <div><dt>형태</dt><dd>팀 ‘썬시아’, 팀장</dd></div>
           <div><dt>맡은 일</dt><dd>디자인과 개발 전체</dd></div>
-          <div><dt>만든 방식</dt><dd>외부 라이브러리 없는 JavaScript 모듈, 후보 조합 전수 탐색, 자동 테스트 32건</dd></div>
+          <div><dt>자료</dt><dd>KAMIS 월별 소매가(전국, 포항) 2016년 1월부터 2026년 9월, KAMIS 도매·소매, 대구 농수산물도매시장 월별 시세</dd></div>
+          <div><dt>만든 방식</dt><dd>외부 라이브러리 없는 JavaScript 모듈, 10년 월별 시세로 다음 달 예측과 과거 검증, iOS 앱 껍데기(WKWebView), 자동 시험 80개</dd></div>
           <div><dt>결과</dt><dd>수상 없음</dd></div>
         </dl>
       </div>
 
-      <div class="demo demo--wide" data-demo data-src="sunsia/index.html" data-title="썬시아 웹 시연">
-        <div class="demo__screen">
-          <img src="images/sunsia-poster.jpg" width="1280" height="800" loading="lazy" alt="썬시아 화면. 가격이 오르면 무엇을 얼마나 바꿀까요라는 제목과 비교 조건 입력란이 보입니다.">
-          <button class="btn demo__start" type="button">직접 눌러보기</button>
+      <div class="gt-media">
+        <div class="demo" data-demo data-src="sunsia/index.html" data-title="퐁당퐁당 모바일 시연">
+          <div class="demo__screen">
+            <img src="images/sunsia-poster.jpg" width="500" height="1000" loading="lazy" alt="퐁당퐁당 첫 화면. 물방울 캐릭터와 ‘식재료 가격, 오르내려도 대응해요’ 문구, 아래에 홈, 가격 비교, 재료 보기, 제품·라벨 확인 탭이 보입니다.">
+            <button class="btn demo__start" type="button">직접 눌러보기</button>
+          </div>
+          <p class="demo__help">버튼을 누르면 이 화면에서 앱이 열립니다. <a href="sunsia/index.html">새 창에서 크게 열기</a></p>
         </div>
-        <p class="demo__help">버튼을 누르면 이 자리에서 앱이 열립니다. ‘두 방식 계산하기’를 누르면 두 안의 비용과 발주표가 나옵니다. <a href="sunsia/index.html">새 창에서 크게 열기</a></p>
+        <div class="gt-media__side">
+          <div class="try">
+            <h3>이렇게 눌러 보세요</h3>
+            <ol class="steps">
+              <li>홈의 ‘시연 보기’를 누르면 18초쯤 자동으로 흐름을 보여 줍니다</li>
+              <li>‘가격 비교’에서 재료와 오늘 본 가격을 넣으면 대응 세 가지가 금액과 함께 나옵니다</li>
+              <li>‘재료 보기’에서 10년 시세 그래프와 다음 달 예측을 볼 수 있습니다</li>
+              <li>‘제품·라벨 확인’에 라벨 글자를 붙여 넣으면 알레르기 19종을 대조합니다</li>
+            </ol>
+          </div>
+        </div>
       </div>
 
-      <p class="note">메뉴, 가격, 대체 후보는 모두 연습용으로 만든 가상 자료입니다. 실제 절감 효과나 영양·알레르기 안전을 판정하지 않습니다. 사진 판독은 Mac에서 로컬로 실행할 때만 동작해, 웹에서는 예시 문구로 대신합니다.</p>
+      <p class="note">가격은 2026년 10월까지의 공공 자료이고 시장 평균이라 실제 계약가와 다를 수 있습니다. 예측은 과거 통계로 계산한 참고값입니다. 제품 검색(약 33만 건 DB)과 라벨 사진 판독은 로컬 서버가 있어야 해서 웹 시연에서는 동작하지 않습니다.</p>
     </div>
   </section>
 

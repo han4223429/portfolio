@@ -53,10 +53,12 @@ export function validateCatalog(data) {
     if(!finite(c.conversion_ratio)||c.conversion_ratio<=0||c.conversion_ratio>10) errors.push(issue('candidate','환산 비율은 0보다 크고 10 이하여야 합니다.'));
     if(c.pack_unit&&c.pack_unit!=='g') errors.push(issue('candidate','포장 단위는 g로 통일하세요.'));
     if(!clean(c.candidate_name)||!clean(c.culinary_use)) missing.push(issue('candidate','후보명 또는 조리 용도가 비었습니다.'));
-    if(!['APPROVED','PENDING','REJECTED','SIMULATED_APPROVED'].includes(c.review_status)) errors.push(issue('candidate','검토 상태를 확인하세요.'));
+    if(!['APPROVED','PENDING','REJECTED','SIMULATED_APPROVED','GUIDELINE_ALLOWED'].includes(c.review_status)) errors.push(issue('candidate','검토 상태를 확인하세요.'));
     if(c.review_status==='SIMULATED_APPROVED'&&c.data_kind!=='SYNTHETIC') errors.push(issue('candidate','모의 승인 후보는 SYNTHETIC 자료에서만 사용할 수 있습니다.'));
     if(c.review_status==='APPROVED'&&c.data_kind==='SYNTHETIC') errors.push(issue('candidate','합성 후보를 실제 검토 완료로 표시할 수 없습니다.'));
     if(c.review_status==='APPROVED'&&!clean(c.ratio_evidence)) missing.push(issue('candidate','실제 승인 후보의 환산 근거가 없습니다.'));
+    if(c.review_status==='GUIDELINE_ALLOWED'&&c.data_kind==='SYNTHETIC') errors.push(issue('candidate','합성 후보를 지침 허용 후보로 표시할 수 없습니다.'));
+    if(c.review_status==='GUIDELINE_ALLOWED'&&!clean(c.ratio_evidence)) missing.push(issue('candidate','지침 허용 후보의 문서 근거가 없습니다.'));
     checkSku(c.candidate_ingredient_id,c.pack_size_g,c.baseline_pack_price_krw,'candidate');
   }
   return {errors,missing};
@@ -77,7 +79,8 @@ function calculate(items,selected,scenario){
     g.required=add(g.required,required); grouped.set(op.sku,g);
   }
   const lines=[...grouped].sort(([a],[b])=>a.localeCompare(b)).map(([sku,g])=>{
-    const price=sku===scenario.changed_ingredient_id ? Number((BigInt(g.price)*(100n+BigInt(scenario.increase_pct))+50n)/100n) : g.price;
+    const pct=scenario.shocks&&Object.hasOwn(scenario.shocks,sku) ? scenario.shocks[sku] : (sku===scenario.changed_ingredient_id ? scenario.increase_pct : 0);
+    const price=pct ? Number((BigInt(g.price)*(100n+BigInt(pct))+50n)/100n) : g.price;
     return packLine(sku,g,price);
   });
   const total=lines.reduce((s,l)=>s+l.line_cost_krw,0);
@@ -85,17 +88,22 @@ function calculate(items,selected,scenario){
 }
 const sortCost=(a,b)=>a.total-b.total||a.changes-b.changes||a.key.localeCompare(b.key);
 const sortChanges=(a,b)=>a.changes-b.changes||a.total-b.total||a.key.localeCompare(b.key);
-export function evaluate(data,{menu_id,changed_ingredient_id,increase_pct,servings=500,maxCombinations=100000}={}){
+export function evaluate(data,{menu_id,changed_ingredient_id,increase_pct,servings=500,maxCombinations=100000,shocks={},budget}={}){
   const check=validateCatalog(data);
   if(check.errors.length) return {status:STATUS.INVALID_INPUT,issues:check.errors};
   if(check.missing.length) return {status:STATUS.INPUT_INSUFFICIENT,issues:check.missing};
   if(!Number.isInteger(servings)||servings<=0||servings>100000||!Number.isInteger(increase_pct)||increase_pct<0||increase_pct>1000||!Number.isInteger(maxCombinations)||maxCombinations<1) return {status:STATUS.INVALID_INPUT,issues:[issue('scenario','인원(1~100,000)·상승률·탐색 상한을 확인하세요.')]};
   const items=data.ingredients.filter(i=>i.menu_id===menu_id).sort((a,b)=>a.ingredient_id.localeCompare(b.ingredient_id));
   if(!data.menus.some(m=>m.menu_id===menu_id)||!items.length||!items.some(i=>i.ingredient_id===changed_ingredient_id)) return {status:STATUS.INPUT_INSUFFICIENT,issues:[issue('scenario','메뉴·원재료·가격 상승 대상을 확인하세요.')]};
-  const scenario={menu_id,changed_ingredient_id,increase_pct,servings};
-  const baseline=calculate(items,items.map(i=>({sku:i.ingredient_id,name:i.ingredient_name,ratio:1,pack:i.pack_size_g,price:i.baseline_pack_price_krw})),{...scenario,increase_pct:0});
+  // shocks: 재료별 현재 가격 변동(%). 정수이고 -90~1000 범위. 예: 현장에서 본 가격이 평소보다 +64% 비싸면 {시금치: 64}
+  if(!shocks||typeof shocks!=='object'||Object.values(shocks).some(v=>!Number.isInteger(v)||v<-90||v>1000)) return {status:STATUS.INVALID_INPUT,issues:[issue('scenario','재료별 가격 변동은 -90~1000 사이 정수여야 합니다.')]};
+  const scenario={menu_id,changed_ingredient_id,increase_pct,servings,shocks};
+  const baseline=calculate(items,items.map(i=>({sku:i.ingredient_id,name:i.ingredient_name,ratio:1,pack:i.pack_size_g,price:i.baseline_pack_price_krw})),{...scenario,increase_pct:0,shocks:{}});
   if(!Number.isSafeInteger(baseline.total)||baseline.lines.some(l=>!Number.isSafeInteger(l.line_cost_krw))) return {status:STATUS.INVALID_INPUT,issues:[issue('number','금액이 안전한 정수 범위를 넘습니다. 단위와 수량을 확인하세요.')]};
   const c0=baseline.total;
+  // budget(선택): 비교 상한(원). 없으면 평소 비용 c0. 예산 안 구성이 불가할 때 '오른 가격의 원안 비용 이하'로 다시 찾는 데 쓴다.
+  if(budget!==undefined&&(!Number.isSafeInteger(budget)||budget<0)) return {status:STATUS.INVALID_INPUT,issues:[issue('scenario','비교 상한은 0 이상의 정수여야 합니다.')]};
+  const limit=budget??c0;
   let pending=0,unverifiedLabels=0;
   const forbiddenRaw=(data.forbidden_allergens||[]).map(clean).filter(Boolean);
   const unsupported=forbiddenRaw.filter(x=>!canonicalAllergen(x));
@@ -120,14 +128,14 @@ export function evaluate(data,{menu_id,changed_ingredient_id,increase_pct,servin
     const own={sku:it.ingredient_id,name:it.ingredient_name,ratio:1,pack:it.pack_size_g,price:it.baseline_pack_price_krw};
     const others=data.candidates.filter(c=>c.menu_id===menu_id&&c.original_ingredient_id===it.ingredient_id);
     pending+=others.filter(c=>c.review_status==='PENDING').length;
-    const allowed=others.filter(c=>['APPROVED','SIMULATED_APPROVED'].includes(c.review_status)&&c.culinary_use===it.culinary_use&&!String(c.exclusion_conditions||'').split('|').map(clean).some(x=>x&&data.forbidden_ingredients?.includes(x))&&!data.forbidden_ingredients?.includes(c.candidate_ingredient_id));
+    const allowed=others.filter(c=>['APPROVED','SIMULATED_APPROVED','GUIDELINE_ALLOWED'].includes(c.review_status)&&c.culinary_use===it.culinary_use&&!String(c.exclusion_conditions||'').split('|').map(clean).some(x=>x&&data.forbidden_ingredients?.includes(x))&&!data.forbidden_ingredients?.includes(c.candidate_ingredient_id));
     return [own,...allowed.map(c=>({sku:c.candidate_ingredient_id,name:c.candidate_name,ratio:c.conversion_ratio,pack:c.pack_size_g,price:c.baseline_pack_price_krw}))].filter(x=>!data.forbidden_ingredients?.includes(x.sku)&&labelAllowed(x.sku)).sort((a,b)=>a.sku.localeCompare(b.sku));
   });
   const count=choices.reduce((n,c)=>n*c.length,1);
   if(!Number.isSafeInteger(count)||count>maxCombinations) return {status:STATUS.SEARCH_INCOMPLETE,c0,combinations:count,issues:[issue('search',`조합 ${count}개가 설정된 상한 ${maxCombinations}개를 초과합니다.`)]};
   const feasible=[]; let examined=0,overflow=false;
   function walk(depth,selected){
-    if(depth===choices.length){examined++;const r=calculate(items,selected,scenario);if(!Number.isSafeInteger(r.total)||r.lines.some(l=>!Number.isSafeInteger(l.line_cost_krw))){overflow=true;return;}if(r.total<=c0)feasible.push(r);return;}
+    if(depth===choices.length){examined++;const r=calculate(items,selected,scenario);if(!Number.isSafeInteger(r.total)||r.lines.some(l=>!Number.isSafeInteger(l.line_cost_krw))){overflow=true;return;}if(r.total<=limit)feasible.push(r);return;}
     for(const c of choices[depth]) walk(depth+1,[...selected,c]);
   }
   walk(0,[]);

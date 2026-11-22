@@ -1,14 +1,309 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>썬시아 · 가격변동 대응 실험실</title><link rel="stylesheet" href="./style.css"></head><body>
-<div class="shell"><header class="topbar"><div class="brand"><div class="mark">S</div><div><strong>썬시아</strong><small>독립구매 업장 식재료 가격변동 대응</small></div></div><span class="eyebrow">웹 시연판 · 2026.10.30 제작</span></header>
-<main><section class="hero"><div><span class="pill">SYNTHETIC 샘플 탑재</span><h1>가격이 오르면,<br><span>무엇을 얼마나 바꿀까요?</span></h1><p>독립구매 업장의 기존 메뉴를 대상으로, 같은 후보와 예산에서 <b>최저가</b>와 <b>최소 변경</b>을 나란히 계산합니다. 포장 단위 발주량까지 확인하세요.</p></div><div class="hero-aside"><span class="aside-label">실험 기준</span><strong>500<small>인분</small></strong><p>초기 재고 0 · 메뉴별 독립 구매<br>기준가격 원안 비용 = 고정 예산 C₀</p></div></section>
-<div class="flow" aria-label="시연 순서"><span>01 조건 입력</span><span>02 사진 OCR·사람 검수</span><span>03 두 방식 비교</span><span>04 발주 CSV</span></div>
-<div class="warning"><b>연습 자료 안내</b><span>기본 메뉴·가격·대체 후보는 완전 합성입니다. 모의 승인 후보는 실제 식품영양 전문가 검토가 아닙니다. 영양·알레르기 안전이나 실제 절감 효과를 보증하지 않습니다.</span></div>
-<section class="section grid-input"><div class="section-heading"><div><span class="step">01 / 입력</span><h2>비교 조건</h2><p id="datasetSummary" class="muted"></p></div><span id="dataMode" class="data-badge"></span></div><div class="fields"><label>메뉴<select id="menu"></select></label><label>가격이 오르는 원재료<select id="target"></select></label><label>상승률<select id="rate"><option value="10">+10%</option><option value="30" selected>+30%</option><option value="50">+50%</option><option value="100">+100% · 경계 연습</option></select></label><label>준비 인원<input id="servings" type="number" min="1" step="1" value="500"><span class="unit">명</span></label></div><div class="actions"><button id="calculate" class="button-primary">두 방식 계산하기 <span aria-hidden="true">↗</span></button><button id="runMatrix" class="button-secondary">15개 시나리오 실행</button><button id="reset" class="button-quiet">합성 샘플로 초기화</button></div><p id="status" class="inline-status" role="status"></p></section>
-<section class="section label-section"><div class="section-heading"><div><span class="step">02 / 사진·표시 검수</span><h2>가공식품 표시사항 입력 보조</h2></div><span class="data-badge">사진 판독은 Mac 로컬 실행 전용</span></div><p class="muted">웹 시연판에서는 ‘예시 문구 넣기’를 누른 뒤 ‘텍스트 필드 추출’로 흐름을 확인하세요. 사진 판독은 Mac에서 로컬 서버로 실행할 때만 동작합니다. 제품/SKU 일치와 미판독·기한 누락은 사람이 확인합니다.</p><div class="fields label-fields"><label>대상 구매 SKU<select id="labelSku"></select></label><label>원본 이미지(선택)<input id="labelImage" type="file" accept="image/*"></label><label>검수자<input id="labelReviewer" type="text" placeholder="확인자 이름"></label><label>제외할 알레르기 표시(쉼표 구분)<input id="forbiddenAllergens" type="text" placeholder="예: 우유, 대두"></label></div><label class="raw-label">표시사항 텍스트 원문<textarea id="labelRaw" rows="6" placeholder="제품명: ...
-식품유형: ...
-원재료명: ...
-우유, 대두 함유"></textarea></label><label class="review-check"><input id="labelFullReview" type="checkbox"> 원본 사진의 전체 표시와 선택한 SKU가 같은 제품인지 직접 대조했습니다. 확인은 안전 판정이 아닙니다.</label><div class="actions"><button id="ocrImage" class="button-secondary" disabled>사진에서 자동입력 초안</button><button id="sampleLabel" class="button-secondary">예시 문구 넣기</button><button id="parseLabel" class="button-secondary">텍스트 필드 추출</button><button id="confirmLabel" class="button-primary" disabled>사람 검수 기록</button><button id="exportLabel" class="button-secondary" disabled>검수 기록 CSV</button></div><p id="labelStatus" class="inline-status" role="status"></p><div id="labelFields" class="label-result"></div></section>
-<section id="results" class="section" hidden><div class="section-heading"><div><span class="step">03 / 대안 비교</span><h2>같은 조건, 다른 선택</h2></div><span id="resultFlag" class="status"></span></div><div class="facts"><div><small>고정 예산 C₀</small><strong id="budget">—</strong></div><div><small>가격 상승 후 원안 비용</small><strong id="shocked">—</strong></div></div><div id="details" class="details"></div><div id="compare" class="compare"></div><div id="difference" class="difference"></div><div class="reference-note"><b>영양·알레르기 참고</b><p>영양 성분과 알레르기 표시의 전후 근거가 아직 연결되지 않았습니다. 안전성이나 영양기준 충족 여부는 판정하지 않습니다.</p></div><div class="subhead"><div><span class="step">04 / 발주</span><h2>선택안 발주표</h2></div><button id="exportBOM" class="button-secondary" disabled>한글 CSV 내려받기</button></div><p id="searchInfo" class="muted"></p><div class="table-wrap" id="bom"></div></section>
-<section id="matrix" class="section" hidden><div class="subhead"><div><span class="step">05 / 시나리오 검증</span><h2 id="matrixTitle">5개 메뉴 × 3개 상승률</h2><p id="matrixSummary" class="muted"></p></div><button id="exportMatrix" class="button-secondary" disabled>실행표 CSV 내려받기</button></div><div class="table-wrap"><table><thead><tr><th>메뉴</th><th>상승</th><th>상태</th><th>최저가</th><th>최소 변경</th></tr></thead><tbody id="matrixBody"></tbody></table></div></section>
-<section class="section import-section"><div class="section-heading"><div><span class="step">06 / 자료 교체</span><h2>팀 자료로 연습하기</h2></div></div><p>CSV 3종을 한 번에 선택하세요. 검증에 실패하면 현재 자료는 유지됩니다.</p><label class="file-label">메뉴.csv · 원재료.csv · 후보표.csv 선택<input id="csvFiles" type="file" accept=".csv,text/csv" multiple></label><p id="importStatus" class="inline-status" role="status"></p></section>
-<footer>썬시아 · K-푸드테크 해커톤을 준비하며 만든 프로토타입의 웹 시연판<br>계산 결과는 모의 원가 비교입니다. 실제 영양 기준·알레르기 안전 판정 및 절감 효과가 아닙니다.</footer></main></div><script type="module" src="./app.mjs"></script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>퐁당퐁당 · 식재료 가격 대응</title>
+<link rel="icon" type="image/svg+xml" href="./assets/logo-mark.svg">
+<link rel="apple-touch-icon" href="./assets/icon-180.png">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div id="splash" role="status" aria-label="퐁당퐁당을 여는 중"><div class="sp-in"><div class="sp-drop"><svg viewBox="0 0 64 64" width="120" height="120" aria-hidden="true"><rect width="64" height="64" rx="18" fill="#b9e95d"/><ellipse cx="32" cy="54" rx="15" ry="3.6" fill="#fff" stroke="#245272" stroke-width="1.7"/><ellipse cx="32" cy="54" rx="8" ry="1.8" fill="#d8f5a0"/><g class="dropg" transform="translate(4 4.5) scale(.88)">
+<path d="M32 10.5C37.5 18 45.5 23.5 45.5 32.5a13.5 13.5 0 0 1-27 0C18.5 23.5 26.5 18 32 10.5z" fill="#62c1f7" stroke="#245272" stroke-width="1.9" stroke-linejoin="round"/>
+<path d="M22.5 36.5c.6 5 4.3 8.5 9.5 8.8 4.3.2 8-2.2 9.6-5.8-2.5 1.7-5.4 2.4-8.5 1.9-4.4-.7-8.5-2.5-10.6-4.9z" fill="#3ba3e6"/>
+<path d="M24.2 25.5c1-2.8 2.6-4.8 4.6-6.2" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M32 10.5V6.5" stroke="#245272" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M32 8c-1-4.5-5.5-5.8-9.5-4.5.1 3.8 3.8 5.8 9.5 4.5z" fill="#97dc3c" stroke="#245272" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M32 8c1-4.5 5.5-5.8 9.5-4.5-.1 3.8-3.8 5.8-9.5 4.5z" fill="#6cc22b" stroke="#245272" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M24.8 31.2q2.2-3 4.4 0M34.8 31.2q2.2-3 4.4 0" fill="none" stroke="#245272" stroke-width="2" stroke-linecap="round"/><path d="M28.6 35.6q3.4 4 6.8 0" fill="#fff" stroke="#245272" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22.5" cy="36.2" r="1.9" fill="#ff9db1"/><circle cx="41.5" cy="36.2" r="1.9" fill="#ff9db1"/></g></svg></div><b>퐁당퐁당</b><span>식재료 가격, 오르내려도 대응합니다</span></div></div>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="gnb">
+  <div class="wrap gnb-in">
+    <a class="brand" href="#/home" aria-label="퐁당퐁당 처음으로"><img class="mark-img" src="./assets/logo-mark.svg" alt="" width="44" height="44"><span class="brand-text"><strong>퐁당퐁당</strong><small>식재료 가격 대응</small></span></a>
+    <nav class="tabs" id="tabs" aria-label="주 메뉴">
+      <a href="#/home" data-view="home"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg><span>홈</span></a>
+      <a href="#/main" data-view="main"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12l9-9h8v8l-9 9z"/><circle cx="16" cy="8" r="1.4"/></svg><span>가격 비교</span></a>
+      <a href="#/forecast" data-view="forecast"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6"/></svg><span>재료 보기</span></a>
+      <a href="#/check" data-view="check"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6v12M8 6v12M12 6v12M16 6v12M20 6v12"/></svg><span>제품·라벨 확인</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="pagehead"><div class="wrap">
+    <span id="crumbNow" hidden></span><h1 id="pageTitle">식재료 가격 대응</h1>
+    <p class="pagedesc" id="pageDesc">구매 목록과 현장에서 확인한 단가를 입력하면, 가격 이상 여부와 바꿀 수 있는 재료, 알레르기 변화, 발주 비용을 바로 확인할 수 있습니다.</p>
+  </div></div>
+
+  <!-- 홈 -->
+  <div class="view" id="view-home">
+    <section class="hero2" aria-live="polite">
+      <div class="h2-bg" aria-hidden="true"><span>퐁당</span><span>퐁당</span></div>
+            <div class="h2-ripple" aria-hidden="true"><i></i><i></i></div>
+      <div class="h2-mascot" id="heroMascot"></div>
+      <div class="h2-chip c1" id="chip1" hidden></div><div class="h2-chip c2" id="chip2" hidden></div>
+      <div class="h2-scroll" aria-hidden="true">아래로 스크롤</div>
+      <div class="h2-copy"><small id="heroHello">안녕하세요!</small><h1 id="heroTitle">식재료 가격, 오르내려도 대응해요</h1><p id="heroSub">전국 시세를 불러오는 중이에요.</p>
+        <div class="h2-actions"><a class="h2-cta" href="#/main">오늘 살 재료 가격 비교하기</a><button class="h2-demo" type="button" data-ask="">퐁당이에게 물어보기</button><button class="h2-demo" id="demoBtn" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>시연 보기</button></div></div>
+    </section>
+    <div class="wrap home-body">
+    <div class="tiles">
+      <a class="tile t-sky" href="#/forecast"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6"/></svg></i><b>시세 보기</b><span>10년 흐름과 다음 달 전망</span></a>
+      <a class="tile t-lime" href="#/check"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M5 6v12M9 6v12M13 6v12M17 6v12M20 6v12"/></svg></i><b>제품·라벨 확인</b><span>알레르기 19종 대조</span></a>
+    </div>
+    <section class="hsec panel routine" id="homeRoutine"><div class="hsec-head"><h2>우리 가게 정기 구매</h2><span class="src" id="routineSum"></span></div>
+      <p class="help" style="margin:0 0 10px">자주 사는 재료와 양을 적어 두면, 가격이 오를 것 같을 때 미리 알려드려요.</p>
+      <ul class="rlist" id="routineList"></ul>
+      <details class="adv" id="routineAdd"><summary>정기 구매 재료 추가</summary><div class="adv-body">
+        <div class="form-grid">
+          <label class="field">재료<select id="rtItem"></select></label>
+          <label class="field">한 번에 사는 양(kg)<input id="rtKg" type="number" min="0.1" step="0.1" value="10" inputmode="decimal"></label>
+          <label class="field">얼마나 자주 사요?<select id="rtCycle"><option value="1">매일</option><option value="2">이틀마다</option><option value="7" selected>매주</option><option value="14">2주마다</option><option value="30">매달</option></select></label>
+          <label class="field">마지막으로 산 날<input id="rtLast" type="date"></label>
+        </div>
+        <div class="row"><button id="rtAddBtn" class="btn btn-primary" type="button">추가하기</button></div>
+      </div></details>
+    </section>
+    <section class="hsec"><div class="hsec-head"><h2>이번 달 많이 오른 재료</h2><span class="src" id="homeAsof"></span></div><div class="hscroll" id="homeRisers"><p class="empty">불러오는 중이에요.</p></div></section>
+    <div class="hgrid">
+      <section class="hsec panel soft up"><div class="hsec-head"><h2>다음 달 오를 것 같아요</h2></div><ul class="hlist" id="homeUp"></ul></section>
+      <section class="hsec panel soft down"><div class="hsec-head"><h2>다음 달 내릴 것 같아요</h2></div><ul class="hlist" id="homeDown"></ul></section>
+    </div>
+    <section class="hsec panel" id="homeWatch" hidden><div class="hsec-head"><h2>내 관심 재료</h2></div><ul class="hlist" id="homeWatchList"></ul></section>
+    <section class="hsec panel" id="homeRecent" hidden><div class="hsec-head"><h2>최근 대응 기록</h2></div><ul class="hlist" id="homeRecentList"></ul></section>
+    <section class="hsec panel how"><div class="hsec-head"><h2>이렇게 쓰면 돼요</h2></div>
+      <ol class="how-list"><li><b>1</b><span>살 재료와 양(kg)을 넣어요</span></li><li><b>2</b><span>가게에서 본 오늘 가격을 적어요</span></li><li><b>3</b><span>평소보다 비싼지, 바꿀 만한 재료가 있는지 바로 알려드려요</span></li></ol>
+    </section>
+    <p class="home-note">전국 소매가격(KAMIS) 월별 자료 기준이고, 예측은 과거 통계로 계산한 참고용이에요.</p>
+  </div></div>
+
+  <!-- 화면 1: 가격 비교 -->
+  <div class="view" id="view-main" hidden>
+    <div class="wrap">
+      <ol class="stepper" id="stepper" hidden></ol>
+      <div class="split">
+        <div class="col-input">
+          <section id="s1" class="panel">
+            <div class="panel-head"><h2>오늘 가격, 어때요?</h2></div>
+            <p class="lead">살 재료와 양, 가게에서 본 <b>오늘 가격</b>을 적으면 바로 대응법을 알려드려요.</p>
+            <div class="row presets" role="group" aria-label="시연 예시">
+              <span class="help">급등 상황 불러보기</span>
+              <button class="btn btn-outline btn-sm" type="button" data-preset="spinach">시금치</button>
+              <button class="btn btn-outline btn-sm" type="button" data-preset="mackerel">고등어</button>
+              <button class="btn btn-outline btn-sm" type="button" data-preset="cabbage">배추</button>
+              <button class="btn btn-text btn-sm" type="button" data-preset="reset">초기화</button>
+            </div>
+            <div id="basketRows" class="basket-list"></div>
+            <div class="row"><button id="addRow" class="btn btn-outline" type="button">+ 재료 추가</button><span class="help" id="basketHint"></span></div>
+            <details class="adv"><summary>세부 설정 (기준·상승률)</summary><div class="adv-body">
+            <div class="settings">
+              <label class="field">가격이 오른 재료
+                <select id="targetSel"></select>
+                <span class="help" id="targetHelp">대체 재료를 찾을 재료입니다.</span>
+              </label>
+              <label class="field" for="quoteChannel">오늘 가격을 본 곳
+                <select id="quoteChannel">
+                  <option value="직송 견적">직송 견적(산지·업체 직접)</option>
+                  <option value="도매시장·유통업체" selected>도매시장·유통업체</option>
+                  <option value="마트·소매">마트·소매</option>
+                </select>
+                <span class="help">비교 기준은 도매시장 월평균(대량 구매)입니다.</span>
+              </label>
+              <label class="field">비용 계산 기준
+                <select id="packMode">
+                  <option value="market">도매 거래단위(포장 단위로 구매)</option>
+                  <option value="unit">필요한 만큼만(10g 단위)</option>
+                </select>
+              </label>
+            </div>
+            <div class="trend" id="trend" aria-live="polite"></div>
+            <div class="field" id="pctField">
+              <span class="label-text">가격이 얼마나 올랐다고 볼까요?</span>
+              <div class="seg" id="pctGroup" role="radiogroup" aria-label="가격 상승률"></div>
+              <span class="help" id="pctHint"></span>
+            </div>
+            <details class="risers"><summary>최근 많이 오른 재료 보기</summary><div id="risers"></div></details>
+            </div></details>
+          </section>
+        </div>
+
+        <aside class="col-result" aria-live="polite">
+          <section id="s2" class="panel result-panel">
+            <div class="panel-head"><h2>이렇게 대응해요</h2><span class="status" id="resultChip">입력 대기</span></div>
+            <div id="resultEmpty" class="empty">재료를 입력하면 대응법이 여기에 나와요.</div>
+            <div id="resultBody" hidden>
+              <div id="actionBox" class="actionbox"></div>
+              <div id="summary" class="summary"></div>
+              <h3 class="h3">바꿀 수 있는 재료 <span class="tag-plain" id="swapGroup"></span></h3>
+              <div id="swapBox"></div>
+              <details class="adv"><summary>자세히 보기 (가격 점검·구성 비교)</summary><div class="adv-body">
+                <div id="reco"></div>
+                <div id="priceCheck"></div>
+                <h3 class="h3">구매 목록 전체 기준 두 가지 구성</h3>
+                <div id="issues"></div>
+                <div id="options" class="options"></div>
+                <p id="diff" class="diff" hidden></p>
+                <div class="alert warn" id="reviewNote" hidden></div>
+              </div></details>
+            </div>
+          </section>
+        </aside>
+      </div>
+
+      <section id="s3" class="panel" hidden>
+        <div class="panel-head"><h2 id="orderTitle">발주표</h2><span class="row" style="margin:0"><button id="saveBtn" class="btn btn-outline" type="button" disabled>대응 기록에 저장</button><button id="printBtn" class="btn btn-outline" type="button">결과 인쇄</button><button id="csvBtn" class="btn btn-primary" type="button" disabled>발주표 내려받기(CSV)</button></span></div>
+        <div class="table-wrap"><table id="orderTable"></table></div>
+        <h3 class="h3">바로 사러 가기</h3>
+        <p class="help">퐁당퐁당은 주문을 대신 전송하지 않아요. 버튼을 누르면 쇼핑몰 검색 결과가 열리니 가격·재고를 확인하고 직접 주문하세요.</p>
+        <div id="shopList" class="shop-list"></div>
+        <p class="help">금액은 aT(한국농수산식품유통공사) 월별 도매시장 가격과 입력하신 현장 단가로 계산한 참고 금액입니다. 실제 납품 계약가가 아닙니다.</p>
+        <details class="adv"><summary>발주서 문구 만들기</summary><div class="adv-body">
+        <div class="alert info"><b>안내</b><p>이 서비스는 주문을 대신 전송하지 않습니다. 아래 발주서 문구를 복사하여 업체에 직접 전달하십시오(문자·메신저·이메일).</p></div>
+        <div class="form-grid">
+          <label class="field">업체명<input id="ordSupplier" type="text" maxlength="40" placeholder="예: OO식자재"></label>
+          <label class="field">납품 희망일<input id="ordDate" type="date"></label>
+          <label class="field">납품 장소<input id="ordPlace" type="text" maxlength="60" placeholder="예: OO구내식당 후문"></label>
+          <label class="field">담당자·연락처<input id="ordContact" type="text" maxlength="40" placeholder="예: 홍길동 010-0000-0000"></label>
+        </div>
+        <label class="field" style="margin-top:12px">요청사항<input id="ordNote" type="text" maxlength="100" placeholder="예: 오전 9시 이전 납품, 신선도 상태 확인 요청"></label>
+        <label class="field">발주서 미리보기<textarea id="ordText" rows="12" readonly></textarea></label>
+        <div class="row"><button id="ordCopy" class="btn btn-primary" type="button">발주서 문구 복사</button><button id="ordPrint" class="btn btn-outline" type="button">인쇄</button><span class="help" id="ordMsg" role="status"></span></div>
+        </div></details>
+      </section>
+      <details id="s4" class="panel adv hist"><summary>대응 기록 보기</summary><div class="adv-body">
+        <div class="panel-head" style="margin-top:6px"><span></span><span class="row" style="margin:0"><button id="histCsv" class="btn btn-outline btn-sm" type="button" disabled>기록 내려받기(CSV)</button><button id="histClear" class="btn btn-outline btn-sm" type="button" disabled>기록 비우기</button></span></div>
+        <p class="help" style="margin:0 0 10px">저장한 대응 내용이 이 브라우저에만 보관됩니다(최근 50건). 누가 어떤 가격을 보고 무엇으로 바꿨는지 남기는 용도입니다.</p>
+        <div class="table-wrap"><table id="histTable"></table></div>
+      </div></details>
+    </div>
+  </div>
+
+  <!-- 화면 2: 시세 분석 -->
+  <div class="view" id="view-forecast" hidden><div class="wrap">
+  <section id="forecast" class="panel">
+    <label class="field sr-only-label"><span class="sr">재료 찾기</span><input id="fcSearch" type="search" placeholder="재료 이름으로 찾기 (예: 시금치)" autocomplete="off"></label>
+    <div id="fcChips" class="chips" role="listbox" aria-label="재료"></div>
+    <div id="advice" class="advice" aria-live="polite"></div>
+    <div id="altBox" class="altbox" hidden></div>
+    <p class="src-note">최근 10년 전국·포항 소매가격(KAMIS)과 최근 12주 일별 가격을 바탕으로 분석한 결과예요. 참고용이고, 가게마다 실제 가격은 달라요.</p>
+    <details class="more"><summary>자세한 분석 보기</summary>
+      <div class="more-body">
+        <div hidden><select id="fcItem"></select><select id="fcRegion"></select><span id="fcSource"></span></div>
+        <div id="pairBox" class="pairbox" hidden></div>
+        <div id="fcCards" class="summary"></div>
+        <div id="fcChart" class="chart"></div>
+        <ul id="fcLines" class="fc-lines"></ul>
+        <div class="table-wrap"><table id="fcBack" style="min-width:560px"></table></div>
+        <div class="note-amber" id="fcNote"></div>
+      </div>
+    </details>
+  </section>
+
+
+  </div></div>
+
+  <!-- 화면 3: 제품·라벨 확인 -->
+  <div class="view" id="view-check" hidden><div class="wrap">
+  <section id="search" class="panel">
+    <div class="card-head"><div><span class="eyebrow">대체 가공식품을 급하게 샀다면</span><h2>제품 검색</h2></div><span class="chip">공공 DB 기준</span></div>
+    <p class="lead-sm">제품명이나 브랜드만 입력하면 <b>영양정보</b>, <b>최저가</b>, <b>알레르기 확인 방법</b>을 한 번에 보여 드립니다.</p>
+    <form id="searchForm" class="searchbar" role="search">
+      <label class="sr" for="searchQ">제품명 또는 브랜드</label>
+      <input id="searchQ" type="search" placeholder="예: 델몬트 알로에, 서울우유, 신라면" autocomplete="off" maxlength="60">
+      <button class="btn btn-primary" type="submit">검색</button>
+    </form>
+    <div class="examples" id="examples"></div>
+    <p class="inline-status" id="searchStatus" role="status"></p>
+    <div id="searchResult"></div>
+    <div id="comparePanel" class="compare" hidden></div>
+  </section>
+
+  <section id="label" class="panel">
+    <div class="card-head"><div><span class="eyebrow">포장을 비추거나 사진을 올리면</span><h2>라벨 스캔 · 알레르기 19종 대조</h2></div><span class="chip">이 컴퓨터에서만 처리</span></div>
+    <p class="lead-sm">포장 뒷면 사진을 올리면 글자를 읽어 칸을 채워 줍니다. <b>읽은 결과는 초안</b>이라, 사진과 비교해 고치고 확인해 주십시오.</p>
+    <div class="grid2">
+      <label class="field">포장 사진(PNG·JPEG)
+        <input id="labelImage" type="file" accept="image/png,image/jpeg">
+      </label>
+      <label class="field">확인한 사람
+        <input id="labelReviewer" type="text" placeholder="이름">
+      </label>
+    </div>
+    <div class="actions row">
+      <button id="camBtn" class="btn btn-primary" type="button">카메라로 비추기 (사진 안 찍어도 됩니다)</button>
+      <button id="ocrBtn" class="btn btn-secondary" type="button" disabled>올린 사진에서 읽기</button>
+      <span class="hint" id="ocrWhy">사진을 고르면 눌러 볼 수 있습니다.</span>
+    </div>
+    <label class="field">또는 표시사항 글자를 붙여 넣기
+      <textarea id="labelRaw" rows="4" placeholder="제품명: …&#10;원재료명: …&#10;우유, 대두 함유"></textarea>
+    </label>
+    <div class="actions row"><button id="parseBtn" class="btn btn-secondary" type="button">붙여 넣은 글에서 칸 나누기</button></div>
+    <div id="camBox" class="cam" hidden>
+      <video id="camVideo" playsinline muted aria-label="카메라 화면"></video>
+      <div class="cam-side"><p class="hint" id="camHint">라벨의 <b>원재료명·알레르기 표시</b>가 화면 가운데에 크게 보이게 잠깐 멈춰 주십시오. 2~3초마다 자동으로 읽습니다.</p>
+        <button id="camStop" class="btn btn-secondary" type="button">카메라 끄기</button></div>
+    </div>
+    <p class="inline-status" id="labelStatus" role="status"></p>
+    <div id="algPanel" class="alg-panel" hidden></div>
+    <div id="labelFields" class="label-grid"></div>
+    <div class="note-amber">읽지 못한 항목은 <b>'없음'이 아닙니다.</b> 알레르기는 포장 사진을 눈으로 직접 확인해 주십시오. 이 화면은 안전을 판정하지 않습니다.</div>
+    <label class="check"><input type="checkbox" id="labelConfirm"> 사진과 고른 제품이 같은 제품인지 직접 확인했습니다.</label>
+    <div class="actions row"><button id="labelSave" class="btn btn-primary" type="button" disabled>확인 기록 받기(CSV)</button>
+      <span class="hint" id="labelSaveWhy">칸을 만든 뒤 확인란에 체크하면 눌러 볼 수 있습니다.</span></div>
+  </section>
+
+
+  </div></div>
+
+  <!-- 화면 4: 자료·확장 -->
+  <div class="view" id="view-about" hidden><div class="wrap">
+  <section id="future" class="panel">
+    <div class="card-head"><div><span class="eyebrow">지금은 대응에 집중, 다음은 확장</span><h2>다음에 붙일 수 있습니다</h2></div></div>
+    <div class="road">
+      <div class="roadcard"><b>영양 정보</b><span>가격이 오를 때 바꾼 재료의 영양 변화를 함께 보여 주는 기능입니다. 영양 데이터(식약처 가공식품 329,363개, 농진청 원재료 3,672개)는 이미 확보해 두었고, 지금은 화면에서 뺐습니다.</span></div>
+      <div class="roadcard"><b>메뉴 연결(어린이집·학교)</b><span>표준 식단 588끼의 재료별 g을 확보했습니다. 메뉴 단위로 한 번에 계산하는 기능으로 넓힐 수 있습니다.</span></div>
+      <div class="roadcard"><b>제품별 원재료·알레르기 DB</b><span>제품명만으로 알레르기를 보여 주려면 공식 DB 키가 필요합니다(신청 절차 정리됨). 지금은 라벨 스캔으로 확인합니다.</span></div>
+    </div>
+    <h3 class="h3">확장할 수 있는 시장 규모 <span class="chip chip-gray">공식 통계</span></h3>
+    <div class="facts" id="facts"></div>
+  </section>
+
+  <section id="region" class="panel">
+    <div class="card-head"><div><span class="eyebrow">포항에서 시작해 전국으로</span><h2>지역과 함께 확대합니다</h2></div></div>
+    <p class="lead-sm">썬시아는 경북 포항에서 열린 K-푸드테크 해커톤에서 시작했습니다. 포항·경북을 첫 시범 지역으로 삼고, 같은 방식으로 전국 학교·어린이집·독립구매 업장으로 이어 갈 수 있게 만들었습니다.</p>
+    <ol class="road">
+      <li><b>포항 시범</b><span>포항 어린이집·학교 1~2곳에서 실제 식단·구매 자료로 확인</span></li>
+      <li><b>경북 확대</b><span>어린이급식관리지원센터·교육지원청과 연결 방법 검토</span></li>
+      <li><b>전국 확장</b><span>학교·어린이집·소규모 급식소·음식점·카페로 같은 구조 적용</span></li>
+    </ol>
+    <h3 class="h3">향후 함께 검토할 기업 <span class="chip chip-gray">협의 전 · 확정된 협력 아님</span></h3>
+    <div class="sponsors" id="sponsors"></div>
+    <p class="hint">이 목록은 대회 후원 기업의 공개된 기술을 바탕으로 우리가 설계한 연계 <b>제안</b>입니다. 제휴나 무료 지원을 뜻하지 않습니다.</p>
+  </section>
+
+  <section id="sources" class="panel">
+    <div class="card-head"><div><span class="eyebrow">믿고 쓸 수 있게</span><h2>자료 출처와 한계</h2></div></div>
+    <div id="sourceList" class="source-list"></div>
+    <h3 class="h3">알아 둘 한계</h3>
+    <ul class="limits" id="limits"></ul>
+  </section>
+
+  </div></div>
+</main>
+
+<footer class="footer"><div class="wrap"><p><b>퐁당퐁당</b> · 공공 가격 자료로 만든 참고용 비교예요. 주문은 자동으로 하지 않고, 최종 결정은 담당자가 해요. <a href="#/about">자료 출처·소개</a></p></div></footer>
+<div id="demoCap" class="demo-cap" hidden role="status"><span id="demoText"></span><button type="button" id="demoStop" aria-label="시연 끝내기">끝내기</button></div>
+<div id="askSheet" class="ask" hidden role="dialog" aria-modal="true" aria-labelledby="askTitle">
+  <div class="ask-dim" data-ask-close></div>
+  <section class="ask-panel">
+    <header class="ask-head"><div class="ask-m" id="askMascot"></div><div><h2 id="askTitle">퐁당이에게 물어보기</h2><p id="askMode">공공 가격 자료를 바탕으로 답해요</p></div><button type="button" class="ask-x" data-ask-close aria-label="닫기">닫기</button></header>
+    <div class="ask-log" id="askLog" aria-live="polite"></div>
+    <div class="ask-sug" id="askSug"></div>
+    <form class="ask-form" id="askForm"><input id="askInput" type="text" maxlength="200" placeholder="예: 시금치 지금 사도 돼요?" autocomplete="off" aria-label="질문"><button class="btn btn-primary" type="submit">보내기</button></form>
+  </section>
+</div>
+<a id="mbar" class="mbar" href="#s2" hidden><span id="mbarText"></span><b>결과 보기</b></a>
+<script type="module" src="./app.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>올담 ON | 공공 Wi-Fi 취약지 추천</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231d5665'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-size='22' font-family='Arial,sans-serif' font-weight='700' fill='white'%3EON%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="sidebar">
+        <header class="brand">
+          <div class="logo">ON</div>
+          <div>
+            <p class="eyebrow">제2회 올담 데이터 활용 해커톤</p>
+            <h1>올담 ON</h1>
+          </div>
+        </header>
+
+        <section class="claim">
+          <h2>공공 Wi-Fi가 있는 곳이 아니라, 먼저 개선해야 할 곳을 찾습니다.</h2>
+          <p>올담 등록 데이터와 공공 Wi-Fi 데이터를 결합해 통신 접근성 취약지수와 리피터 설치 후보지를 계산합니다.</p>
+        </section>
+
+        <section class="metrics" aria-label="핵심 지표">
+          <article>
+            <span id="wifiCount">-</span>
+            <p>충남 Wi-Fi 좌표</p>
+          </article>
+          <article>
+            <span id="demandCount">-</span>
+            <p>수요 포인트</p>
+          </article>
+          <article>
+            <span id="candidateCount">-</span>
+            <p>후보지</p>
+          </article>
+        </section>
+
+
+
+        <section class="controls">
+          <button id="startDemo" class="primary-action" type="button">7분 발표 데모 시작</button>
+          <div class="segmented" role="tablist" aria-label="지도 레이어">
+            <button class="active" data-layer="candidates" type="button">후보지</button>
+            <button data-layer="demand" type="button">수요</button>
+            <button data-layer="wifi" type="button">Wi-Fi</button>
+          </div>
+
+          <label class="range">
+            <span>취약지수 최소값 <strong id="thresholdValue">50</strong></span>
+            <input id="threshold" type="range" min="25" max="90" value="50" step="5" />
+          </label>
+        </section>
+
+        <section class="toplist">
+          <div class="section-title">
+            <h2>설치 후보 TOP</h2>
+            <span id="activeLayer">후보지</span>
+          </div>
+          <div id="candidateList" class="list"></div>
+        </section>
+
+        <section class="selected-card" aria-label="선택 후보 상세">
+          <div class="section-title">
+            <h2>선택 후보 상세</h2>
+            <span id="selectedPriority">최우선</span>
+          </div>
+          <h3 id="selectedName">-</h3>
+          <p id="selectedReason">후보를 선택하면 추천 근거와 현장 검증 계획이 표시됩니다.</p>
+          <div class="evidence-grid">
+            <article>
+              <strong id="selectedScore">-</strong>
+              <span>취약지수</span>
+            </article>
+            <article>
+              <strong id="selectedDistance">-</strong>
+              <span>최단 Wi-Fi</span>
+            </article>
+            <article>
+              <strong id="selectedSupply">-</strong>
+              <span>500m 내 공급</span>
+            </article>
+          </div>
+          <ol class="field-plan">
+            <li>현장 GPS 좌표 확인</li>
+            <li>RSSI·속도 측정</li>
+            <li>우선순위 리포트 반영</li>
+          </ol>
+        </section>
+
+
+
+        <section class="method">
+          <h2>취약지수 산식</h2>
+          <p>거리 점수 + 수요 가중치 + 품질 저하 추정 - 기존 공급 패널티</p>
+          <p class="note">84.1점은 설치 확정값이 아니라 후보 선별 지표입니다. 현장 GPS·RSSI·속도 측정으로 좌표와 품질을 보정합니다.</p>
+        </section>
+
+        <section class="qna-panel">
+          <div class="section-title">
+            <h2>발표 Q&A 대비 피드백</h2>
+            <span>예상 질문 대응</span>
+          </div>
+          <div class="qna-scroll-container">
+            <article class="qna-item">
+              <span class="qna-q">Q. 취약지수 산출 및 가중치 계산 방식은?</span>
+              <p class="qna-a">
+                거리 점수 + 수요 가중치 + 품질 저하 추정 - 기존 공급 패널티로 계산했습니다. 예를 들어 <strong>록평2리 마을회관</strong>은 거리 점수 45.0점, 수요 가중치 22.5점, 품질 격차 16.6점, 공급 패널티 0점이 합쳐져 <strong>84.1점</strong>이 나왔습니다. 점수는 설치 확정값이 아니라 현장 검증 전 우선순위 선별 지표입니다.
+              </p>
+            </article>
+            <article class="qna-item">
+              <span class="qna-q">Q. 분석 정확도 및 결과값의 신뢰성은?</span>
+              <p class="qna-a">
+                현재 단계에서 정확도는 정답률이 아니라 후보 선별 정확도로 보는 것이 맞습니다. 공개 공공데이터 기반 MVP이기 때문에 좌표 오차나 주소 기반 근사 좌표 한계는 있습니다. 대신 상위 후보는 최단 Wi-Fi 거리, 500m 내 공급 여부, 수요 지점 여부가 동시에 확인된 곳으로 좁혔고, 최종 판단은 현장 GPS·RSSI·속도 측정으로 보정하도록 설계했습니다.
+              </p>
+            </article>
+            <article class="qna-item">
+              <span class="qna-q">Q. 데이터 확보 및 수집 확장성은?</span>
+              <p class="qna-a">
+                전혀 문제없습니다. 저희가 사용한 무료와이파이, 디지털배움터, 경로당, 버스정류장 데이터는 모두 충남 데이터포털 '올담'과 공공데이터포털에 이미 충남 전역 단위로 공개되어 있는 표준 데이터입니다. 없는 관련 지역에 대해서는 올담 측에 요청드려 더 많고 좋은 데이터들을 활용할 수 있도록 요청드려 해결할 생각입니다.
+              </p>
+            </article>
+          </div>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <div id="map"></div>
+        <nav class="demo-rail" aria-label="발표 데모 단계">
+          <button class="active" data-demo-step="overview" type="button">
+            <span>01</span>
+            데이터 결합
+          </button>
+          <button data-demo-step="rank" type="button">
+            <span>02</span>
+            후보 추천
+          </button>
+          <button data-demo-step="field" type="button">
+            <span>03</span>
+            현장 검증
+          </button>
+          <button data-demo-step="scale" type="button">
+            <span>04</span>
+            확장 보고
+          </button>
+        </nav>
+        <div class="floating-panel">
+          <div>
+            <p id="demoStepLabel">추천 근거</p>
+            <strong id="mapCaption">충남 전역의 Wi-Fi 공급과 교육·복지 수요를 함께 봅니다.</strong>
+          </div>
+          <div class="selected-summary" id="selectedSummary">
+            <span>TOP 후보</span>
+            <strong>-</strong>
+          </div>
+          <div class="legend">
+            <span><i class="dot red"></i>후보지</span>
+            <span><i class="dot green"></i>수요</span>
+            <span><i class="dot blue"></i>Wi-Fi</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
