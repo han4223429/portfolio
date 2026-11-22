@@ -6,22 +6,75 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const PAGE_SIZE = 6;
 const INSTAGRAM = /^https:\/\/www\.instagram\.com\/(p|reel)\/[\w-]+\/$/;
 
-/* ---------- 메뉴: 지금 보고 있는 구간 표시 ---------- */
+/* ---------- 메뉴와 차례: 지금 보고 있는 구간 표시 ---------- */
+const WORKS = ["gyeongtongnet", "rescue", "oldam", "nettwin", "sunsia", "content"];
 function watchSections() {
   const links = $$(".top__nav a");
-  const groups = { work: ["work", "gyeongtongnet", "sunsia", "nettwin", "rescue", "oldam"], content: ["content"], about: ["about"], activity: ["activity"], contact: ["contact"] };
+  const tocLinks = $$(".toc a");
+  const toc = $(".toc");
+  const groups = { work: ["work", "gyeongtongnet", "rescue", "oldam", "nettwin", "sunsia"], content: ["content"], about: ["about"], activity: ["activity"], contact: ["contact"] };
   const owner = new Map(Object.entries(groups).flatMap(([menu, ids]) => ids.map((id) => [id, menu])));
   const visible = new Set();
+  const root = document.documentElement;
   const observer = new IntersectionObserver((entries) => {
     for (const entry of entries) entry.isIntersecting ? visible.add(entry.target.id) : visible.delete(entry.target.id);
     const order = [...owner.keys()].filter((id) => visible.has(id));
-    const current = order.length ? owner.get(order[0]) : null;
+    const id = order[0] ?? null;
+    const current = id ? owner.get(id) : null;
     for (const link of links) {
       if (link.hash === `#${current}`) link.setAttribute("aria-current", "true");
       else link.removeAttribute("aria-current");
     }
+    // 차례 바는 작업 구간 안에서만 보인다.
+    const inWork = WORKS.includes(id);
+    root.dataset.toc = inWork ? "on" : "off";
+    if (id) root.dataset.section = id; else delete root.dataset.section;
+    for (const link of tocLinks) {
+      const on = link.hash === `#${id}`;
+      if (on) {
+        link.setAttribute("aria-current", "true");
+        toc.scrollTo({ left: link.offsetLeft - toc.clientWidth / 2 + link.offsetWidth / 2 });
+      } else link.removeAttribute("aria-current");
+      link.tabIndex = inWork ? 0 : -1;
+    }
   }, { rootMargin: "-45% 0px -50% 0px" });
   for (const id of owner.keys()) { const el = document.getElementById(id); if (el) observer.observe(el); }
+}
+
+/* ---------- 차례: 줄에 올리면 그 작업의 화면이 따라온다(마우스가 있을 때만) ---------- */
+function setupPeek() {
+  const peek = $("#peek");
+  const list = $(".index");
+  if (!peek || !list || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  peek.hidden = false;
+  let x = 0, y = 0, queued = false;
+  const place = () => { queued = false; peek.style.translate = `${x + 24}px ${y - 80}px`; };
+  list.addEventListener("pointermove", (event) => {
+    x = Math.min(event.clientX, innerWidth - 300);
+    y = event.clientY;
+    if (!queued) { queued = true; requestAnimationFrame(place); }
+  });
+  for (const row of $$(".index__row", list)) {
+    row.addEventListener("pointerenter", () => {
+      if (!row.dataset.peek) { peek.classList.remove("is-on"); return; }
+      peek.src = row.dataset.peek;
+      peek.classList.add("is-on");
+    });
+  }
+  list.addEventListener("pointerleave", () => peek.classList.remove("is-on"));
+}
+
+/* ---------- 상 도장: 화면에 들어올 때 한 번 찍힌다 ---------- */
+function setupStamps() {
+  document.documentElement.classList.add("js");
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add("is-in");
+      observer.unobserve(entry.target);
+    }
+  }, { rootMargin: "0px 0px -20% 0px" });
+  for (const stamp of $$(".stamp")) observer.observe(stamp);
 }
 
 /* ---------- 시연: 눌렀을 때만 앱을 불러온다 ---------- */
@@ -34,6 +87,7 @@ function setupDemo(demo) {
     frame.src = demo.dataset.src;
     frame.addEventListener("error", () => { screen.replaceChildren(message("앱을 불러오지 못했습니다. 아래 링크로 새 창에서 열어 주세요.")); });
     screen.replaceChildren(frame);
+    demo.classList.add("is-live");
     frame.focus();
   }, { once: true });
 }
@@ -176,6 +230,8 @@ function setupCopy() {
 }
 
 watchSections();
+setupPeek();
+setupStamps();
 $$("[data-demo]").forEach(setupDemo);
 setupCopy();
 setupContent();

@@ -12,15 +12,15 @@
   <title>김한용 포트폴리오</title>
   <meta property="og:type" content="website">
   <meta property="og:title" content="김한용 포트폴리오">
-  <meta property="og:description" content="기획하고, 만들고, 찍어서 올립니다. 경통넷, 썬시아, NetTwin, RESCUE JET, 올담 공공데이터, 콘텐츠 45편.">
+  <meta property="og:description" content="기획하고, 만들고, 찍어서 올립니다. 경통넷, RESCUE JET, 올담 공공데이터, NetTwin, 썬시아, 콘텐츠 45편.">
   <meta property="og:url" content="https://han4223429.github.io/portfolio/">
   <meta property="og:image" content="https://han4223429.github.io/portfolio/images/profile.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/site.css?v=2026.11.7">
-  <script type="module" src="js/site.js?v=2026.11.3"></script>
+  <link rel="stylesheet" href="css/site.css?v=2026.12.1">
+  <script type="module" src="js/site.js?v=2026.12.1"></script>
 </head>
 <body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -34,37 +34,69 @@
     <a href="#activity">활동</a>
     <a href="#contact">연락</a>
   </nav>
+  <div class="progress" aria-hidden="true"></div>
+  <nav class="toc" aria-label="작업 차례">
+    <a href="#gyeongtongnet">경통넷</a>
+    <a href="#rescue">RESCUE JET</a>
+    <a href="#oldam">올담 공공데이터</a>
+    <a href="#nettwin">NetTwin</a>
+    <a href="#sunsia">썬시아</a>
+    <a href="#content">릴스와 카드뉴스</a>
+  </nav>
 </header>
 
 <main id="main">
   <section class="hero" id="top" aria-labelledby="heroTitle">
-    <div class="wrap">
-      <h1 id="heroTitle">기획하고,<br>만들고,<br>찍어서 올립니다.</h1>
+    <div class="wrap hero__top">
+      <img class="hero__photo" src="images/profile.jpg" width="1067" height="1600" fetchpriority="high" alt="김한용 인물 사진">
+      <h1 id="heroTitle"><span class="cut">기획하고,</span><span class="cut">만들고,</span><span class="cut">찍어서 올립니다.</span></h1>
     </div>
-    <div class="wrap hero__grid">
+    <div class="wrap hero__under">
       <div>
         <p class="hero__lead">김한용입니다. 순천향대학교 사물인터넷학과에서 공부하면서 서비스를 기획하고, 시제품과 웹을 만들고, 릴스와 카드뉴스를 제작합니다.</p>
         <p class="hero__links"><a class="btn" href="#work">작업 보기</a><a class="btn btn--line" href="#contact">연락하기</a></p>
       </div>
-      <img class="hero__photo" src="images/profile.jpg" width="1067" height="1600" fetchpriority="high" alt="김한용 인물 사진">
+    </div>
+
+    <div class="ticker">
+      <div class="ticker__track">
+        <ul>
+          <li>경통넷 우수상</li>
+          <li>RESCUE JET 최우수상</li>
+          <li>촌넷스코어 최우수상</li>
+          <li>눌러 볼 수 있는 시연 세 개</li>
+          <li>릴스 31편</li>
+          <li>카드뉴스 14편</li>
+        </ul>
+        <ul aria-hidden="true">
+          <li>경통넷 우수상</li>
+          <li>RESCUE JET 최우수상</li>
+          <li>촌넷스코어 최우수상</li>
+          <li>눌러 볼 수 있는 시연 세 개</li>
+          <li>릴스 31편</li>
+          <li>카드뉴스 14편</li>
+        </ul>
+      </div>
     </div>
 
     <div class="wrap" id="work">
-      <h2 class="index__title">작업 여섯 가지</h2>
+      <h2 class="index__title">차례</h2>
       <ul class="index">
-        <li><a class="index__row index__row--gt" href="#gyeongtongnet"><strong>경통넷</strong><span>학생자치 인수인계 서비스 프로토타입</span><span>2026</span><span>우수상</span></a></li>
-        <li><a class="index__row index__row--sunsia" href="#sunsia"><strong>썬시아</strong><span>식재료 가격변동 대응 도구</span><span>2026</span><span>참가</span></a></li>
-        <li><a class="index__row index__row--nettwin" href="#nettwin"><strong>NetTwin</strong><span>위험 현장 원격 관제 디지털 트윈</span><span>2026</span><span>팀장</span></a></li>
-        <li><a class="index__row index__row--rescue" href="#rescue"><strong>RESCUE JET</strong><span>자동 구명 추진 장치 시제품</span><span>2025</span><span>최우수상</span></a></li>
+        <li><a class="index__row index__row--gt" href="#gyeongtongnet" data-peek="images/gyeongtongnet-demo.jpg"><strong>경통넷</strong><span>학생자치 인수인계 서비스 프로토타입</span><span>2026</span><span>우수상</span></a></li>
+        <li><a class="index__row index__row--rescue" href="#rescue" data-peek="images/rescue-jet.jpg"><strong>RESCUE JET</strong><span>자동 구명 추진 장치 시제품</span><span>2025</span><span>최우수상</span></a></li>
         <li><a class="index__row index__row--oldam" href="#oldam"><strong>올담 공공데이터</strong><span>서비스 두 가지, 모니터링단 1, 2기</span><span>2025부터</span><span>최우수상</span></a></li>
+        <li><a class="index__row index__row--nettwin" href="#nettwin" data-peek="images/nettwin-poster.jpg"><strong>NetTwin</strong><span>위험 현장 원격 관제 디지털 트윈</span><span>2026</span><span>시연</span></a></li>
+        <li><a class="index__row index__row--sunsia" href="#sunsia" data-peek="images/sunsia-poster.jpg"><strong>썬시아</strong><span>식재료 가격변동 대응 도구</span><span>2026</span><span>시연</span></a></li>
         <li><a class="index__row index__row--content" href="#content"><strong>릴스와 카드뉴스</strong><span>기획, 촬영, 편집, 발행</span><span>2022–2026</span><span>45편</span></a></li>
       </ul>
+      <img class="peek" id="peek" alt="" hidden>
     </div>
   </section>
 
   <section class="project project--gt" id="gyeongtongnet" aria-labelledby="gtTitle">
     <div class="wrap">
       <header class="project__head">
+        <strong class="stamp">우수상</strong>
         <h2 id="gtTitle">경통넷</h2>
         <p>작년의 경험을 올해의 결정으로 잇는 학생자치 인수인계 서비스</p>
       </header>
@@ -118,39 +150,54 @@
     </div>
   </section>
 
-  <section class="project project--sunsia" id="sunsia" aria-labelledby="sunsiaTitle">
+  <section class="project project--rescue" id="rescue" aria-labelledby="rescueTitle">
     <div class="wrap">
       <header class="project__head">
-        <h2 id="sunsiaTitle">썬시아</h2>
-        <p>식재료 가격이 오르면 같은 예산에서 무엇을 얼마나 바꿀지 계산하는 도구</p>
+        <strong class="stamp">최우수상</strong>
+        <h2 id="rescueTitle">RESCUE JET</h2>
+        <p>물에 빠진 사람에게 스스로 다가가는 자동 구명 추진 장치</p>
+      </header>
+
+      <div class="project__cols project__cols--image">
+        <img src="images/rescue-jet.jpg" width="819" height="631" loading="lazy" alt="RESCUE JET 설계 이미지. 주황색 구명 장치의 정면과 윗면입니다.">
+        <div>
+          <div class="prose">
+            <p>익수 사고는 구조자가 닿기까지의 시간이 생존을 좌우하는데, 기존 구명 장비는 스스로 움직이지 못합니다. 제품제작역량 강화캠프에서 이 문제를 주제로 잡았습니다.</p>
+            <p>아두이노로 제어 로직을 짜고, 3D 프린팅으로 하우징을 설계하고 출력해 시제품을 조립했습니다. 시험하고 고치기를 반복했습니다.</p>
+          </div>
+          <dl class="facts">
+            <div><dt>연도</dt><dd>2025</dd></div>
+            <div><dt>맡은 일</dt><dd>하드웨어 설계와 제작 주도</dd></div>
+            <div><dt>쓴 것</dt><dd>Arduino, 3D 프린팅</dd></div>
+            <div><dt>결과</dt><dd>2025 제품제작역량 창업대회 최우수상. <a href="https://www.lecturernews.com/news/articleView.html?idxno=192892" target="_blank" rel="noopener noreferrer">한국강사신문 보도</a></dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="project project--oldam" id="oldam" aria-labelledby="oldamTitle">
+    <div class="wrap">
+      <header class="project__head">
+        <strong class="stamp">최우수상</strong>
+        <h2 id="oldamTitle">올담 공공데이터</h2>
+        <p>충남 데이터포털 ‘올담’의 데이터로 서비스를 만들고, 모니터링단으로 포털을 점검했습니다</p>
       </header>
 
       <div class="project__cols">
         <div class="prose">
-          <p>식재료를 직접 구매하는 급식·외식 업장은 가격이 오르면 같은 예산 안에서 무엇을 바꿀지 빨리 정해야 합니다. 썬시아는 같은 대체 후보와 같은 예산으로 ‘가장 싼 안’과 ‘가장 적게 바꾸는 안’을 나란히 계산합니다.</p>
-          <p>재료는 포장 단위로 사야 하므로 필요한 양을 포장 수로 올려 계산하고, 남는 양과 발주표까지 보여 줍니다. 바꾸는 재료를 하나 줄이려면 구매비가 얼마나 더 드는지도 함께 나옵니다.</p>
-          <p>가공식품 표시사항은 글자를 항목별로 나눠 초안을 만들고, 사람이 원본과 대조해 확인한 기록만 남깁니다. 알레르기 표시를 확인하지 않은 재료가 있으면 추천을 보류합니다.</p>
-          <p>수상은 하지 못했습니다. 설계부터 계산 엔진, 화면, 테스트까지 개발 전체를 맡았습니다.</p>
+          <p>충청남도가 공공데이터 포털 ‘올담’을 열었지만, 개방 데이터가 실제 서비스로 이어진 사례는 많지 않았습니다. 올담 데이터로 서비스 두 가지를 기획하고 구현했습니다.</p>
+          <p>‘촌넷스코어’는 농어촌의 통신 격차를 진단하는 플랫폼으로, 제1회 올담 데이터 활용 해커톤에서 최우수상을 받았습니다. ‘올담 ON’은 공공 Wi-Fi가 부족한 곳을 찾아 추천하는 서비스입니다.</p>
+          <p>모니터링단 1, 2기 위원으로는 포털의 시스템 오류와 버그를 점검하고 UI/UX 개선 의견을 냈습니다. 개방 데이터가 최신인지, 좌표와 포맷이 맞는지도 정기적으로 검수했습니다.</p>
         </div>
         <dl class="facts">
-          <div><dt>대회</dt><dd>K-푸드테크 해커톤 (2026년 10월 31일, 무박 2일)</dd></div>
-          <div><dt>분야</dt><dd>외식·조리환경 개선</dd></div>
-          <div><dt>형태</dt><dd>팀 ‘썬시아’, 팀장</dd></div>
-          <div><dt>맡은 일</dt><dd>개발 전체</dd></div>
-          <div><dt>만든 방식</dt><dd>외부 라이브러리 없는 JavaScript 모듈, 후보 조합 전수 탐색, 자동 테스트 32건</dd></div>
-          <div><dt>결과</dt><dd>수상 없음</dd></div>
+          <div><dt>기간</dt><dd>2025년 7월부터</dd></div>
+          <div><dt>맡은 일</dt><dd>데이터 분석, 서비스 기획과 구현, 포털 점검</dd></div>
+          <div><dt>만든 것</dt><dd>촌넷스코어(농어촌 통신 격차 진단 플랫폼), 올담 ON(공공 Wi-Fi 취약지 추천 서비스)</dd></div>
+          <div><dt>점검한 것</dt><dd>시스템 오류와 버그, UI/UX, 데이터의 최신성과 좌표·포맷 정합성</dd></div>
+          <div><dt>결과</dt><dd>제1회 올담 데이터 활용 해커톤 최우수상, 모니터링단 1, 2기 위원 위촉. <a href="https://www.newsro.kr/article243/1198849/" target="_blank" rel="noopener noreferrer">뉴스로 보도</a></dd></div>
         </dl>
       </div>
-
-      <div class="demo demo--wide" data-demo data-src="sunsia/index.html" data-title="썬시아 웹 시연">
-        <div class="demo__screen">
-          <img src="images/sunsia-poster.jpg" width="1280" height="800" loading="lazy" alt="썬시아 화면. 가격이 오르면 무엇을 얼마나 바꿀까요라는 제목과 비교 조건 입력란이 보입니다.">
-          <button class="btn demo__start" type="button">직접 눌러보기</button>
-        </div>
-        <p class="demo__help">버튼을 누르면 이 자리에서 앱이 열립니다. ‘두 방식 계산하기’를 누르면 두 안의 비용과 발주표가 나옵니다. <a href="sunsia/index.html">새 창에서 크게 열기</a></p>
-      </div>
-
-      <p class="note">메뉴, 가격, 대체 후보는 모두 연습용으로 만든 가상 자료입니다. 실제 절감 효과나 영양·알레르기 안전을 판정하지 않습니다. 사진 판독은 Mac에서 로컬로 실행할 때만 동작해, 웹에서는 예시 문구로 대신합니다.</p>
     </div>
   </section>
 
@@ -179,6 +226,7 @@
           <div><dt>맡은 일</dt><dd>프로젝트 관리, 시스템 구조와 메시지 규격, Python 엣지 시뮬레이터, 센서와 안전모드</dd></div>
           <div><dt>기술</dt><dd>Python, MQTT(Mosquitto), Raspberry Pi 5, Unity 6, KOREN Edge VM</dd></div>
           <div><dt>일정</dt><dd>2026년 7월 기획과 규격, 8월 19일 중간평가 시연, 9–10월 장애 시험, 10월 18일 최종보고서 제출</dd></div>
+          <div><dt>결과</dt><dd>수상 없음</dd></div>
         </dl>
       </div>
 
@@ -227,52 +275,39 @@
     </div>
   </section>
 
-  <section class="project project--rescue" id="rescue" aria-labelledby="rescueTitle">
+  <section class="project project--sunsia" id="sunsia" aria-labelledby="sunsiaTitle">
     <div class="wrap">
       <header class="project__head">
-        <h2 id="rescueTitle">RESCUE JET</h2>
-        <p>물에 빠진 사람에게 스스로 다가가는 자동 구명 추진 장치</p>
-      </header>
-
-      <div class="project__cols project__cols--image">
-        <img src="images/rescue-jet.jpg" width="819" height="631" loading="lazy" alt="RESCUE JET 설계 이미지. 주황색 구명 장치의 정면과 윗면입니다.">
-        <div>
-          <div class="prose">
-            <p>익수 사고는 구조자가 닿기까지의 시간이 생존을 좌우하는데, 기존 구명 장비는 스스로 움직이지 못합니다. 제품제작역량 강화캠프에서 이 문제를 주제로 잡았습니다.</p>
-            <p>아두이노로 제어 로직을 짜고, 3D 프린팅으로 하우징을 설계하고 출력해 시제품을 조립했습니다. 시험하고 고치기를 반복했습니다.</p>
-          </div>
-          <dl class="facts">
-            <div><dt>연도</dt><dd>2025</dd></div>
-            <div><dt>맡은 일</dt><dd>하드웨어 설계와 제작 주도</dd></div>
-            <div><dt>쓴 것</dt><dd>Arduino, 3D 프린팅</dd></div>
-            <div><dt>결과</dt><dd>2025 제품제작역량 창업대회 최우수상. <a href="https://www.lecturernews.com/news/articleView.html?idxno=192892" target="_blank" rel="noopener noreferrer">한국강사신문 보도</a></dd></div>
-          </dl>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="project project--oldam" id="oldam" aria-labelledby="oldamTitle">
-    <div class="wrap">
-      <header class="project__head">
-        <h2 id="oldamTitle">올담 공공데이터</h2>
-        <p>충남 데이터포털 ‘올담’의 데이터로 서비스를 만들고, 모니터링단으로 포털을 점검했습니다</p>
+        <h2 id="sunsiaTitle">썬시아</h2>
+        <p>식재료 가격이 오르면 같은 예산에서 무엇을 얼마나 바꿀지 계산하는 도구</p>
       </header>
 
       <div class="project__cols">
         <div class="prose">
-          <p>충청남도가 공공데이터 포털 ‘올담’을 열었지만, 개방 데이터가 실제 서비스로 이어진 사례는 많지 않았습니다. 올담 데이터로 서비스 두 가지를 기획하고 구현했습니다.</p>
-          <p>‘촌넷스코어’는 농어촌의 통신 격차를 진단하는 플랫폼으로, 제1회 올담 데이터 활용 해커톤에서 최우수상을 받았습니다. ‘올담 ON’은 공공 Wi-Fi가 부족한 곳을 찾아 추천하는 서비스입니다.</p>
-          <p>모니터링단 1, 2기 위원으로는 포털의 시스템 오류와 버그를 점검하고 UI/UX 개선 의견을 냈습니다. 개방 데이터가 최신인지, 좌표와 포맷이 맞는지도 정기적으로 검수했습니다.</p>
+          <p>식재료를 직접 구매하는 급식·외식 업장은 가격이 오르면 같은 예산 안에서 무엇을 바꿀지 빨리 정해야 합니다. 썬시아는 같은 대체 후보와 같은 예산으로 ‘가장 싼 안’과 ‘가장 적게 바꾸는 안’을 나란히 계산합니다.</p>
+          <p>재료는 포장 단위로 사야 하므로 필요한 양을 포장 수로 올려 계산하고, 남는 양과 발주표까지 보여 줍니다. 바꾸는 재료를 하나 줄이려면 구매비가 얼마나 더 드는지도 함께 나옵니다.</p>
+          <p>가공식품 표시사항은 글자를 항목별로 나눠 초안을 만들고, 사람이 원본과 대조해 확인한 기록만 남깁니다. 알레르기 표시를 확인하지 않은 재료가 있으면 추천을 보류합니다.</p>
+          <p>수상은 하지 못했습니다. 설계부터 계산 엔진, 화면, 테스트까지 개발 전체를 맡았습니다.</p>
         </div>
         <dl class="facts">
-          <div><dt>기간</dt><dd>2025년 7월부터</dd></div>
-          <div><dt>맡은 일</dt><dd>데이터 분석, 서비스 기획과 구현, 포털 점검</dd></div>
-          <div><dt>만든 것</dt><dd>촌넷스코어(농어촌 통신 격차 진단 플랫폼), 올담 ON(공공 Wi-Fi 취약지 추천 서비스)</dd></div>
-          <div><dt>점검한 것</dt><dd>시스템 오류와 버그, UI/UX, 데이터의 최신성과 좌표·포맷 정합성</dd></div>
-          <div><dt>결과</dt><dd>제1회 올담 데이터 활용 해커톤 최우수상, 모니터링단 1, 2기 위원 위촉. <a href="https://www.newsro.kr/article243/1198849/" target="_blank" rel="noopener noreferrer">뉴스로 보도</a></dd></div>
+          <div><dt>대회</dt><dd>K-푸드테크 해커톤 (2026년 10월 31일, 무박 2일)</dd></div>
+          <div><dt>분야</dt><dd>외식·조리환경 개선</dd></div>
+          <div><dt>형태</dt><dd>팀 ‘썬시아’, 팀장</dd></div>
+          <div><dt>맡은 일</dt><dd>개발 전체</dd></div>
+          <div><dt>만든 방식</dt><dd>외부 라이브러리 없는 JavaScript 모듈, 후보 조합 전수 탐색, 자동 테스트 32건</dd></div>
+          <div><dt>결과</dt><dd>수상 없음</dd></div>
         </dl>
       </div>
+
+      <div class="demo demo--wide" data-demo data-src="sunsia/index.html" data-title="썬시아 웹 시연">
+        <div class="demo__screen">
+          <img src="images/sunsia-poster.jpg" width="1280" height="800" loading="lazy" alt="썬시아 화면. 가격이 오르면 무엇을 얼마나 바꿀까요라는 제목과 비교 조건 입력란이 보입니다.">
+          <button class="btn demo__start" type="button">직접 눌러보기</button>
+        </div>
+        <p class="demo__help">버튼을 누르면 이 자리에서 앱이 열립니다. ‘두 방식 계산하기’를 누르면 두 안의 비용과 발주표가 나옵니다. <a href="sunsia/index.html">새 창에서 크게 열기</a></p>
+      </div>
+
+      <p class="note">메뉴, 가격, 대체 후보는 모두 연습용으로 만든 가상 자료입니다. 실제 절감 효과나 영양·알레르기 안전을 판정하지 않습니다. 사진 판독은 Mac에서 로컬로 실행할 때만 동작해, 웹에서는 예시 문구로 대신합니다.</p>
     </div>
   </section>
 
