@@ -9,7 +9,7 @@ const INSTAGRAM = /^https:\/\/www\.instagram\.com\/(p|reel)\/[\w-]+\/$/;
 /* ---------- 메뉴: 지금 보고 있는 구간 표시 ---------- */
 function watchSections() {
   const links = $$(".top__nav a");
-  const groups = { work: ["work", "gyeongtongnet", "rescue", "oldam"], content: ["content"], about: ["about"], activity: ["activity"], contact: ["contact"] };
+  const groups = { work: ["work", "gyeongtongnet", "sunsia", "rescue", "oldam"], content: ["content"], about: ["about"], activity: ["activity"], contact: ["contact"] };
   const owner = new Map(Object.entries(groups).flatMap(([menu, ids]) => ids.map((id) => [id, menu])));
   const visible = new Set();
   const observer = new IntersectionObserver((entries) => {
@@ -24,15 +24,13 @@ function watchSections() {
   for (const id of owner.keys()) { const el = document.getElementById(id); if (el) observer.observe(el); }
 }
 
-/* ---------- 경통넷: 눌렀을 때만 앱을 불러온다 ---------- */
-function setupDemo() {
-  const demo = $("[data-demo]");
-  if (!demo) return;
+/* ---------- 시연: 눌렀을 때만 앱을 불러온다 ---------- */
+function setupDemo(demo) {
   const screen = $(".demo__screen", demo);
   const start = $(".demo__start", demo);
   start.addEventListener("click", () => {
     const frame = document.createElement("iframe");
-    frame.title = "경통넷 앱 시연";
+    frame.title = demo.dataset.title || "경통넷 앱 시연";
     frame.src = demo.dataset.src;
     frame.addEventListener("error", () => { screen.replaceChildren(message("앱을 불러오지 못했습니다. 아래 링크로 새 창에서 열어 주세요.")); });
     screen.replaceChildren(frame);
@@ -178,6 +176,6 @@ function setupCopy() {
 }
 
 watchSections();
-setupDemo();
+$$("[data-demo]").forEach(setupDemo);
 setupCopy();
 setupContent();
