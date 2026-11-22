@@ -1,0 +1,53 @@
+/* 촌넷스코어 재구성판. 포트폴리오의 갈색과 신호 초록, 등급에는 안전 표지 색을 쓴다. */
+:root {
+  --white: #ffffff; --black: #2a211e; --camo: #68574f; --line: #ddd5ce; --fill: #f4efeb; --signal: #1fd17a; --link: #0a7d48;
+  --good: #37c871; --fair: #ffd60a; --warn: #ff8a1f; --bad: #d5281e;
+  --display: "Black Han Sans", "Apple SD Gothic Neo", sans-serif;
+  --body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-family: var(--body); color: var(--black); background: var(--white);
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 16px; font-size: 16px; line-height: 1.6; }
+h1, h2, h3, p, ol, dl, dd { margin: 0; }
+ol { padding: 0; list-style: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+.top h1 { font: 400 32px/1.2 var(--display); }
+.top h1 small { font: 600 16px/1 var(--body); color: var(--camo); }
+.top p { max-width: 40em; margin-top: 8px; }
+.notice { padding: 8px 12px; border-left: 8px solid var(--fair); background: var(--fill); font-size: 14px; }
+.state { margin-top: 24px; color: var(--camo); }
+.cols { display: grid; gap: 32px; margin-top: 24px; }
+h2 { padding-bottom: 8px; border-bottom: 4px solid var(--black); font: 400 24px/1.2 var(--display); }
+h3 { margin-top: 24px; font: 400 20px/1.2 var(--display); }
+.hint { margin-top: 8px; font-size: 14px; color: var(--camo); }
+.rank li, .bars li { border-bottom: 1px solid var(--line); }
+.rank button, .bars li { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; width: 100%; min-height: 48px; padding: 8px 8px 12px; border: 0; background: none; text-align: left; }
+.rank button { cursor: pointer; }
+.rank button:hover { background: var(--fill); }
+.rank button[aria-pressed="true"] { background: var(--black); color: var(--white); }
+.num { font-weight: 600; font-variant-numeric: tabular-nums; }
+.bar { position: absolute; left: 0; bottom: 0; height: 6px; background: var(--camo); }
+.bar--good { background: var(--good); } .bar--fair { background: var(--fair); } .bar--warn { background: var(--warn); } .bar--bad { background: var(--bad); }
+.score { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+.score strong { font: 400 72px/1 var(--display); font-variant-numeric: tabular-nums; }
+.grade { padding: 4px 16px; border: 2px solid var(--black); font-weight: 700; }
+.grade--good { background: var(--good); } .grade--fair { background: var(--fair); } .grade--warn { background: var(--warn); } .grade--bad { background: var(--bad); border-color: var(--bad); color: var(--white); }
+.values { margin-top: 16px; border-top: 1px solid var(--line); }
+.values > div { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.values dt { color: var(--camo); }
+.values dd { font-weight: 600; font-variant-numeric: tabular-nums; }
+.map { display: block; width: 100%; margin-top: 16px; border: 2px solid var(--black); background: var(--fill); }
+.map .wifi { fill: var(--link); }
+.map .near { fill: var(--good); stroke: var(--black); }
+.map .mid { fill: var(--fair); stroke: var(--black); }
+.map .far { fill: var(--bad); stroke: var(--black); }
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 8px; font-size: 14px; }
+.key { display: inline-block; width: 12px; height: 12px; margin-left: 8px; border: 1px solid var(--black); border-radius: 50%; }
+.key--far { background: var(--bad); margin-left: 0; } .key--mid { background: var(--fair); } .key--near { background: var(--good); } .key--wifi { background: var(--link); border-radius: 0; border: 0; }
+.far li { display: grid; gap: 4px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.far span { font-size: 14px; color: var(--camo); }
+.cities { margin-top: 40px; }
+.foot { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--camo); }
+.foot p + p { margin-top: 8px; }
+@media (min-width: 820px) { body { padding: 24px 32px; } .cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 48px; } .bars { columns: 2; column-gap: 48px; } .bars li { break-inside: avoid; } }

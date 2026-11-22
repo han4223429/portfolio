@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>촌넷스코어 재구성판</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>촌넷스코어 <small>재구성판</small></h1>
+    <p>청양군 읍면마다 마을회관에서 공공 Wi-Fi까지 얼마나 먼지를 재서 0에서 100까지 점수를 매깁니다. 점수가 낮을수록 통신 격차가 큰 곳입니다.</p>
+    <p class="notice">2025년 해커톤 때의 원본 코드와 산식은 남아 있지 않습니다. 이 화면은 같은 공공데이터로 포트폴리오용으로 다시 만든 것이고, 점수 산식도 여기서 새로 정했습니다.</p>
+  </header>
+
+  <p class="state" id="state" role="status">자료를 불러오는 중입니다.</p>
+
+  <main class="cols" id="main" hidden>
+    <section aria-labelledby="rankTitle">
+      <h2 id="rankTitle">읍면별 점수</h2>
+      <p class="hint">읍면을 누르면 오른쪽에 진단이 나옵니다. 점수가 낮은 순서입니다.</p>
+      <ol class="rank" id="rank"></ol>
+    </section>
+    <section aria-labelledby="townTitle" aria-live="polite">
+      <h2 id="townTitle">진단</h2>
+      <div class="score"><strong id="score">–</strong><span id="grade"></span></div>
+      <dl class="values" id="values"></dl>
+      <svg class="map" id="map" viewBox="0 0 400 300" role="img" aria-label="선택한 읍면의 마을회관과 공공 Wi-Fi 위치"></svg>
+      <p class="legend"><span class="key key--far"></span>1km 넘게 먼 마을회관 <span class="key key--mid"></span>500m에서 1km <span class="key key--near"></span>500m 안 <span class="key key--wifi"></span>공공 Wi-Fi</p>
+      <h3>가장 먼 마을회관</h3>
+      <ol class="far" id="far"></ol>
+    </section>
+  </main>
+
+  <section class="cities" id="cities" hidden aria-labelledby="cityTitle">
+    <h2 id="cityTitle">충남 시군별 공공 Wi-Fi 수</h2>
+    <ol class="bars" id="bars"></ol>
+  </section>
+
+  <footer class="foot">
+    <p>산식: 점수 = 50 × (500m 안에 공공 Wi-Fi가 있는 마을회관 비율) + 50 × (1 − 평균 최단거리 ÷ 3km, 0 아래는 0). 등급은 80 이상 양호, 60 이상 보통, 40 이상 주의, 그 아래 취약.</p>
+    <p>자료: 전국무료와이파이표준데이터의 충남 1,298곳, 청양군 마을회관 186곳(충남데이터포털 올담). 마을회관 좌표는 읍면 중심을 기준으로 어림한 값이라 거리는 참고용입니다.</p>
+  </footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
